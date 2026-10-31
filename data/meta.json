@@ -2,11 +2,101 @@
   "schemaVersion": 2,
   "lastReview": "2026-10-31",
   "categories": [
-    { "id": "cao", "label": "CAO et dessin", "color": "#5e6472", "column": 0, "description": "Dessin 2D/3D généraliste, base des échanges DWG/DXF." },
-    { "id": "bim", "label": "BIM et modélisation", "color": "#2e6bb8", "column": 1, "description": "Modélisation d'information du bâtiment et modèles physiques." },
-    { "id": "calcul", "label": "Calcul des structures", "color": "#b03a2e", "column": 2, "description": "Modèles analytiques, calcul et dimensionnement des structures." },
-    { "id": "fem", "label": "Éléments finis et simulation", "color": "#3d8b37", "column": 4, "description": "Solveurs éléments finis généralistes et de recherche." },
-    { "id": "mesh", "label": "Maillage et prétraitement", "color": "#7a4bb7", "column": 3, "description": "Génération de maillages et préparation des modèles de calcul." }
+    {
+      "id": "cao",
+      "label": "CAO et dessin",
+      "color": "#5e6472",
+      "column": 0,
+      "description": "Dessin 2D/3D généraliste, base des échanges DWG/DXF."
+    },
+    {
+      "id": "bim",
+      "label": "BIM et modélisation",
+      "color": "#2e6bb8",
+      "column": 1,
+      "description": "Modélisation d'information du bâtiment et modèles physiques."
+    },
+    {
+      "id": "calcul",
+      "label": "Calcul des structures",
+      "color": "#b03a2e",
+      "column": 2,
+      "description": "Modèles analytiques, calcul et dimensionnement des structures."
+    },
+    {
+      "id": "fem",
+      "label": "Éléments finis et simulation",
+      "color": "#3d8b37",
+      "column": 4,
+      "description": "Solveurs éléments finis généralistes et de recherche."
+    },
+    {
+      "id": "mesh",
+      "label": "Maillage et prétraitement",
+      "color": "#7a4bb7",
+      "column": 3,
+      "description": "Génération de maillages et préparation des modèles de calcul."
+    },
+    {
+      "id": "geotech",
+      "label": "Géotechnique",
+      "color": "#8a6d3b",
+      "column": 5,
+      "description": "Mécanique des sols et des roches, fondations, ouvrages en terre."
+    },
+    {
+      "id": "infra",
+      "label": "Routes et topographie",
+      "color": "#2f7f86",
+      "column": 6,
+      "description": "Topographie, voirie, SIG et infrastructures linéaires."
+    },
+    {
+      "id": "hydro",
+      "label": "Hydraulique et réseaux",
+      "color": "#1f6fb2",
+      "column": 7,
+      "description": "Réseaux d'eau, assainissement, hydrologie et hydraulique fluviale."
+    },
+    {
+      "id": "pm",
+      "label": "Gestion de projet et chantier",
+      "color": "#6b5b95",
+      "column": 8,
+      "description": "Planification, coordination 4D, métrés et coûts."
+    }
+  ],
+  "domains": [
+    {
+      "id": "structures",
+      "label": "Calcul des structures et simulation",
+      "short": "Structures"
+    },
+    {
+      "id": "bim",
+      "label": "Dessin et modélisation BIM",
+      "short": "BIM"
+    },
+    {
+      "id": "geotech",
+      "label": "Géotechnique",
+      "short": "Géotechnique"
+    },
+    {
+      "id": "infra",
+      "label": "Routes, topographie et infrastructures",
+      "short": "Routes"
+    },
+    {
+      "id": "hydro",
+      "label": "Hydraulique et réseaux",
+      "short": "Hydraulique"
+    },
+    {
+      "id": "pm",
+      "label": "Gestion de projet et chantier",
+      "short": "Gestion de projet"
+    }
   ],
   "kinds": [
     {
@@ -61,9 +151,53 @@
     }
   ],
   "confidence": [
-    { "id": "high", "label": "Élevé", "description": "Lien décrit explicitement dans la documentation officielle d'au moins un éditeur concerné, page consultée." },
-    { "id": "medium", "label": "Moyen", "description": "Lien documenté par un éditeur, mais source partielle, ancienne, propre à une version ou lue seulement à travers un résumé." },
-    { "id": "low", "label": "Faible", "description": "Sources indirectes ou communautaires (forums), ou déduction à partir d'un format commun. À confirmer." }
+    {
+      "id": "high",
+      "label": "Élevé",
+      "description": "Lien décrit explicitement dans la documentation officielle d'au moins un éditeur concerné, page consultée."
+    },
+    {
+      "id": "medium",
+      "label": "Moyen",
+      "description": "Lien documenté par un éditeur, mais source partielle, ancienne, propre à une version ou lue seulement à travers un résumé."
+    },
+    {
+      "id": "low",
+      "label": "Faible",
+      "description": "Sources indirectes ou communautaires (forums), ou déduction à partir d'un format commun. À confirmer."
+    }
   ],
-  "disclaimer": "Les possibilités d'échange varient selon les versions, les licences, les modules et les extensions installés. Cette carte est un guide pédagogique : vérifiez toujours dans la documentation de vos versions avant de bâtir un flux de travail."
+  "disclaimer": "Les possibilités d'échange varient selon les versions, les licences, les modules et les extensions installés. Cette carte est un guide pédagogique : vérifiez toujours dans la documentation de vos versions avant de bâtir un flux de travail.",
+  "formatFamilies": [
+    {
+      "id": "geometrique",
+      "label": "Géométriques",
+      "description": "Décrivent des formes, pas un modèle de calcul."
+    },
+    {
+      "id": "bim",
+      "label": "BIM",
+      "description": "Maquette, éléments typés, propriétés, coordination."
+    },
+    {
+      "id": "analytique",
+      "label": "Analytiques",
+      "description": "Modèle de calcul : barres, appuis, charges, sections."
+    },
+    {
+      "id": "maillage",
+      "label": "Maillage",
+      "description": "Nœuds et éléments pour la simulation."
+    },
+    {
+      "id": "donnees",
+      "label": "Données et résultats",
+      "description": "Tableaux et données structurées, dont les résultats de calcul exportés."
+    },
+    {
+      "id": "lien",
+      "label": "Liens et API",
+      "description": "Connexions directes, extensions, interfaces de programmation."
+    }
+  ]
 }

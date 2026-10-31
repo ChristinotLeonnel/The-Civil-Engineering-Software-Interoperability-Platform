@@ -836,9 +836,9 @@
     ]
   },
   {
-    "id": "gmsh--opensees",
+    "id": "gmsh--openseespy",
     "source": "gmsh",
-    "target": "opensees",
+    "target": "openseespy",
     "direction": "uni",
     "kind": "extension",
     "formats": ["msh", "api"],

@@ -7,7 +7,7 @@
   <meta name="description" content="Carte interactive des échanges possibles entre logiciels de génie civil, BIM, CAO, calcul de structures et éléments finis : formats, données transférables, limites et sources.">
   <meta name="theme-color" content="#0f3d5f">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/styles.css?v=20261031.10">
+  <link rel="stylesheet" href="css/styles.css?v=20261031.14">
 </head>
 <body data-view="map">
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -27,6 +27,8 @@
         <h2 class="sb-title">Exploration</h2>
         <button type="button" class="sb-item tab" data-view="map" aria-pressed="true" title="Graphe"><span class="sb-ico" aria-hidden="true">◈</span><span class="sb-label">Graphe</span></button>
         <button type="button" class="sb-item tab" data-view="list" aria-pressed="false" title="Liste"><span class="sb-ico" aria-hidden="true">☰</span><span class="sb-label">Liste</span></button>
+        <button type="button" class="sb-item tab" data-view="catalog" aria-pressed="false" title="Catalogue des logiciels"><span class="sb-ico" aria-hidden="true">▦</span><span class="sb-label">Catalogue des logiciels</span></button>
+        <button type="button" class="sb-item tab" data-view="compare" aria-pressed="false" title="Comparateur"><span class="sb-ico" aria-hidden="true">⇆</span><span class="sb-label">Comparateur</span><span class="sb-badge" id="compare-count" hidden></span></button>
         <button type="button" class="sb-item tab" data-view="formats" aria-pressed="false" title="Formats"><span class="sb-ico" aria-hidden="true">▤</span><span class="sb-label">Formats</span></button>
 
         <h2 class="sb-title">Édition</h2>
@@ -36,9 +38,10 @@
         <button type="button" class="sb-item" id="ws-reset" title="Réinitialiser"><span class="sb-ico" aria-hidden="true">↺</span><span class="sb-label">Réinitialiser</span></button>
 
         <h2 class="sb-title">Information</h2>
+        <button type="button" class="sb-item tab" data-view="madagascar" aria-pressed="false" title="Madagascar"><span class="sb-ico" aria-hidden="true">◉</span><span class="sb-label">Madagascar</span></button>
         <button type="button" class="sb-item tab" data-view="about" aria-pressed="false" title="À propos et méthode"><span class="sb-ico" aria-hidden="true">ⓘ</span><span class="sb-label">À propos et méthode</span></button>
       </nav>
-      <p class="sb-foot" id="sb-foot"></p>
+      <p class="sb-foot" id="sb-foot"><span id="sb-foot-date"></span><br>Auteur : TSARALOHA Nomenjanahary Christinot Léonnel Calixte</p>
     </aside>
     <div class="sb-backdrop" id="sb-backdrop" hidden></div>
 
@@ -138,6 +141,10 @@
         </section>
 
         <section id="view-list" class="view view-page" aria-label="Liste des logiciels et connexions" hidden></section>
+        <section id="view-catalog" class="view view-page" aria-label="Catalogue des logiciels" hidden></section>
+        <section id="view-software" class="view view-page" aria-label="Fiche technique" hidden></section>
+        <section id="view-compare" class="view view-page" aria-label="Comparateur" hidden></section>
+        <section id="view-madagascar" class="view view-page" aria-label="Civil Engineering Software in Madagascar" hidden></section>
         <section id="view-formats" class="view view-page" aria-label="Formats d'échange" hidden></section>
         <section id="view-about" class="view view-page" aria-label="À propos et méthode" hidden></section>
 
@@ -163,6 +170,6 @@
   <input type="file" id="import-file" accept="application/json,.json" hidden>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-  <script type="module" src="js/main.js?v=20261031.10"></script>
+  <script type="module" src="js/main.js?v=20261031.14"></script>
 </body>
 </html>

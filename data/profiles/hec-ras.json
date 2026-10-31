@@ -1,0 +1,195 @@
+{
+  "id": "hec-ras",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [],
+    "uses": [
+      {
+        "text": "Écoulement permanent 1D ; écoulement non permanent 1D et 2D",
+        "refs": [
+          "hec-ras"
+        ]
+      }
+    ],
+    "materials": [],
+    "cases": [
+      {
+        "text": "Transport sédimentaire et lit mobile",
+        "refs": [
+          "hec-ras"
+        ]
+      },
+      {
+        "text": "Réseaux pluviaux en conduites",
+        "refs": [
+          "hec-ras"
+        ]
+      },
+      {
+        "text": "Température et qualité de l’eau",
+        "refs": [
+          "hec-ras"
+        ]
+      }
+    ]
+  },
+  "methods": {
+    "fem": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "matrix": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "static": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "modal": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "seismic": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "buckling": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "dynamic": {
+      "v": "na",
+      "note": "Pas de dynamique des structures.",
+      "refs": []
+    },
+    "nonlinear": {
+      "v": "na",
+      "note": "Sans objet pour ce logiciel.",
+      "refs": []
+    }
+  },
+  "otherMethods": [],
+  "modelling": {
+    "dims": {
+      "v": true,
+      "note": "1D et 2D",
+      "refs": [
+        "hec-ras"
+      ]
+    }
+  },
+  "results": {
+    "displacements": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "rotations": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "reactions": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "axial": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "shear": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "moments": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "stresses": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "strains": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "modes": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "frequencies": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    }
+  },
+  "otherResults": [],
+  "limits": [
+    {
+      "kind": "dependance",
+      "text": "Pas d’assistance téléphonique ni par courriel pour les utilisateurs hors USACE",
+      "refs": [
+        "hec-ras"
+      ]
+    }
+  ],
+  "interop": [],
+  "cannotDo": [],
+  "strengths": [
+    {
+      "text": "1D et 2D, sédiments et qualité de l’eau dans un même logiciel",
+      "refs": [
+        "hec-ras"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [
+    {
+      "text": "Assistance directe réservée aux utilisateurs USACE",
+      "refs": [
+        "hec-ras"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "improvements": [],
+  "version": {
+    "text": "La page mentionne une « HEC-RAS 2025 Beta » ; la version stable n’y est pas indiquée",
+    "refs": [
+      "hec-ras"
+    ]
+  },
+  "license": {
+    "text": "Non précisée sur la page consultée",
+    "refs": [
+      "hec-ras"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Écoulements en rivière et réseaux pluviaux",
+    "refs": [
+      "hec-ras"
+    ]
+  },
+  "standardsNote": {
+    "text": "Aucun règlement mentionné sur la page consultée.",
+    "refs": [
+      "hec-ras"
+    ]
+  }
+}

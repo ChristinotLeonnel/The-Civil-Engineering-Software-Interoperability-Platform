@@ -1,0 +1,42 @@
+{
+  "title": "Civil Engineering Software in Madagascar",
+  "reviewed": "2026-10-31",
+  "statement": "Aucune statistique fiable sur l'usage des logiciels de génie civil à Madagascar n'a été trouvée : pas d'enquête publiée, pas d'annuaire de bureaux d'études exploitable, pas d'offre de formation locale vérifiable. Cette section ne propose donc aucun classement. La fréquence d'utilisation de chaque logiciel est indiquée « non documentée » tant qu'une enquête n'a pas été menée.",
+  "method": "Recherche web du 31 octobre 2026. Seuls des profils professionnels individuels en ligne ont été trouvés ; ils sont signalés comme simple indice qualitatif, sans valeur statistique, et ne sont pas cités pour respecter la vie privée des personnes. Les colonnes « domaine » et « licence » sont des informations générales sur le logiciel, pas des observations propres à Madagascar.",
+  "entries": [
+    { "software": "autocad", "domains": ["Dessin technique", "Plans d'exécution"], "signal": true },
+    { "software": "robot", "domains": ["Calcul des structures"], "signal": true },
+    { "software": "revit", "domains": ["Maquette BIM"], "signal": true },
+    { "software": "archicad", "domains": ["Maquette BIM", "Architecture"], "signal": true },
+    { "software": "covadis", "domains": ["Topographie", "VRD"], "signal": true },
+    { "software": "civil3d", "domains": ["Routes", "Terrassements", "Réseaux"], "signal": false },
+    { "software": "etabs", "domains": ["Calcul de bâtiments"], "signal": false },
+    { "software": "sap2000", "domains": ["Calcul des structures"], "signal": false },
+    { "software": "sketchup", "domains": ["Modélisation 3D"], "signal": false },
+    { "software": "ms-project", "domains": ["Planification"], "signal": false },
+    { "software": "primavera", "domains": ["Planification"], "signal": false },
+    { "software": "plaxis", "domains": ["Géotechnique"], "signal": false },
+    { "software": "epanet", "domains": ["Réseaux d'eau potable"], "signal": false },
+    { "software": "hec-ras", "domains": ["Hydraulique fluviale"], "signal": false },
+    { "software": "qgis", "domains": ["SIG", "Cartographie"], "signal": false }
+  ],
+  "survey": {
+    "status": "Aucune réponse intégrée pour le moment.",
+    "objective": "Documenter les logiciels réellement utilisés par les bureaux d'études, entreprises BTP, administrations et établissements de formation à Madagascar.",
+    "ethics": "Participation volontaire, réponses anonymisées, résultats publiés uniquement sous forme agrégée.",
+    "fields": [
+      { "id": "organisation_type", "label": "Type d'organisme", "hint": "bureau d'études, entreprise BTP, administration, établissement de formation" },
+      { "id": "region", "label": "Région", "hint": "région de Madagascar" },
+      { "id": "effectif", "label": "Effectif technique", "hint": "tranche : 1-5, 6-20, 21-50, plus de 50" },
+      { "id": "logiciel", "label": "Logiciel", "hint": "un logiciel par ligne" },
+      { "id": "version", "label": "Version utilisée", "hint": "si connue" },
+      { "id": "usage", "label": "Usage principal", "hint": "dessin, calcul, topographie, hydraulique, planification, enseignement" },
+      { "id": "frequence", "label": "Fréquence", "hint": "quotidienne, hebdomadaire, occasionnelle" },
+      { "id": "licence", "label": "Type de licence", "hint": "commerciale, éducation, libre, non précisé" },
+      { "id": "formation", "label": "Mode de formation", "hint": "université, centre privé, éditeur, autodidacte, collègue" },
+      { "id": "echanges", "label": "Échanges avec d'autres logiciels", "hint": "logiciels reliés et format utilisé" },
+      { "id": "difficultes", "label": "Difficultés rencontrées", "hint": "coût, matériel, connexion, formation, normes" }
+    ],
+    "responses": []
+  }
+}

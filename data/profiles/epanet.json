@@ -1,0 +1,300 @@
+{
+  "id": "epanet",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [
+      {
+        "text": "Réseaux sous pression : conduites, nœuds, pompes, vannes, réservoirs et bâches",
+        "refs": [
+          "epa-epanet"
+        ]
+      }
+    ],
+    "uses": [
+      {
+        "text": "Comportement hydraulique et qualité de l’eau en simulation de période étendue",
+        "refs": [
+          "epa-epanet"
+        ]
+      }
+    ],
+    "materials": [],
+    "cases": [
+      {
+        "text": "Âge de l’eau, traçage de source, réactions en masse et en paroi",
+        "refs": [
+          "epa-epanet"
+        ]
+      },
+      {
+        "text": "Énergie et coût de pompage",
+        "refs": [
+          "epa-epanet"
+        ]
+      }
+    ]
+  },
+  "methods": {
+    "fem": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "matrix": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "static": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "modal": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "seismic": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "buckling": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "dynamic": {
+      "v": "na",
+      "note": "Pas de dynamique des structures ; simulation temporelle de période étendue (voir ci-dessous).",
+      "refs": []
+    },
+    "nonlinear": {
+      "v": "na",
+      "note": "Sans objet pour ce logiciel.",
+      "refs": []
+    }
+  },
+  "otherMethods": [
+    {
+      "text": "Simulation de période étendue, hydraulique et qualité de l’eau",
+      "refs": [
+        "epa-epanet"
+      ]
+    },
+    {
+      "text": "Pertes de charge : Hazen-Williams, Darcy-Weisbach ou Chezy-Manning",
+      "refs": [
+        "epa-epanet"
+      ]
+    },
+    {
+      "text": "Demandes dépendant de la pression ; contrôles simples et contrôles par règles",
+      "refs": [
+        "epa-epanet"
+      ]
+    },
+    {
+      "text": "Réservoirs à mélange complet, écoulement piston ou deux compartiments",
+      "refs": [
+        "epa-epanet"
+      ]
+    }
+  ],
+  "modelling": {
+    "objects": [
+      {
+        "text": "Conduites, nœuds, pompes, vannes, réservoirs, bâches",
+        "refs": [
+          "epa-epanet"
+        ]
+      }
+    ]
+  },
+  "results": {
+    "displacements": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "rotations": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "reactions": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "axial": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "shear": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "moments": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "stresses": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "strains": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "modes": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "frequencies": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    }
+  },
+  "otherResults": [
+    {
+      "text": "Débit dans chaque conduite, pression à chaque nœud, niveau des réservoirs",
+      "refs": [
+        "epa-epanet"
+      ]
+    },
+    {
+      "text": "Graphiques et cartes dans l’interface",
+      "refs": [
+        "epa-epanet"
+      ]
+    }
+  ],
+  "limits": [
+    {
+      "kind": "technique",
+      "text": "Interface décrite comme un programme Windows",
+      "refs": [
+        "epa-epanet"
+      ]
+    },
+    {
+      "kind": "dependance",
+      "text": "Réactions multi-espèces et lien avec les données d’exploitation assurés par des extensions séparées (EPANET-MSX, EPANET-RTX)",
+      "refs": [
+        "epa-epanet"
+      ]
+    }
+  ],
+  "interop": [
+    {
+      "target": "Langages capables d’appeler une DLL Windows (C/C++, Visual Basic…)",
+      "mode": "direct",
+      "via": "API",
+      "imports": [],
+      "exports": [],
+      "data": "Ouvrir un réseau, modifier ses paramètres, lancer plusieurs simulations, écrire les résultats (plus de 50 fonctions)",
+      "risks": "",
+      "refs": [
+        "epa-epanet"
+      ]
+    }
+  ],
+  "cannotDo": [
+    {
+      "text": "Réactions chimiques et biologiques multi-espèces",
+      "needs": "module",
+      "kind": "extension",
+      "refs": [
+        "epa-epanet"
+      ]
+    },
+    {
+      "text": "Calage à partir de données d’exploitation",
+      "needs": "module",
+      "kind": "extension",
+      "refs": [
+        "epa-epanet"
+      ]
+    },
+    {
+      "text": "Enchaîner automatiquement plusieurs simulations",
+      "needs": "api",
+      "kind": "extension",
+      "refs": [
+        "epa-epanet"
+      ]
+    }
+  ],
+  "strengths": [
+    {
+      "text": "Gratuit et libre de diffusion (domaine public)",
+      "refs": [
+        "epa-epanet"
+      ],
+      "nature": "fait"
+    },
+    {
+      "text": "Pas de limite de taille de réseau selon l’EPA",
+      "refs": [
+        "epa-epanet"
+      ],
+      "nature": "fait"
+    },
+    {
+      "text": "Développement ouvert sur GitHub",
+      "refs": [
+        "epa-epanet"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [
+    {
+      "text": "Interface limitée à Windows selon l’EPA",
+      "refs": [
+        "epa-epanet"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "improvements": [
+    {
+      "text": "Interface multiplateforme (proposition, non annoncée par l’éditeur).",
+      "refs": [],
+      "nature": "appréciation"
+    }
+  ],
+  "version": {
+    "text": "2.2 (publiée le 23 juillet 2020)",
+    "refs": [
+      "epa-epanet"
+    ]
+  },
+  "license": {
+    "text": "Domaine public : copie et distribution libres",
+    "refs": [
+      "epa-epanet"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Modélisation des réseaux de distribution d’eau potable",
+    "refs": [
+      "epa-epanet"
+    ]
+  },
+  "standardsNote": {
+    "text": "Aucun règlement de dimensionnement n’est mentionné sur la page consultée.",
+    "refs": [
+      "epa-epanet"
+    ]
+  }
+}

@@ -8,8 +8,15 @@
     "license": "Commerciale",
     "description": "Logiciel de dessin 2D/3D de référence, format natif DWG.",
     "website": "https://www.autodesk.com/products/autocad/overview",
-    "formats": ["dwg", "dxf"],
-    "position": { "x": 80, "y": 110 }
+    "formats": [
+      "dwg",
+      "dxf"
+    ],
+    "position": {
+      "x": 80,
+      "y": 110
+    },
+    "domain": "bim"
   },
   {
     "id": "draftsight",
@@ -20,8 +27,15 @@
     "license": "Commerciale",
     "description": "Logiciel de dessin 2D/3D lisant et écrivant des fichiers DWG et DXF.",
     "website": "https://www.3ds.com/products/draftsight",
-    "formats": ["dwg", "dxf"],
-    "position": { "x": 80, "y": 300 }
+    "formats": [
+      "dwg",
+      "dxf"
+    ],
+    "position": {
+      "x": 80,
+      "y": 300
+    },
+    "domain": "bim"
   },
   {
     "id": "revit",
@@ -32,8 +46,17 @@
     "license": "Commerciale",
     "description": "Plateforme BIM de modélisation architecturale, structurale et MEP.",
     "website": "https://www.autodesk.com/products/revit/overview",
-    "formats": ["ifc", "dwg", "dxf", "api"],
-    "position": { "x": 300, "y": 150 }
+    "formats": [
+      "ifc",
+      "dwg",
+      "dxf",
+      "api"
+    ],
+    "position": {
+      "x": 300,
+      "y": 150
+    },
+    "domain": "bim"
   },
   {
     "id": "tekla",
@@ -44,8 +67,20 @@
     "license": "Commerciale",
     "description": "Modélisation BIM de structures acier et béton jusqu'au détaillage et à la fabrication.",
     "website": "https://www.tekla.com/products/tekla-structures",
-    "formats": ["ifc", "cis2", "sdnf", "dwg", "dxf", "std", "api"],
-    "position": { "x": 420, "y": 330 }
+    "formats": [
+      "ifc",
+      "cis2",
+      "sdnf",
+      "dwg",
+      "dxf",
+      "std",
+      "api"
+    ],
+    "position": {
+      "x": 420,
+      "y": 330
+    },
+    "domain": "bim"
   },
   {
     "id": "archicad",
@@ -56,8 +91,17 @@
     "license": "Commerciale",
     "description": "Logiciel BIM architectural exportant son modèle analytique au format SAF.",
     "website": "https://graphisoft.com/archicad",
-    "formats": ["ifc", "saf", "dwg", "dxf"],
-    "position": { "x": 250, "y": 440 }
+    "formats": [
+      "ifc",
+      "saf",
+      "dwg",
+      "dxf"
+    ],
+    "position": {
+      "x": 250,
+      "y": 440
+    },
+    "domain": "bim"
   },
   {
     "id": "allplan",
@@ -68,8 +112,17 @@
     "license": "Commerciale",
     "description": "Logiciel BIM pour ingénieurs et architectes, orienté béton armé et ouvrages d'art.",
     "website": "https://www.allplan.com/",
-    "formats": ["ifc", "saf", "dwg", "dxf"],
-    "position": { "x": 110, "y": 560 }
+    "formats": [
+      "ifc",
+      "saf",
+      "dwg",
+      "dxf"
+    ],
+    "position": {
+      "x": 110,
+      "y": 560
+    },
+    "domain": "bim"
   },
   {
     "id": "robot",
@@ -80,8 +133,16 @@
     "license": "Commerciale",
     "description": "Logiciel d'analyse et de dimensionnement de structures, lié à Revit.",
     "website": "https://www.autodesk.com/products/robot-structural-analysis/overview",
-    "formats": ["smxx", "cis2", "api"],
-    "position": { "x": 560, "y": 230 }
+    "formats": [
+      "smxx",
+      "cis2",
+      "api"
+    ],
+    "position": {
+      "x": 560,
+      "y": 230
+    },
+    "domain": "structures"
   },
   {
     "id": "etabs",
@@ -92,8 +153,20 @@
     "license": "Commerciale",
     "description": "Analyse et dimensionnement de structures de bâtiments.",
     "website": "https://www.csiamerica.com/products/etabs",
-    "formats": ["ifc", "cis2", "dxf", "dwg", "exr", "s2k", "std"],
-    "position": { "x": 560, "y": 60 }
+    "formats": [
+      "ifc",
+      "cis2",
+      "dxf",
+      "dwg",
+      "exr",
+      "s2k",
+      "std"
+    ],
+    "position": {
+      "x": 560,
+      "y": 60
+    },
+    "domain": "structures"
   },
   {
     "id": "sap2000",
@@ -104,8 +177,20 @@
     "license": "Commerciale",
     "description": "Analyse structurale généraliste (bâtiments, ponts, ouvrages).",
     "website": "https://www.csiamerica.com/products/sap2000",
-    "formats": ["ifc", "cis2", "sdnf", "dxf", "dwg", "exr", "s2k"],
-    "position": { "x": 780, "y": 130 }
+    "formats": [
+      "ifc",
+      "cis2",
+      "sdnf",
+      "dxf",
+      "dwg",
+      "exr",
+      "s2k"
+    ],
+    "position": {
+      "x": 780,
+      "y": 130
+    },
+    "domain": "structures"
   },
   {
     "id": "scia",
@@ -116,8 +201,19 @@
     "license": "Commerciale",
     "description": "Analyse et dimensionnement de structures avec nombreux liens BIM.",
     "website": "https://www.scia.net/en/software/scia-engineer",
-    "formats": ["ifc", "saf", "sdnf", "dwg", "dxf", "api"],
-    "position": { "x": 630, "y": 460 }
+    "formats": [
+      "ifc",
+      "saf",
+      "sdnf",
+      "dwg",
+      "dxf",
+      "api"
+    ],
+    "position": {
+      "x": 630,
+      "y": 460
+    },
+    "domain": "structures"
   },
   {
     "id": "rfem",
@@ -128,8 +224,19 @@
     "license": "Commerciale",
     "description": "RFEM (modèles 3D éléments finis) et RSTAB (ossatures filaires) de Dlubal.",
     "website": "https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem",
-    "formats": ["ifc", "saf", "dxf", "sdnf", "cis2", "api"],
-    "position": { "x": 440, "y": 580 }
+    "formats": [
+      "ifc",
+      "saf",
+      "dxf",
+      "sdnf",
+      "cis2",
+      "api"
+    ],
+    "position": {
+      "x": 440,
+      "y": 580
+    },
+    "domain": "structures"
   },
   {
     "id": "staad",
@@ -140,8 +247,18 @@
     "license": "Commerciale",
     "description": "Analyse et dimensionnement structural de Bentley, import/export CIS/2.",
     "website": "https://www.bentley.com/software/staad/",
-    "formats": ["std", "cis2", "sdnf", "dwg", "dxf"],
-    "position": { "x": 900, "y": 300 }
+    "formats": [
+      "std",
+      "cis2",
+      "sdnf",
+      "dwg",
+      "dxf"
+    ],
+    "position": {
+      "x": 900,
+      "y": 300
+    },
+    "domain": "structures"
   },
   {
     "id": "opensees",
@@ -152,8 +269,14 @@
     "license": "Libre (licence propre au projet)",
     "description": "Cadre de simulation sismique et de comportement non linéaire des structures.",
     "website": "https://opensees.berkeley.edu/",
-    "formats": ["api"],
-    "position": { "x": 760, "y": 660 }
+    "formats": [
+      "api"
+    ],
+    "position": {
+      "x": 760,
+      "y": 660
+    },
+    "domain": "structures"
   },
   {
     "id": "codeaster",
@@ -164,8 +287,14 @@
     "license": "Libre (GPL)",
     "description": "Solveur éléments finis d'EDF pour la mécanique des structures.",
     "website": "https://www.code-aster.org/",
-    "formats": ["med"],
-    "position": { "x": 1160, "y": 540 }
+    "formats": [
+      "med"
+    ],
+    "position": {
+      "x": 1160,
+      "y": 540
+    },
+    "domain": "structures"
   },
   {
     "id": "calculix",
@@ -176,8 +305,14 @@
     "license": "Libre (GPL)",
     "description": "Solveur éléments finis libre utilisant un format d'entrée proche d'Abaqus.",
     "website": "http://www.calculix.de/",
-    "formats": ["inp"],
-    "position": { "x": 1000, "y": 650 }
+    "formats": [
+      "inp"
+    ],
+    "position": {
+      "x": 1000,
+      "y": 650
+    },
+    "domain": "structures"
   },
   {
     "id": "gmsh",
@@ -188,8 +323,16 @@
     "license": "Libre (GPL)",
     "description": "Mailleur 3D éléments finis avec CAO intégrée et exports multiples.",
     "website": "https://gmsh.info/",
-    "formats": ["msh", "med", "inp"],
-    "position": { "x": 800, "y": 530 }
+    "formats": [
+      "msh",
+      "med",
+      "inp"
+    ],
+    "position": {
+      "x": 800,
+      "y": 530
+    },
+    "domain": "structures"
   },
   {
     "id": "salome",
@@ -200,7 +343,506 @@
     "license": "Libre (LGPL)",
     "description": "Plateforme de pré/post-traitement (géométrie, maillage), base de Salome-Meca avec Code_Aster.",
     "website": "https://www.salome-platform.org/",
-    "formats": ["med", "unv"],
-    "position": { "x": 1000, "y": 430 }
+    "formats": [
+      "med",
+      "unv"
+    ],
+    "position": {
+      "x": 1000,
+      "y": 430
+    },
+    "domain": "structures"
+  },
+  {
+    "id": "safe",
+    "name": "SAFE",
+    "shortName": "SAFE",
+    "vendor": "Computers and Structures, Inc. (CSI)",
+    "category": "calcul",
+    "domain": "structures",
+    "license": "Commerciale",
+    "description": "Logiciel de CSI consacré aux dalles et fondations en béton.",
+    "website": "https://www.csiamerica.com/products/safe",
+    "formats": []
+  },
+  {
+    "id": "midas-civil",
+    "name": "MIDAS Civil",
+    "shortName": "MIDAS Civil",
+    "vendor": "MIDAS IT",
+    "category": "calcul",
+    "domain": "structures",
+    "license": "Commerciale",
+    "description": "Logiciel d’analyse orienté ouvrages d’art et génie civil.",
+    "website": "https://www.midasoft.com/",
+    "formats": []
+  },
+  {
+    "id": "tsd",
+    "name": "Tekla Structural Designer",
+    "shortName": "Tekla SD",
+    "vendor": "Trimble",
+    "category": "calcul",
+    "domain": "structures",
+    "license": "Commerciale",
+    "description": "Logiciel d’analyse et de dimensionnement de bâtiments de Trimble.",
+    "website": "https://www.tekla.com/products/tekla-structural-designer",
+    "formats": []
+  },
+  {
+    "id": "cypecad",
+    "name": "CYPECAD",
+    "shortName": "CYPECAD",
+    "vendor": "CYPE Ingenieros",
+    "category": "calcul",
+    "domain": "structures",
+    "license": "Commerciale",
+    "description": "Logiciel d’analyse et de dimensionnement de structures en béton armé de CYPE.",
+    "website": "https://www.cype.com/",
+    "formats": []
+  },
+  {
+    "id": "advance-design",
+    "name": "Advance Design",
+    "shortName": "Advance Design",
+    "vendor": "GRAITEC",
+    "category": "calcul",
+    "domain": "structures",
+    "license": "Commerciale",
+    "description": "Logiciel d’analyse par éléments finis et de dimensionnement de GRAITEC.",
+    "website": "https://graitec.com/",
+    "formats": []
+  },
+  {
+    "id": "sofistik",
+    "name": "SOFiSTiK",
+    "shortName": "SOFiSTiK",
+    "vendor": "SOFiSTiK AG",
+    "category": "fem",
+    "domain": "structures",
+    "license": "Commerciale",
+    "description": "Suite d’analyse par éléments finis pour bâtiments et ouvrages d’art.",
+    "website": "https://www.sofistik.com/",
+    "formats": []
+  },
+  {
+    "id": "ansys",
+    "name": "Ansys Mechanical",
+    "shortName": "Ansys",
+    "vendor": "Ansys (groupe Synopsys)",
+    "category": "fem",
+    "domain": "structures",
+    "license": "Commerciale",
+    "description": "Solveur éléments finis généraliste de la gamme Ansys.",
+    "website": "https://www.ansys.com/",
+    "formats": []
+  },
+  {
+    "id": "abaqus",
+    "name": "Abaqus",
+    "shortName": "Abaqus",
+    "vendor": "Dassault Systèmes (SIMULIA)",
+    "category": "fem",
+    "domain": "structures",
+    "license": "Commerciale",
+    "description": "Solveur éléments finis généraliste de la gamme SIMULIA.",
+    "website": "https://www.3ds.com/products/simulia/abaqus",
+    "formats": []
+  },
+  {
+    "id": "openseespy",
+    "name": "OpenSeesPy",
+    "shortName": "OpenSeesPy",
+    "vendor": "Minjie Zhu (Oregon State University) ; OpenSees : UC Berkeley",
+    "category": "fem",
+    "domain": "structures",
+    "license": "Gratuit pour la recherche, l’enseignement et l’usage interne ; licence requise pour la redistribution commerciale",
+    "description": "Interpréteur Python 3 d’OpenSees.",
+    "website": "https://openseespydoc.readthedocs.io/",
+    "formats": []
+  },
+  {
+    "id": "sketchup",
+    "name": "SketchUp",
+    "shortName": "SketchUp",
+    "vendor": "Trimble",
+    "category": "bim",
+    "domain": "bim",
+    "license": "Commerciale",
+    "description": "Logiciel de modélisation 3D.",
+    "website": "https://www.sketchup.com/",
+    "formats": []
+  },
+  {
+    "id": "rhino",
+    "name": "Rhinoceros",
+    "shortName": "Rhino",
+    "vendor": "Robert McNeel & Associates",
+    "category": "bim",
+    "domain": "bim",
+    "license": "Commerciale",
+    "description": "Modeleur 3D de courbes et surfaces NURBS.",
+    "website": "https://www.rhino3d.com/",
+    "formats": []
+  },
+  {
+    "id": "grasshopper",
+    "name": "Grasshopper",
+    "shortName": "Grasshopper",
+    "vendor": "Robert McNeel & Associates",
+    "category": "bim",
+    "domain": "bim",
+    "license": "Inclus avec Rhino (commercial)",
+    "description": "Environnement de programmation visuelle associé à Rhino.",
+    "website": "https://www.rhino3d.com/6/new/grasshopper/",
+    "formats": []
+  },
+  {
+    "id": "advance-steel",
+    "name": "Advance Steel",
+    "shortName": "Advance Steel",
+    "vendor": "Autodesk",
+    "category": "bim",
+    "domain": "bim",
+    "license": "Commerciale",
+    "description": "Logiciel de modélisation et de détaillage de charpente métallique.",
+    "website": "https://www.autodesk.com/products/advance-steel/overview",
+    "formats": []
+  },
+  {
+    "id": "bricscad-bim",
+    "name": "BricsCAD BIM",
+    "shortName": "BricsCAD BIM",
+    "vendor": "Bricsys (Hexagon)",
+    "category": "bim",
+    "domain": "bim",
+    "license": "Commerciale",
+    "description": "Logiciel de CAO et BIM fondé sur le format DWG.",
+    "website": "https://www.bricsys.com/",
+    "formats": []
+  },
+  {
+    "id": "plaxis",
+    "name": "PLAXIS 2D / 3D",
+    "shortName": "PLAXIS",
+    "vendor": "Bentley Systems (Seequent)",
+    "category": "geotech",
+    "domain": "geotech",
+    "license": "Commerciale",
+    "description": "Analyse géotechnique par éléments finis.",
+    "website": "https://www.bentley.com/en/products/product-line/geotechnical-engineering-software/plaxis-2d",
+    "formats": []
+  },
+  {
+    "id": "geostudio",
+    "name": "GeoStudio",
+    "shortName": "GeoStudio",
+    "vendor": "Seequent (Bentley Systems)",
+    "category": "geotech",
+    "domain": "geotech",
+    "license": "Commerciale",
+    "description": "Suite d’analyse géotechnique.",
+    "website": "https://www.seequent.com/products-solutions/geostudio/",
+    "formats": []
+  },
+  {
+    "id": "geo5",
+    "name": "GEO5",
+    "shortName": "GEO5",
+    "vendor": "Fine Software",
+    "category": "geotech",
+    "domain": "geotech",
+    "license": "Commerciale",
+    "description": "Suite de programmes de calcul géotechnique.",
+    "website": "https://www.finesoftware.eu/",
+    "formats": []
+  },
+  {
+    "id": "flac3d",
+    "name": "FLAC3D",
+    "shortName": "FLAC3D",
+    "vendor": "Itasca",
+    "category": "geotech",
+    "domain": "geotech",
+    "license": "Commerciale",
+    "description": "Modélisation numérique en mécanique des sols et des roches.",
+    "website": "https://www.itascacg.com/software/flac3d",
+    "formats": []
+  },
+  {
+    "id": "rs2",
+    "name": "RS2",
+    "shortName": "RS2",
+    "vendor": "Rocscience",
+    "category": "geotech",
+    "domain": "geotech",
+    "license": "Commerciale",
+    "description": "Analyse géotechnique 2D par éléments finis.",
+    "website": "https://www.rocscience.com/software/rs2",
+    "formats": []
+  },
+  {
+    "id": "rs3",
+    "name": "RS3",
+    "shortName": "RS3",
+    "vendor": "Rocscience",
+    "category": "geotech",
+    "domain": "geotech",
+    "license": "Commerciale",
+    "description": "Analyse géotechnique 3D par éléments finis.",
+    "website": "https://www.rocscience.com/software/rs3",
+    "formats": []
+  },
+  {
+    "id": "midas-gts",
+    "name": "MIDAS GTS NX",
+    "shortName": "GTS NX",
+    "vendor": "MIDAS IT",
+    "category": "geotech",
+    "domain": "geotech",
+    "license": "Commerciale",
+    "description": "Analyse géotechnique par éléments finis de MIDAS.",
+    "website": "https://www.midasoft.com/",
+    "formats": []
+  },
+  {
+    "id": "civil3d",
+    "name": "Autodesk Civil 3D",
+    "shortName": "Civil 3D",
+    "vendor": "Autodesk",
+    "category": "infra",
+    "domain": "infra",
+    "license": "Commerciale",
+    "description": "Logiciel de conception d’infrastructures (terrain, voirie, réseaux).",
+    "website": "https://www.autodesk.com/products/civil-3d/overview",
+    "formats": []
+  },
+  {
+    "id": "covadis",
+    "name": "Covadis",
+    "shortName": "Covadis",
+    "vendor": "Géomédia",
+    "category": "infra",
+    "domain": "infra",
+    "license": "Commerciale",
+    "description": "Applicatif de topographie et de VRD.",
+    "website": "https://www.geo-media.com/",
+    "formats": []
+  },
+  {
+    "id": "mensura",
+    "name": "Mensura",
+    "shortName": "Mensura",
+    "vendor": "Geomensura",
+    "category": "infra",
+    "domain": "infra",
+    "license": "Commerciale",
+    "description": "Logiciel de topographie et de conception d’infrastructures.",
+    "website": "https://www.geomensura.com/",
+    "formats": []
+  },
+  {
+    "id": "openroads",
+    "name": "OpenRoads Designer",
+    "shortName": "OpenRoads",
+    "vendor": "Bentley Systems",
+    "category": "infra",
+    "domain": "infra",
+    "license": "Commerciale",
+    "description": "Logiciel de conception routière de Bentley.",
+    "website": "https://www.bentley.com/software/openroads-designer/",
+    "formats": []
+  },
+  {
+    "id": "infraworks",
+    "name": "InfraWorks",
+    "shortName": "InfraWorks",
+    "vendor": "Autodesk",
+    "category": "infra",
+    "domain": "infra",
+    "license": "Commerciale",
+    "description": "Logiciel de modélisation conceptuelle d’infrastructures.",
+    "website": "https://www.autodesk.com/products/infraworks/overview",
+    "formats": []
+  },
+  {
+    "id": "qgis",
+    "name": "QGIS",
+    "shortName": "QGIS",
+    "vendor": "Communauté QGIS (QGIS.org)",
+    "category": "infra",
+    "domain": "infra",
+    "license": "Libre (GNU GPL v2 ou ultérieure)",
+    "description": "Système d’information géographique libre.",
+    "website": "https://www.qgis.org/",
+    "formats": []
+  },
+  {
+    "id": "arcgis",
+    "name": "ArcGIS Pro",
+    "shortName": "ArcGIS",
+    "vendor": "Esri",
+    "category": "infra",
+    "domain": "infra",
+    "license": "Commerciale",
+    "description": "Système d’information géographique d’Esri.",
+    "website": "https://www.esri.com/en-us/arcgis/products/arcgis-pro/overview",
+    "formats": []
+  },
+  {
+    "id": "global-mapper",
+    "name": "Global Mapper",
+    "shortName": "Global Mapper",
+    "vendor": "Blue Marble Geographics",
+    "category": "infra",
+    "domain": "infra",
+    "license": "Commerciale",
+    "description": "Logiciel SIG et de traitement de données géospatiales.",
+    "website": "https://www.bluemarblegeo.com/global-mapper/",
+    "formats": []
+  },
+  {
+    "id": "epanet",
+    "name": "EPANET",
+    "shortName": "EPANET",
+    "vendor": "U.S. Environmental Protection Agency (EPA)",
+    "category": "hydro",
+    "domain": "hydro",
+    "license": "Domaine public (copie et distribution libres)",
+    "description": "Modélisation des réseaux de distribution d’eau potable sous pression.",
+    "website": "https://www.epa.gov/water-research/epanet",
+    "formats": []
+  },
+  {
+    "id": "swmm",
+    "name": "SWMM",
+    "shortName": "SWMM",
+    "vendor": "U.S. Environmental Protection Agency (EPA)",
+    "category": "hydro",
+    "domain": "hydro",
+    "license": "Libre et gratuit (code source public)",
+    "description": "Modélisation des eaux pluviales et des réseaux d’assainissement.",
+    "website": "https://www.epa.gov/water-research/storm-water-management-model-swmm",
+    "formats": []
+  },
+  {
+    "id": "hec-ras",
+    "name": "HEC-RAS",
+    "shortName": "HEC-RAS",
+    "vendor": "U.S. Army Corps of Engineers, Hydrologic Engineering Center",
+    "category": "hydro",
+    "domain": "hydro",
+    "license": "Non précisée sur la page consultée",
+    "description": "Hydraulique fluviale 1D et 2D.",
+    "website": "https://www.hec.usace.army.mil/software/hec-ras/",
+    "formats": []
+  },
+  {
+    "id": "hec-hms",
+    "name": "HEC-HMS",
+    "shortName": "HEC-HMS",
+    "vendor": "U.S. Army Corps of Engineers, Hydrologic Engineering Center",
+    "category": "hydro",
+    "domain": "hydro",
+    "license": "Non précisée sur la page consultée",
+    "description": "Modélisation hydrologique de bassins versants.",
+    "website": "https://www.hec.usace.army.mil/software/hec-hms/",
+    "formats": []
+  },
+  {
+    "id": "watergems",
+    "name": "OpenFlows WaterGEMS",
+    "shortName": "WaterGEMS",
+    "vendor": "Bentley Systems",
+    "category": "hydro",
+    "domain": "hydro",
+    "license": "Commerciale",
+    "description": "Modélisation de réseaux d’eau potable de Bentley.",
+    "website": "https://www.bentley.com/software/openflows-watergems/",
+    "formats": []
+  },
+  {
+    "id": "sewergems",
+    "name": "OpenFlows SewerGEMS",
+    "shortName": "SewerGEMS",
+    "vendor": "Bentley Systems",
+    "category": "hydro",
+    "domain": "hydro",
+    "license": "Commerciale",
+    "description": "Modélisation de réseaux d’assainissement de Bentley.",
+    "website": "https://www.bentley.com/software/openflows-sewergems/",
+    "formats": []
+  },
+  {
+    "id": "hy8",
+    "name": "HY-8",
+    "shortName": "HY-8",
+    "vendor": "Federal Highway Administration (FHWA, États-Unis)",
+    "category": "hydro",
+    "domain": "hydro",
+    "license": "Non précisée",
+    "description": "Analyse hydraulique des ouvrages de franchissement (dalots, buses).",
+    "website": "https://www.fhwa.dot.gov/engineering/hydraulics/software/hy8/",
+    "formats": []
+  },
+  {
+    "id": "ms-project",
+    "name": "Microsoft Project",
+    "shortName": "MS Project",
+    "vendor": "Microsoft",
+    "category": "pm",
+    "domain": "pm",
+    "license": "Commerciale",
+    "description": "Logiciel de planification de projets.",
+    "website": "https://www.microsoft.com/en-us/microsoft-365/project/project-management-software",
+    "formats": []
+  },
+  {
+    "id": "primavera",
+    "name": "Primavera P6",
+    "shortName": "Primavera P6",
+    "vendor": "Oracle",
+    "category": "pm",
+    "domain": "pm",
+    "license": "Commerciale",
+    "description": "Logiciel de planification et de gestion de portefeuilles de projets.",
+    "website": "https://www.oracle.com/construction-engineering/primavera-p6/",
+    "formats": []
+  },
+  {
+    "id": "navisworks",
+    "name": "Navisworks",
+    "shortName": "Navisworks",
+    "vendor": "Autodesk",
+    "category": "pm",
+    "domain": "pm",
+    "license": "Commerciale",
+    "description": "Logiciel de revue de maquettes, de détection de conflits et de simulation 4D.",
+    "website": "https://www.autodesk.com/products/navisworks/overview",
+    "formats": []
+  },
+  {
+    "id": "synchro",
+    "name": "Synchro 4D",
+    "shortName": "Synchro 4D",
+    "vendor": "Bentley Systems",
+    "category": "pm",
+    "domain": "pm",
+    "license": "Commerciale",
+    "description": "Logiciel de planification et de simulation 4D de chantier.",
+    "website": "https://www.bentley.com/software/synchro/",
+    "formats": []
+  },
+  {
+    "id": "costx",
+    "name": "CostX",
+    "shortName": "CostX",
+    "vendor": "RIB Software",
+    "category": "pm",
+    "domain": "pm",
+    "license": "Commerciale",
+    "description": "Logiciel de métrés et d’estimation sur plans et maquettes.",
+    "website": "https://www.rib-software.com/en/rib-costx",
+    "formats": []
   }
 ]

@@ -53,6 +53,7 @@ Ajouter un objet dans `data/software.json` :
   "shortName": "MonLogiciel",
   "vendor": "Éditeur SA",
   "category": "calcul",
+  "domain": "structures",
   "license": "Commerciale",
   "description": "Une phrase décrivant le logiciel.",
   "website": "https://www.exemple.com/produit",
@@ -68,10 +69,11 @@ Ajouter un objet dans `data/software.json` :
 | `name` | oui | nom complet (panneaux, listes, recherche) |
 | `shortName` | non | étiquette du nœud, 16 caractères maximum ; sinon `name` |
 | `vendor`, `description`, `website` | oui | `website` : URL `https://` officielle |
-| `category` | oui | un `id` de `meta.json › categories` |
+| `category` | oui | un `id` de `meta.json › categories` (colonne du graphe) |
+| `domain` | oui | un `id` de `meta.json › domains` (filtre du catalogue) |
 | `license` | non | texte libre |
 | `formats` | non | `id` de `formats.json` que le logiciel mentionne dans cette base (alimente la recherche par format) |
-| `position` | oui | seul `y` compte : il ordonne les nœuds de haut en bas dans la colonne de leur catégorie (`x` est ignoré) |
+| `position` | non | seul `y` compte : il ordonne les nœuds de haut en bas dans la colonne de leur catégorie (`x` est ignoré) |
 | `logo` | non | chemin **relatif** dans le dépôt, affiché dans le panneau. N'ajouter que des logos dont vous avez le droit d'usage |
 
 ### Placer le nœud
@@ -129,6 +131,17 @@ Ajouter un objet dans `data/connections.json` :
 
 Les liaisons sont non orientées pour l'unicité : `a--b` et `b--a` désignent la même paire, le validateur refuse les doublons.
 
+## Ajouter ou compléter une fiche technique
+
+Chaque fiche détaillée est un fichier `data/profiles/<id>.json`, déclaré dans `data/profiles/index.json`. Les sections suivent la structure A à L : `version`, `license`, `applicationDomain`, `specialties`, `methods`, `otherMethods`, `standards` ou `standardsNote`, `modelling`, `results`, `otherResults`, `limits`, `interop`, `cannotDo`, `strengths`, `weaknesses`, `improvements`.
+
+- Une référence se déclare une fois dans `data/references.json`, puis se cite par son identifiant dans `refs`.
+- Une affirmation : `{ "text": "…", "refs": ["id"] }`. Une méthode ou un résultat : `{ "v": true, "note": "…", "refs": ["id"] }`, ou `{ "v": "na", "note": "…" }` si la rubrique est sans objet.
+- **Ce qui n'est pas confirmé par une source ne s'écrit pas** : un champ absent s'affiche « Non documenté ». Le validateur refuse une affirmation confirmée ou un « fait » sans référence.
+- Dans `strengths`, `weaknesses` et `improvements`, `nature` vaut `fait` (sourcé) ou `appréciation` (jugement).
+- L'interopérabilité vient de `connections.json` : ne la recopiez pas ; `interop` sert seulement aux possibilités hors du graphe (API, fichiers génériques).
+- Illustrations : n'ajouter une image que si ses droits sont acquis, en indiquant sa source et sa licence.
+
 ## Ajouter un format
 
 Dans `data/formats.json` :
@@ -139,6 +152,7 @@ Dans `data/formats.json` :
   "name": "MonFormat",
   "fullName": "Nom complet du format",
   "kind": "open",
+  "family": "analytique",
   "steward": "Organisme responsable",
   "extensions": [".mfx"],
   "description": "À quoi sert le format.",
@@ -148,7 +162,7 @@ Dans `data/formats.json` :
 }
 ```
 
-`kind` vaut `open`, `proprietary` ou `api`. La fiche apparaît dans l'onglet Formats avec la liste des liaisons qui l'utilisent.
+`kind` vaut `open`, `proprietary` ou `api`. `family` est un identifiant de `meta.json › formatFamilies`. La fiche apparaît dans l'onglet Formats avec la liste des liaisons qui l'utilisent.
 
 ## Mettre à jour une liaison existante
 

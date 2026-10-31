@@ -1,5 +1,5 @@
 // Vues « Liste », « Formats » et « À propos ».
-import { h, clear, kindSwatch, formatDate, hostOf, plural } from './util.js?v=20261031.10';
+import { h, clear, kindSwatch, formatDate, hostOf, plural } from './util.js?v=20261031.14';
 
 /* ------------------------------------------------------------------ Liste */
 
@@ -82,23 +82,28 @@ export function renderFormats(root, db, actions) {
     h('p', { class: 'lead', text: 'Un format commun ne suffit pas à garantir qu’un échange fonctionne : version du format, réglages d’export et sous-ensemble implémenté comptent. Chaque fiche indique les liaisons de cette carte qui l’utilisent.' })
   );
 
-  for (const group of ['open', 'proprietary', 'api']) {
-    const items = db.formats.filter((f) => f.kind === group);
+  for (const family of db.meta.formatFamilies) {
+    const items = db.formats.filter((f) => f.family === family.id);
     if (!items.length) continue;
-    wrap.append(h('h3', { class: 'group-title', text: FORMAT_KIND_LABEL[group] }));
+    wrap.append(h('h3', { class: 'group-title', text: `Formats : ${family.label.toLowerCase()}` }), h('p', { class: 'meta', text: family.description }));
     for (const f of items) {
       const conns = db.connsByFormat.get(f.id) || [];
+      // Logiciels compatibles : déduits des liaisons documentées et des formats cités par chaque logiciel.
+      const ids = new Set([...conns.flatMap((c) => [c.source, c.target]), ...db.software.filter((s) => (s.formats || []).includes(f.id)).map((s) => s.id)]);
+      const compatible = [...ids].map((id) => db.softwareById.get(id)).filter(Boolean).sort((a, b) => a.name.localeCompare(b.name, 'fr'));
       wrap.append(h('article', { class: 'card card-pad', id: `format-${f.id}` },
         h('div', { class: 'card-head' },
           h('h3', { text: f.name }),
           h('span', { class: 'meta', text: f.fullName })
         ),
+        h('div', { class: 'badges' }, h('span', { class: 'badge', text: FORMAT_KIND_LABEL[f.kind] })),
         f.extensions?.length ? h('p', { class: 'meta', text: `Extensions : ${f.extensions.join(', ')}` }) : null,
         h('p', { text: f.description }),
         h('dl', { class: 'kv' },
           h('dt', { text: 'Contenu typique' }), h('dd', { text: f.carries }),
           h('dt', { text: 'Précautions' }), h('dd', { text: f.caveats }),
-          h('dt', { text: 'Responsable' }), h('dd', { text: f.steward })
+          h('dt', { text: 'Responsable' }), h('dd', { text: f.steward }),
+          h('dt', { text: 'Logiciels cités' }), h('dd', { text: compatible.length ? compatible.map((s) => s.name).join(', ') : 'Aucun dans cette base' })
         ),
         h('p', {}, h('a', { href: f.url, target: '_blank', rel: 'noopener noreferrer' }, `Référence (${hostOf(f.url)}) ↗`)),
         h('div', { class: 'badges' },
@@ -154,6 +159,8 @@ export function renderAbout(root, db) {
         h('span', { class: 'banner-num', text: String(total) }),
         h('span', { text: `liaisons documentées · revue du ${formatDate(db.meta.lastReview)}` }))),
 
+    h('p', { class: 'meta', text: 'Auteur : TSARALOHA Nomenjanahary Christinot Léonnel Calixte, BTP, M2 Académique. Génie civil, calcul des structures, interopérabilité logicielle et méthodes numériques.' }),
+
     h('h3', { text: 'Comment lire le graphe' }),
     h('ul', { class: 'plain' },
       h('li', { text: 'Chaque nœud est un logiciel ; la couleur de son en-tête et le cadre qui l’entoure indiquent sa catégorie.' }),
@@ -188,10 +195,17 @@ export function renderAbout(root, db) {
       h('li', { text: own ? `Vous avez actuellement ${own} ajout${own > 1 ? 's' : ''} personnel${own > 1 ? 's' : ''} (logiciels et liaisons).` : 'Vous n’avez encore aucun ajout personnel.' })
     ),
 
+    h('h3', { text: 'Base documentaire' }),
+    h('ul', { class: 'plain' },
+      h('li', { text: 'Le catalogue recense les logiciels par domaine ; une fiche détaillée n’existe que si des sources ont été consultées. Sinon, la fiche indique « Non documenté » plutôt qu’une supposition.' }),
+      h('li', { text: 'Le graphe ne montre que les logiciels ayant au moins une liaison documentée ; les autres restent consultables dans le catalogue.' }),
+      h('li', { text: 'Dans les fiches, « Fait » renvoie à une source ; « Appréciation » est un jugement.' })
+    ),
+
     h('h3', { text: 'Données ouvertes' }),
     h('p', {},
       'Les données sont des fichiers JSON simples : ',
-      ...['software', 'connections', 'formats', 'meta'].flatMap((n, i) => [
+      ...['software', 'connections', 'formats', 'methods', 'standards', 'references', 'madagascar', 'meta'].flatMap((n, i) => [
         i ? ', ' : null,
         h('a', { href: `data/${n}.json`, target: '_blank', rel: 'noopener' }, `${n}.json`)
       ]),

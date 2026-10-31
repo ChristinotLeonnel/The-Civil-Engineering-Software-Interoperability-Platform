@@ -17,6 +17,37 @@ export async function loadBase() {
   return { meta, software, connections, formats };
 }
 
+/** Catalogues de la base documentaire (références, méthodes, normes, Madagascar, liste des fiches). */
+export async function loadKnowledge() {
+  const names = ['references', 'methods', 'standards', 'madagascar', 'profiles/index'];
+  const [references, methods, standards, madagascar, profileIds] = await Promise.all(
+    names.map(async (name) => {
+      const res = await fetch(`data/${name}.json`, { cache: 'no-cache' });
+      if (!res.ok) throw new Error(`Impossible de charger data/${name}.json (HTTP ${res.status})`);
+      return res.json();
+    })
+  );
+  return {
+    references: new Map(references.map((r) => [r.id, r])),
+    methods,
+    standards,
+    madagascar,
+    profileIds: new Set(profileIds),
+    profiles: new Map()
+  };
+}
+
+/** Fiche détaillée d'un logiciel, chargée à la demande ; null si elle n'existe pas encore. */
+export async function loadProfile(kb, id) {
+  if (!kb.profileIds.has(id)) return null;
+  if (!kb.profiles.has(id)) {
+    const res = await fetch(`data/profiles/${encodeURIComponent(id)}.json`, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`Impossible de charger la fiche ${id} (HTTP ${res.status})`);
+    kb.profiles.set(id, await res.json());
+  }
+  return kb.profiles.get(id);
+}
+
 /** Construit les index à partir de listes brutes (base vérifiée, éventuellement complétée des ajouts personnels). */
 export function buildDb({ meta, software, connections, formats }) {
   const catById = new Map(meta.categories.map((c) => [c.id, c]));
@@ -24,9 +55,10 @@ export function buildDb({ meta, software, connections, formats }) {
   const confById = new Map(meta.confidence.map((c) => [c.id, c]));
   const formatById = new Map(formats.map((f) => [f.id, f]));
 
-  const goodSoftware = software.filter((s) => {
-    const ok = catById.has(s.category) && s.position;
-    if (!ok) console.warn('Logiciel ignoré (catégorie ou position invalide) :', s.id);
+  // Sans position : le logiciel se range en bas de la colonne de sa catégorie.
+  const goodSoftware = software.map((s) => (s.position ? s : { ...s, position: { x: 0, y: 100000 } })).filter((s) => {
+    const ok = catById.has(s.category);
+    if (!ok) console.warn('Logiciel ignoré (catégorie inconnue) :', s.id);
     return ok;
   });
   const softwareById = new Map(goodSoftware.map((s) => [s.id, s]));

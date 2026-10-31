@@ -1,0 +1,205 @@
+{
+  "id": "codeaster",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [],
+    "uses": [
+      {
+        "text": "Calculs thermiques, mécaniques, thermo-mécaniques et thermo-hydro-mécaniques couplés",
+        "refs": [
+          "edf-codeaster"
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "text": "Géomécanique et béton",
+        "refs": [
+          "edf-codeaster"
+        ]
+      }
+    ],
+    "cases": [
+      {
+        "text": "Rupture, fatigue, analyse limite",
+        "refs": [
+          "edf-codeaster"
+        ]
+      },
+      {
+        "text": "Contact et frottement",
+        "refs": [
+          "edf-codeaster"
+        ]
+      }
+    ]
+  },
+  "methods": {
+    "fem": {
+      "v": true,
+      "note": "Logiciel d’éléments finis",
+      "refs": [
+        "aubry-codeaster"
+      ]
+    },
+    "static": {
+      "v": true,
+      "note": "Statique linéaire et non linéaire",
+      "refs": [
+        "edf-codeaster"
+      ]
+    },
+    "dynamic": {
+      "v": true,
+      "note": "Dynamique linéaire et non linéaire",
+      "refs": [
+        "edf-codeaster"
+      ]
+    },
+    "modal": {
+      "v": true,
+      "note": "",
+      "refs": [
+        "edf-codeaster"
+      ]
+    },
+    "seismic": {
+      "v": true,
+      "note": "Calcul spectral cité ; application sismique non détaillée dans l’extrait.",
+      "refs": [
+        "edf-codeaster"
+      ]
+    },
+    "nonlinear": {
+      "v": true,
+      "note": "Plasticité, viscoplasticité, endommagement, grandes déformations",
+      "refs": [
+        "edf-codeaster"
+      ]
+    }
+  },
+  "otherMethods": [],
+  "modelling": {
+    "elements": {
+      "beam": {
+        "v": true,
+        "note": "",
+        "refs": [
+          "aubry-codeaster"
+        ]
+      },
+      "truss": {
+        "v": true,
+        "note": "Tiges (rods)",
+        "refs": [
+          "aubry-codeaster"
+        ]
+      },
+      "cable": {
+        "v": true,
+        "note": "",
+        "refs": [
+          "aubry-codeaster"
+        ]
+      },
+      "plate": {
+        "v": true,
+        "note": "",
+        "refs": [
+          "aubry-codeaster"
+        ]
+      },
+      "solid": {
+        "v": true,
+        "note": "Modèles 3D solides",
+        "refs": [
+          "aubry-codeaster"
+        ]
+      }
+    }
+  },
+  "results": {},
+  "otherResults": [
+    {
+      "text": "Champs de résultats au format MED, relus dans Salome",
+      "refs": [
+        "codeaster-maillage"
+      ]
+    }
+  ],
+  "limits": [
+    {
+      "kind": "dependance",
+      "text": "Le format Gmsh n’est lu directement qu’en ASCII 1.0 et 2.0",
+      "refs": [
+        "codeaster-maillage"
+      ]
+    }
+  ],
+  "interop": [
+    {
+      "target": "Python",
+      "mode": "direct",
+      "via": "API",
+      "imports": [],
+      "exports": [],
+      "data": "Interface Python facilitant le couplage avec d’autres outils",
+      "risks": "",
+      "refs": [
+        "edf-codeaster"
+      ]
+    }
+  ],
+  "cannotDo": [
+    {
+      "text": "Plateforme graphique de modélisation et de post-traitement : assurée par SALOME_MECA",
+      "needs": "software",
+      "kind": "extension",
+      "refs": [
+        "edf-codeaster"
+      ]
+    }
+  ],
+  "strengths": [
+    {
+      "text": "Libre",
+      "refs": [
+        "edf-codeaster"
+      ],
+      "nature": "fait"
+    },
+    {
+      "text": "Documentation de plus de 14 000 pages selon EDF",
+      "refs": [
+        "edf-codeaster"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [],
+  "improvements": [],
+  "version": {
+    "text": "Non précisée dans les sources consultées (plaquette EDF de 2024)",
+    "refs": [
+      "edf-codeaster"
+    ]
+  },
+  "license": {
+    "text": "Logiciel libre sous licence GPL",
+    "refs": [
+      "edf-codeaster"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Mécanique, thermique et couplages thermo-hydro-mécaniques",
+    "refs": [
+      "edf-codeaster"
+    ]
+  },
+  "standardsNote": {
+    "text": "Aucun règlement de dimensionnement mentionné dans les sources consultées.",
+    "refs": [
+      "edf-codeaster"
+    ]
+  }
+}

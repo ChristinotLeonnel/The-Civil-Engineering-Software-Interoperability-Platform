@@ -1,7 +1,7 @@
 // Édition par le visiteur : formulaires pour ajouter / modifier / supprimer ses propres logiciels, liaisons et blocs.
 // Les données de la base vérifiée ne sont jamais modifiées ; seuls les ajouts personnels le sont.
-import { h, clear } from './util.js?v=20261031.10';
-import { newId, exportWorkspace, importWorkspaceFile, emptyWorkspace, isEmpty } from './workspace.js?v=20261031.10';
+import { h, clear } from './util.js?v=20261031.14';
+import { newId, exportWorkspace, importWorkspaceFile, emptyWorkspace, isEmpty } from './workspace.js?v=20261031.14';
 
 const BLOCK_COLORS = [
   ['#5e6472', 'Gris'], ['#2e6bb8', 'Bleu'], ['#b03a2e', 'Rouge'], ['#3d8b37', 'Vert'],

@@ -1,0 +1,82 @@
+{
+  "id": "etabs",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [
+      {
+        "text": "Portiques acier et béton, dalles, voiles béton, poutres mixtes",
+        "refs": [
+          "csi-etabs"
+        ]
+      }
+    ],
+    "uses": [],
+    "materials": [
+      {
+        "text": "Acier, béton, acier formé à froid, aluminium",
+        "refs": [
+          "csi-etabs"
+        ]
+      }
+    ],
+    "cases": []
+  },
+  "methods": {
+    "modal": {
+      "v": true,
+      "note": "Analyse aux valeurs propres et analyse de Ritz",
+      "refs": [
+        "csi-etabs"
+      ]
+    }
+  },
+  "otherMethods": [
+    {
+      "text": "Plusieurs solveurs 64 bits ; parallélisation multiprocesseur",
+      "refs": [
+        "csi-etabs"
+      ]
+    }
+  ],
+  "modelling": {},
+  "results": {},
+  "otherResults": [],
+  "limits": [],
+  "interop": [],
+  "cannotDo": [],
+  "strengths": [
+    {
+      "text": "Plusieurs solveurs 64 bits et parallélisation",
+      "refs": [
+        "csi-etabs"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [],
+  "improvements": [],
+  "version": {
+    "text": "Non indiquée sur la page consultée",
+    "refs": [
+      "csi-etabs"
+    ]
+  },
+  "license": {
+    "text": "Commerciale",
+    "refs": [
+      "csi-etabs"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Bâtiments",
+    "refs": [
+      "csi-etabs"
+    ]
+  },
+  "standardsNote": {
+    "text": "La liste des normes figure sur une page distincte de CSI, non lue dans cette revue.",
+    "refs": [
+      "csi-etabs"
+    ]
+  }
+}

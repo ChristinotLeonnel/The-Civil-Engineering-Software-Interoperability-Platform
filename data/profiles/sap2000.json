@@ -1,0 +1,106 @@
+{
+  "id": "sap2000",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [
+      {
+        "text": "Dimensionnement de cadres acier et béton, acier formé à froid, aluminium",
+        "refs": [
+          "csi-sap2000"
+        ]
+      }
+    ],
+    "uses": [],
+    "materials": [
+      {
+        "text": "Acier, béton, acier formé à froid, aluminium",
+        "refs": [
+          "csi-sap2000"
+        ]
+      }
+    ],
+    "cases": []
+  },
+  "methods": {
+    "modal": {
+      "v": true,
+      "note": "Analyse aux valeurs propres et analyse de Ritz",
+      "refs": [
+        "csi-sap2000"
+      ]
+    }
+  },
+  "otherMethods": [
+    {
+      "text": "Moteur SAPFire : plusieurs solveurs 64 bits ; parallélisation",
+      "refs": [
+        "csi-sap2000"
+      ]
+    }
+  ],
+  "modelling": {
+    "elements": {
+      "beam": {
+        "v": true,
+        "note": "Objets frame",
+        "refs": [
+          "csi-sap2000"
+        ]
+      },
+      "shell": {
+        "v": true,
+        "note": "Objets shell",
+        "refs": [
+          "csi-sap2000"
+        ]
+      },
+      "solid": {
+        "v": true,
+        "note": "Objets solid",
+        "refs": [
+          "csi-sap2000"
+        ]
+      }
+    }
+  },
+  "results": {},
+  "otherResults": [],
+  "limits": [],
+  "interop": [],
+  "cannotDo": [],
+  "strengths": [
+    {
+      "text": "Interface unique pour modélisation, analyse, dimensionnement et rapports",
+      "refs": [
+        "csi-sap2000"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [],
+  "improvements": [],
+  "version": {
+    "text": "Non indiquée sur la page consultée",
+    "refs": [
+      "csi-sap2000"
+    ]
+  },
+  "license": {
+    "text": "Commerciale",
+    "refs": [
+      "csi-sap2000"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Analyse et dimensionnement de structures",
+    "refs": [
+      "csi-sap2000"
+    ]
+  },
+  "standardsNote": {
+    "text": "La liste des normes figure sur une page distincte de CSI, non lue dans cette revue.",
+    "refs": [
+      "csi-sap2000"
+    ]
+  }
+}

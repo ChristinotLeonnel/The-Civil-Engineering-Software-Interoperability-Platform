@@ -1,5 +1,5 @@
 // Barre de recherche, filtres par catégorie et légende filtrante.
-import { h, clear, kindSwatch, norm } from './util.js?v=20261031.10';
+import { h, clear, kindSwatch, norm } from './util.js?v=20261031.14';
 
 /** Recherche dans les logiciels et les formats. Renvoie aussi l'ensemble des logiciels concernés. */
 export function searchDb(db, query) {

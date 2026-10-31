@@ -1,0 +1,141 @@
+{
+  "id": "plaxis",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [
+      {
+        "text": "Excavations, remblais, fondations terrestres ou en mer, tunnels",
+        "refs": [
+          "bentley-plaxis2d"
+        ]
+      }
+    ],
+    "uses": [
+      {
+        "text": "Déformation plane et axisymétrie (2D)",
+        "refs": [
+          "bentley-plaxis2d"
+        ]
+      }
+    ],
+    "materials": [
+      {
+        "text": "Sols et roches : large bibliothèque de lois de comportement, dont Soft Soil Creep",
+        "refs": [
+          "bentley-plaxis2d"
+        ]
+      }
+    ],
+    "cases": [
+      {
+        "text": "Mines, géomécanique de réservoir",
+        "refs": [
+          "bentley-plaxis2d"
+        ]
+      }
+    ]
+  },
+  "methods": {
+    "dynamic": {
+      "v": true,
+      "note": "Édition Ultimate : vibrations sismiques et trafic",
+      "refs": [
+        "bentley-plaxis2d"
+      ]
+    },
+    "seismic": {
+      "v": true,
+      "note": "Édition Ultimate",
+      "refs": [
+        "bentley-plaxis2d"
+      ]
+    }
+  },
+  "otherMethods": [
+    {
+      "text": "Édition Advanced : fluage, consolidation, écoulement permanent et flux de chaleur",
+      "refs": [
+        "bentley-plaxis2d"
+      ]
+    }
+  ],
+  "modelling": {
+    "dims": {
+      "v": true,
+      "note": "2D ; conversion vers PLAXIS 3D annoncée",
+      "refs": [
+        "bentley-plaxis2d"
+      ]
+    }
+  },
+  "results": {},
+  "otherResults": [],
+  "limits": [
+    {
+      "kind": "dependance",
+      "text": "Fonctions réparties par éditions : la dynamique relève de l’édition Ultimate",
+      "refs": [
+        "bentley-plaxis2d"
+      ]
+    }
+  ],
+  "interop": [
+    {
+      "target": "PLAXIS 3D",
+      "mode": "direct",
+      "via": "fichier",
+      "imports": [],
+      "exports": [],
+      "data": "Conversion de modèles 2D en 3D",
+      "risks": "",
+      "refs": [
+        "bentley-plaxis2d"
+      ]
+    }
+  ],
+  "cannotDo": [
+    {
+      "text": "Analyse dynamique dans les éditions inférieures",
+      "needs": "module",
+      "kind": "limitation",
+      "refs": [
+        "bentley-plaxis2d"
+      ]
+    }
+  ],
+  "strengths": [
+    {
+      "text": "Interaction sol-structure en 2D",
+      "refs": [
+        "bentley-plaxis2d"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [],
+  "improvements": [],
+  "version": {
+    "text": "Non précisée dans l’extrait consulté",
+    "refs": [
+      "bentley-plaxis2d"
+    ]
+  },
+  "license": {
+    "text": "Commerciale, par éditions (Advanced, Ultimate selon les fonctions)",
+    "refs": [
+      "bentley-plaxis2d"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Contraintes-déformations, déformations, stabilité et interaction sol-structure",
+    "refs": [
+      "bentley-plaxis2d"
+    ]
+  },
+  "standardsNote": {
+    "text": "Aucun règlement mentionné dans l’extrait consulté.",
+    "refs": [
+      "bentley-plaxis2d"
+    ]
+  }
+}

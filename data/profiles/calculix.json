@@ -1,0 +1,186 @@
+{
+  "id": "calculix",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [],
+    "uses": [
+      {
+        "text": "Calculs linéaires et non linéaires ; solutions statiques, dynamiques et thermiques",
+        "refs": [
+          "calculix-home"
+        ]
+      }
+    ],
+    "materials": [],
+    "cases": [
+      {
+        "text": "Exemple publié : analyse aux fréquences propres en symétrie cyclique d’un réacteur",
+        "refs": [
+          "calculix-home"
+        ]
+      }
+    ]
+  },
+  "methods": {
+    "fem": {
+      "v": true,
+      "note": "Solveur éléments finis",
+      "refs": [
+        "calculix-home"
+      ]
+    },
+    "static": {
+      "v": true,
+      "note": "",
+      "refs": [
+        "calculix-home"
+      ]
+    },
+    "dynamic": {
+      "v": true,
+      "note": "",
+      "refs": [
+        "calculix-home"
+      ]
+    },
+    "nonlinear": {
+      "v": true,
+      "note": "",
+      "refs": [
+        "calculix-home"
+      ]
+    },
+    "modal": {
+      "v": true,
+      "note": "Fréquences propres citées dans un exemple de la page, pas comme type d’analyse listé.",
+      "refs": [
+        "calculix-home"
+      ]
+    }
+  },
+  "otherMethods": [
+    {
+      "text": "Solutions thermiques",
+      "refs": [
+        "calculix-home"
+      ]
+    }
+  ],
+  "modelling": {
+    "dims": {
+      "v": true,
+      "note": "3D",
+      "refs": [
+        "calculix-home"
+      ]
+    },
+    "elements": {
+      "solid": {
+        "v": true,
+        "note": "Briques à 20 nœuds à intégration réduite (exemple)",
+        "refs": [
+          "calculix-home"
+        ]
+      }
+    }
+  },
+  "results": {},
+  "otherResults": [],
+  "limits": [
+    {
+      "kind": "dependance",
+      "text": "Développé par une petite équipe sur son temps libre, selon la page officielle",
+      "refs": [
+        "calculix-home"
+      ]
+    }
+  ],
+  "interop": [
+    {
+      "target": "Pré-processeurs commerciaux (format Abaqus)",
+      "mode": "indirect",
+      "via": "fichier",
+      "imports": [
+        "Abaqus .inp"
+      ],
+      "exports": [],
+      "data": "Le solveur lit le format d’entrée Abaqus",
+      "risks": "",
+      "refs": [
+        "calculix-home"
+      ]
+    },
+    {
+      "target": "Nastran, Abaqus, Ansys, Code-Aster, codes CFD",
+      "mode": "indirect",
+      "via": "fichier",
+      "imports": [],
+      "exports": [
+        "maillages"
+      ],
+      "data": "Le pré-processeur écrit des données de maillage pour ces codes",
+      "risks": "",
+      "refs": [
+        "calculix-home"
+      ]
+    }
+  ],
+  "cannotDo": [],
+  "strengths": [
+    {
+      "text": "Gratuit et libre",
+      "refs": [
+        "calculix-home"
+      ],
+      "nature": "fait"
+    },
+    {
+      "text": "Syntaxe d’entrée de type Abaqus, utilisable avec des pré-processeurs commerciaux",
+      "refs": [
+        "calculix-home"
+      ],
+      "nature": "fait"
+    },
+    {
+      "text": "Solveur et pré/post-processeur utilisables séparément",
+      "refs": [
+        "calculix-home"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [
+    {
+      "text": "Pas d’équipe commerciale : développement bénévole selon la page",
+      "refs": [
+        "calculix-home"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "improvements": [],
+  "version": {
+    "text": "2.23 (page mise à jour le 1er novembre 2025)",
+    "refs": [
+      "calculix-home"
+    ]
+  },
+  "license": {
+    "text": "Logiciel libre sous GNU GPL version 2 ou ultérieure",
+    "refs": [
+      "calculix-home"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Calcul par éléments finis 3D : structures et thermique",
+    "refs": [
+      "calculix-home"
+    ]
+  },
+  "standardsNote": {
+    "text": "Solveur généraliste : aucun règlement de dimensionnement mentionné sur la page consultée.",
+    "refs": [
+      "calculix-home"
+    ]
+  }
+}

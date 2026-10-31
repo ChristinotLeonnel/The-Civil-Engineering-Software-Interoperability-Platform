@@ -1,23 +1,25 @@
 // Point d'entrée : état de l'application, navigation entre vues, liens profonds (#view=…&node=…),
 // espace de travail personnel (ajouts du visiteur) et mode édition.
-import { loadBase, buildDb } from './data.js?v=20261031.10';
-import { createGraph } from './graph.js?v=20261031.10';
-import { createPanel } from './panel.js?v=20261031.10';
-import { initControls, searchDb } from './controls.js?v=20261031.10';
-import { renderList, renderFormats, renderAbout } from './pages.js?v=20261031.10';
-import { h, kindSwatch, formatDate } from './util.js?v=20261031.10';
-import { loadWorkspace, saveWorkspace, mergeWorkspace } from './workspace.js?v=20261031.10';
-import { createEditor } from './editor.js?v=20261031.10';
+import { loadBase, loadKnowledge, buildDb } from './data.js?v=20261031.14';
+import { createGraph } from './graph.js?v=20261031.14';
+import { createPanel } from './panel.js?v=20261031.14';
+import { initControls, searchDb } from './controls.js?v=20261031.14';
+import { renderList, renderFormats, renderAbout } from './pages.js?v=20261031.14';
+import { h, kindSwatch, formatDate } from './util.js?v=20261031.14';
+import { loadWorkspace, saveWorkspace, mergeWorkspace } from './workspace.js?v=20261031.14';
+import { renderCatalog, renderSheet, renderCompare, renderMadagascar } from './kb.js?v=20261031.14';
+import { createEditor } from './editor.js?v=20261031.14';
 
 const $ = (id) => document.getElementById(id);
-const VIEWS = ['map', 'list', 'formats', 'about'];
+const VIEWS = ['map', 'list', 'catalog', 'software', 'compare', 'formats', 'madagascar', 'about'];
+const MAX_COMPARE = 4;
 const mobileQuery = window.matchMedia('(max-width: 760px)');
 // Par défaut, seules les liaisons documentées par un éditeur sont affichées (confiance élevée ou moyenne) ;
 // les liaisons incertaines (forums, déductions, non vérifiées) se réaffichent par le filtre « Fiabilité ».
 const DEFAULT_CONFS = ['high', 'medium'];
 
 async function start() {
-  const base = await loadBase();
+  const [base, kb] = await Promise.all([loadBase(), loadKnowledge()]);
   let ws = loadWorkspace(base.meta);
   // `db` garde la même identité : les modules qui la référencent voient les ajouts après chaque reconstruction.
   const db = buildDb(mergeWorkspace(base, ws));
@@ -31,6 +33,8 @@ async function start() {
     format: null,
     query: '',
     edit: false,
+    sheet: null, // logiciel de la fiche ouverte
+    compare: [], // logiciels sélectionnés pour la comparaison
     selected: null // { type: 'software' | 'connection' | 'block', id }
   };
 
@@ -39,6 +43,10 @@ async function start() {
   let controls = null;
   let panel = null;
   let editor = null;
+
+  // Le graphe ne montre que les logiciels reliés ; les autres restent consultables dans le catalogue.
+  const inGraph = (id) => Boolean(db.softwareById.get(id)?.user || db.connsBySoftware.get(id)?.length);
+  const graphDb = () => ({ ...db, software: db.software.filter((s) => inGraph(s.id)) });
 
   const matchSet = () => (state.query.trim() ? searchDb(db, state.query).softwareIds : null);
 
@@ -56,6 +64,7 @@ async function start() {
   const app = {
     selectSoftware(id) {
       if (!db.softwareById.has(id)) return;
+      if (!inGraph(id)) { app.openSheet(id); return; }
       state.selected = { type: 'software', id };
       if (state.view !== 'map') setView('map', { keepSelection: true });
       render({ recenter: true });
@@ -127,6 +136,26 @@ async function start() {
     layoutChanged() {
       requestAnimationFrame(() => graph?.resize());
     },
+    // base documentaire
+    setView: (view) => setView(view),
+    openSheet(id) {
+      state.sheet = id;
+      setView('software');
+    },
+    compareIds: () => state.compare,
+    toggleCompare(id, on) {
+      const has = state.compare.includes(id);
+      if (on && !has) {
+        if (state.compare.length >= MAX_COMPARE) { toast(`Comparaison limitée à ${MAX_COMPARE} logiciels.`); return false; }
+        state.compare.push(id);
+      } else if (!on && has) {
+        state.compare = state.compare.filter((x) => x !== id);
+      }
+      updateCompareCount();
+      updateHash();
+      if (state.view === 'compare') renderPage();
+      return true;
+    },
     // édition
     isEditing: () => state.edit,
     editItem: (sel) => editor.edit(sel),
@@ -140,6 +169,12 @@ async function start() {
     if (!c.user) state.confs.add(c.confidence);
     state.cats.add(db.softwareById.get(c.source).category);
     state.cats.add(db.softwareById.get(c.target).category);
+  }
+
+  function updateCompareCount() {
+    const el = $('compare-count');
+    el.hidden = !state.compare.length;
+    el.textContent = String(state.compare.length);
   }
 
   function toggle(set, id) {
@@ -168,7 +203,7 @@ async function start() {
   function mountGraph() {
     const view = graph?.getView();
     graph?.destroy();
-    graph = createGraph($('graph'), db, graphCallbacks, { positions: ws.positions, blocks: ws.blocks, view, editMode: state.edit });
+    graph = createGraph($('graph'), graphDb(), graphCallbacks, { positions: ws.positions, blocks: ws.blocks, view, editMode: state.edit });
     if (window.__imap) window.__imap.graph = graph;
   }
 
@@ -216,6 +251,15 @@ async function start() {
   function renderPage() {
     if (state.view === 'formats') renderFormats($('view-formats'), db, app);
     if (state.view === 'about') renderAbout($('view-about'), db);
+    if (state.view === 'catalog') renderCatalog($('view-catalog'), db, kb, app);
+    if (state.view === 'madagascar') renderMadagascar($('view-madagascar'), db, kb, app);
+    if (state.view === 'compare') renderCompare($('view-compare'), db, kb, app).catch(pageError);
+    if (state.view === 'software') renderSheet($('view-software'), state.sheet, db, kb, app).catch(pageError);
+  }
+
+  function pageError(err) {
+    console.error(err);
+    toast(err.message || 'Chargement impossible.');
   }
 
   function setView(view, { keepSelection = false } = {}) {
@@ -302,6 +346,8 @@ async function start() {
   function updateHash() {
     const parts = [];
     if (state.view !== 'map') parts.push(`view=${state.view}`);
+    if (state.view === 'software' && state.sheet) parts.push(`id=${encodeURIComponent(state.sheet)}`);
+    if (state.view === 'compare' && state.compare.length) parts.push(`ids=${state.compare.map(encodeURIComponent).join(',')}`);
     const sel = state.selected;
     if (sel && sel.type !== 'block') parts.push(`${sel.type === 'software' ? 'node' : 'edge'}=${encodeURIComponent(sel.id)}`);
     if (state.format && state.view !== 'formats') parts.push(`format=${encodeURIComponent(state.format)}`);
@@ -320,6 +366,10 @@ async function start() {
     state.format = format && db.formatById.has(format) ? format : null;
     const node = params.get('node');
     const edge = params.get('edge');
+    const sheet = params.get('id');
+    if (sheet && db.softwareById.has(sheet)) state.sheet = sheet;
+    const compare = (params.get('ids') || '').split(',').filter((id) => db.softwareById.has(id)).slice(0, MAX_COMPARE);
+    if (compare.length) { state.compare = compare; updateCompareCount(); }
     state.selected = null;
     if (node && db.softwareById.has(node)) state.selected = { type: 'software', id: node };
     else if (edge && db.connectionById.has(edge)) {
@@ -418,7 +468,7 @@ async function start() {
     $('help-toggle').setAttribute('aria-expanded', String(!help.hidden));
   });
   $('footer-disclaimer').textContent = db.meta.disclaimer;
-  $('sb-foot').textContent = `Base vérifiée : revue du ${formatDate(db.meta.lastReview)}`;
+  $('sb-foot-date').textContent = `Base vérifiée : revue du ${formatDate(db.meta.lastReview)}`;
 
   // Édition
   $('edit-toggle').addEventListener('click', () => { closeSidebar(); setEditMode(!state.edit); });

@@ -6,6 +6,18 @@ Site statique (HTML, CSS, JavaScript) : rien à installer pour les visiteurs, pa
 
 > Un étudiant reçoit un lien, l'ouvre sur son téléphone, touche un logiciel ou un câble et obtient : source, destination, format, sens, données transférables, limites, versions, liens vers la documentation, date de vérification et niveau de confiance.
 
+Auteur : TSARALOHA Nomenjanahary Christinot Léonnel Calixte (BTP, M2 Académique).
+
+## Base documentaire
+
+- **Catalogue** de 58 logiciels par domaine (Structures, BIM, Géotechnique, Routes, Hydraulique, Gestion de projet), avec recherche et filtres.
+- **Fiches techniques** en 12 sections (A à L). 12 fiches sont détaillées ; les autres sont à compléter. Une information sans source s'affiche « Non documenté », jamais une valeur supposée.
+- **Comparateur** de 2 à 4 logiciels.
+- **Civil Engineering Software in Madagascar** : aucune statistique fiable n'existant à notre connaissance, aucun classement n'est publié ; la section propose un cadre d'enquête.
+- **Formats** classés par famille.
+
+État détaillé, limites et tests : [docs/RAPPORT_MODIFICATIONS.md](docs/RAPPORT_MODIFICATIONS.md). Architecture : [docs/AUDIT_ET_PLAN.md](docs/AUDIT_ET_PLAN.md).
+
 ## Interface
 
 Présentation de type tableau de bord : **barre latérale** marine (Exploration · Édition · Information), réductible en rail d'icônes avec le bouton « ; zone principale claire avec le titre, la recherche et le bouton **Filtres** ; le graphe dans une **carte** dont la barre de titre affiche en pastille rouge le nombre de liaisons incertaines masquées ; vues Liste et À propos en cartes, **tableaux** à en-tête marine et **tuiles** de chiffres. Sur téléphone et tablette, la barre latérale s'ouvre avec le bouton ☰.
@@ -24,7 +36,7 @@ Les ajouts sont marqués **« ajout personnel, non vérifié »**, toujours visi
 
 ## Contenu
 
-- **Graphe** (style Blueprint) : 17 logiciels en nœuds et 34 liaisons en câbles, sur une grille sombre.
+- **Graphe** (style Blueprint) : les logiciels ayant au moins une liaison documentée, en nœuds, et 34 liaisons en câbles, sur une grille sombre.
   - Chaque nœud a un en-tête coloré selon sa catégorie et une **broche par liaison** : entrées à gauche, sorties à droite. Le libellé de la broche donne le logiciel relié et le format.
   - Les câbles sont colorés selon le type d'échange (blanc et broche triangulaire = lien direct, vert = format ouvert, bleu = extension/API, gris pointillé = géométrie seule, orange tireté = non vérifié). Quand une liaison est sélectionnée, des impulsions montrent le sens du transfert.
   - Des **cadres de commentaire** regroupent les logiciels par catégorie, en colonnes : CAO → BIM → calcul → maillage → éléments finis.
@@ -60,7 +72,7 @@ Le bouton **?** de la carte rappelle ces commandes. Quand on dézoome, les libel
 index.html               page unique
 css/styles.css           thème « éditeur Blueprint » (sombre), mobile d'abord
 js/                      main, graph, panel, controls, pages, data, util (modules ES, sans build)
-data/                    la base de données : meta, software, connections, formats (JSON)
+data/                    la base : meta, software, connections, formats, methods, standards, references, madagascar, profiles/ (JSON)
 assets/                  icône
 scripts/validate_data.py contrôle de la base (et test des liens avec --check-links)
 scripts/build.mjs        assemble dist/ (fichiers publics seulement, versionnés)

@@ -1,0 +1,234 @@
+{
+  "id": "swmm",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [
+      {
+        "text": "Réseaux pluviaux, unitaires et d’eaux usées : conduites, canaux, stockages, pompes, déversoirs, orifices",
+        "refs": [
+          "epa-swmm"
+        ]
+      }
+    ],
+    "uses": [
+      {
+        "text": "Aide à la décision, gestion de crise, planification, analyse et conception",
+        "refs": [
+          "epa-swmm"
+        ]
+      }
+    ],
+    "materials": [],
+    "cases": [
+      {
+        "text": "Huit pratiques génériques d’infrastructure verte : noues, toitures végétalisées, chaussées perméables, etc.",
+        "refs": [
+          "epa-swmm"
+        ]
+      },
+      {
+        "text": "Accumulation et lessivage de polluants",
+        "refs": [
+          "epa-swmm"
+        ]
+      }
+    ]
+  },
+  "methods": {
+    "fem": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "matrix": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "static": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "modal": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "seismic": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "buckling": {
+      "v": "na",
+      "note": "Logiciel hydraulique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "dynamic": {
+      "v": "na",
+      "note": "Pas de dynamique des structures ; onde dynamique hydraulique (voir ci-dessous).",
+      "refs": []
+    },
+    "nonlinear": {
+      "v": "na",
+      "note": "Sans objet pour ce logiciel.",
+      "refs": []
+    }
+  },
+  "otherMethods": [
+    {
+      "text": "Routage hydraulique par onde cinématique ou onde dynamique complète",
+      "refs": [
+        "epa-swmm"
+      ]
+    },
+    {
+      "text": "Ruissellement de surface par réservoir non linéaire",
+      "refs": [
+        "epa-swmm"
+      ]
+    },
+    {
+      "text": "Simulation d’événement unique ou de longue durée",
+      "refs": [
+        "epa-swmm"
+      ]
+    },
+    {
+      "text": "Infiltration, percolation, fonte de neige, stockage en dépression",
+      "refs": [
+        "epa-swmm"
+      ]
+    }
+  ],
+  "modelling": {
+    "objects": [
+      {
+        "text": "Sous-bassins (surfaces perméables et imperméables), conduites, canaux, stockages, pompes, déversoirs, orifices",
+        "refs": [
+          "epa-swmm"
+        ]
+      }
+    ]
+  },
+  "results": {
+    "displacements": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "rotations": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "reactions": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "axial": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "shear": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "moments": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "stresses": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "strains": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "modes": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    },
+    "frequencies": {
+      "v": "na",
+      "note": "Résultats hydrauliques, pas de résultats de structure.",
+      "refs": []
+    }
+  },
+  "otherResults": [],
+  "limits": [
+    {
+      "kind": "dependance",
+      "text": "L’outil d’ajustement climatique SWMM-CAT n’est plus maintenu depuis le 18 mars 2025",
+      "refs": [
+        "epa-swmm"
+      ]
+    }
+  ],
+  "interop": [
+    {
+      "target": "Programmes tiers",
+      "mode": "direct",
+      "via": "API",
+      "imports": [],
+      "exports": [],
+      "data": "Guide de l’API SWMM 5.2.4 publié par l’EPA ; contenu non détaillé sur la page consultée",
+      "risks": "",
+      "refs": [
+        "epa-swmm"
+      ]
+    }
+  ],
+  "cannotDo": [],
+  "strengths": [
+    {
+      "text": "Gratuit, code source public",
+      "refs": [
+        "epa-swmm"
+      ],
+      "nature": "fait"
+    },
+    {
+      "text": "Événement unique ou longue durée dans le même outil",
+      "refs": [
+        "epa-swmm"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [],
+  "improvements": [],
+  "version": {
+    "text": "5.2.4 (publiée le 7 août 2023)",
+    "refs": [
+      "epa-swmm"
+    ]
+  },
+  "license": {
+    "text": "Libre et gratuit ; code source du moteur et de l’interface public",
+    "refs": [
+      "epa-swmm"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Quantité et qualité du ruissellement dans les systèmes de drainage urbains et autres",
+    "refs": [
+      "epa-swmm"
+    ]
+  },
+  "standardsNote": {
+    "text": "Modèle approuvé par la FEMA pour les études du National Flood Insurance Program (États-Unis). Aucun autre référentiel mentionné sur la page consultée.",
+    "refs": [
+      "epa-swmm"
+    ]
+  }
+}

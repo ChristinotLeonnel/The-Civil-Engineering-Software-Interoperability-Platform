@@ -1,0 +1,163 @@
+{
+  "id": "opensees",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [],
+    "uses": [],
+    "materials": [
+      {
+        "text": "Commandes uniaxialMaterial et ndMaterial",
+        "refs": [
+          "opensees-manual"
+        ]
+      }
+    ],
+    "cases": []
+  },
+  "methods": {
+    "fem": {
+      "v": true,
+      "note": "Commandes node, element, integrator, analysis",
+      "refs": [
+        "opensees-manual"
+      ]
+    },
+    "static": {
+      "v": true,
+      "note": "Analyse Static ; intégrateurs à charge, déplacement, longueur d’arc",
+      "refs": [
+        "opensees-analysis",
+        "opensees-integrator"
+      ]
+    },
+    "dynamic": {
+      "v": true,
+      "note": "Analyses Transient et VariableTransient ; Newmark, HHT, alpha généralisé, différence centrale, TRBDF2",
+      "refs": [
+        "opensees-analysis",
+        "opensees-integrator"
+      ]
+    },
+    "modal": {
+      "v": true,
+      "note": "Commande eigen",
+      "refs": [
+        "opensees-eigen"
+      ]
+    }
+  },
+  "otherMethods": [
+    {
+      "text": "Intégrateurs statiques : contrôle en charge, en déplacement, norme minimale de déplacement non équilibré, longueur d’arc",
+      "refs": [
+        "opensees-integrator"
+      ]
+    }
+  ],
+  "modelling": {},
+  "results": {
+    "modes": {
+      "v": true,
+      "note": "Valeurs propres retournées par eigen",
+      "refs": [
+        "opensees-eigen"
+      ]
+    }
+  },
+  "otherResults": [
+    {
+      "text": "Commandes recorder, print, nodeDisp, eleResponse",
+      "refs": [
+        "opensees-manual"
+      ]
+    }
+  ],
+  "limits": [
+    {
+      "kind": "numerique",
+      "text": "Solveur par défaut -genBandArpack : au plus N−1 valeurs propres, N étant le nombre de degrés de liberté inertiels",
+      "refs": [
+        "opensees-eigen"
+      ]
+    },
+    {
+      "kind": "numerique",
+      "text": "Solveur -fullGenLapack : très lent pour les modèles moyens à grands",
+      "refs": [
+        "opensees-eigen"
+      ]
+    },
+    {
+      "kind": "modelisation",
+      "text": "Modèle construit par commandes (script)",
+      "refs": [
+        "opensees-manual"
+      ]
+    }
+  ],
+  "interop": [
+    {
+      "target": "OpenSeesPy",
+      "mode": "direct",
+      "via": "API",
+      "imports": [],
+      "exports": [],
+      "data": "OpenSeesPy est l’interpréteur Python 3 d’OpenSees",
+      "risks": "",
+      "refs": [
+        "openseespy-doc"
+      ]
+    }
+  ],
+  "cannotDo": [
+    {
+      "text": "Construire et piloter le modèle en Python",
+      "needs": "software",
+      "kind": "extension",
+      "refs": [
+        "openseespy-doc"
+      ]
+    }
+  ],
+  "strengths": [
+    {
+      "text": "Large choix d’intégrateurs statiques et temporels",
+      "refs": [
+        "opensees-integrator"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [
+    {
+      "text": "Mise en œuvre par script, exigeante pour un débutant.",
+      "refs": [],
+      "nature": "appréciation"
+    }
+  ],
+  "improvements": [],
+  "version": {
+    "text": "Non précisée sur les pages consultées",
+    "refs": [
+      "opensees-manual"
+    ]
+  },
+  "license": {
+    "text": "Non détaillée sur les pages consultées",
+    "refs": [
+      "opensees-manual"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Simulation de structures par commandes de modélisation et d’analyse",
+    "refs": [
+      "opensees-manual"
+    ]
+  },
+  "standardsNote": {
+    "text": "Aucun règlement de dimensionnement parmi les commandes consultées.",
+    "refs": [
+      "opensees-manual"
+    ]
+  }
+}

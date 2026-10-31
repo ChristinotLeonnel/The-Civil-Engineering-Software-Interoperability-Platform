@@ -1,0 +1,176 @@
+{
+  "id": "openseespy",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [],
+    "uses": [
+      {
+        "text": "Sections documentées : modèle, analyse, sorties, interaction fluide-structure, sensibilité, fiabilité, calcul parallèle",
+        "refs": [
+          "openseespy-doc"
+        ]
+      }
+    ],
+    "materials": [],
+    "cases": [
+      {
+        "text": "Isolateurs : elastomericBearing, friction pendulum, etc.",
+        "refs": [
+          "openseespy-elements"
+        ]
+      },
+      {
+        "text": "Éléments sol-fluide u-p",
+        "refs": [
+          "openseespy-elements"
+        ]
+      }
+    ]
+  },
+  "methods": {
+    "fem": {
+      "v": true,
+      "note": "Commandes d’éléments finis documentées",
+      "refs": [
+        "openseespy-elements"
+      ]
+    }
+  },
+  "otherMethods": [
+    {
+      "text": "Pour les méthodes de calcul, voir la fiche OpenSees (même cadre)",
+      "refs": [
+        "openseespy-doc"
+      ]
+    }
+  ],
+  "modelling": {
+    "elements": {
+      "beam": {
+        "v": true,
+        "note": "elasticBeamColumn, dispBeamColumn, forceBeamColumn, ElasticTimoshenkoBeam",
+        "refs": [
+          "openseespy-elements"
+        ]
+      },
+      "column": {
+        "v": true,
+        "note": "Mêmes éléments poutre-poteau",
+        "refs": [
+          "openseespy-elements"
+        ]
+      },
+      "truss": {
+        "v": true,
+        "note": "truss, corotTruss",
+        "refs": [
+          "openseespy-elements"
+        ]
+      },
+      "cable": {
+        "v": true,
+        "note": "CatenaryCableElement",
+        "refs": [
+          "openseespy-elements"
+        ]
+      },
+      "shell": {
+        "v": true,
+        "note": "ShellMITC4, ShellDKGQ, ShellDKGT, ShellNLDKGQ",
+        "refs": [
+          "openseespy-elements"
+        ]
+      },
+      "solid": {
+        "v": true,
+        "note": "stdBrick, bbarBrick, 20NodeBrick, SSPbrick, FourNodeTetrahedron",
+        "refs": [
+          "openseespy-elements"
+        ]
+      }
+    }
+  },
+  "results": {},
+  "otherResults": [
+    {
+      "text": "Commandes de sortie et modules de post-traitement documentés",
+      "refs": [
+        "openseespy-doc"
+      ]
+    }
+  ],
+  "limits": [
+    {
+      "kind": "dependance",
+      "text": "Version liée à Python 3.12",
+      "refs": [
+        "openseespy-doc"
+      ]
+    }
+  ],
+  "interop": [
+    {
+      "target": "Python",
+      "mode": "direct",
+      "via": "API",
+      "imports": [],
+      "exports": [],
+      "data": "Modèle et analyse écrits en Python ; installation par PyPI",
+      "risks": "",
+      "refs": [
+        "openseespy-doc"
+      ]
+    }
+  ],
+  "cannotDo": [],
+  "strengths": [
+    {
+      "text": "Scriptable en Python",
+      "refs": [
+        "openseespy-doc"
+      ],
+      "nature": "fait"
+    },
+    {
+      "text": "Grand catalogue d’éléments, dont isolateurs, contact et u-p",
+      "refs": [
+        "openseespy-elements"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [
+    {
+      "text": "Usage commercial redistribué soumis à licence",
+      "refs": [
+        "openseespy-doc"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "improvements": [],
+  "version": {
+    "text": "3.8.0.0 (Python 3.12 ; Linux, Windows, Mac ARM64)",
+    "refs": [
+      "openseespy-doc"
+    ]
+  },
+  "license": {
+    "text": "Gratuit pour la recherche, l’enseignement et l’usage interne ; la redistribution commerciale, y compris en service cloud, requiert une licence (UC Berkeley)",
+    "refs": [
+      "openseespy-doc"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Interpréteur Python 3 d’OpenSees",
+    "refs": [
+      "openseespy-doc"
+    ]
+  },
+  "standardsNote": {
+    "text": "Aucun règlement de dimensionnement mentionné sur les pages consultées.",
+    "refs": [
+      "openseespy-doc"
+    ]
+  }
+}

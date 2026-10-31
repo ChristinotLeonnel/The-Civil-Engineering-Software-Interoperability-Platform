@@ -5,11 +5,16 @@
     "fullName": "Industry Foundation Classes",
     "kind": "open",
     "steward": "buildingSMART International (ISO 16739)",
-    "extensions": [".ifc", ".ifczip", ".ifcxml"],
+    "extensions": [
+      ".ifc",
+      ".ifczip",
+      ".ifcxml"
+    ],
     "description": "Format ouvert d'échange de modèles BIM : géométrie 3D, éléments typés (poutre, poteau, dalle…), propriétés et relations.",
     "carries": "Modèle physique 3D, types d'éléments, propriétés, structure spatiale. Le modèle analytique (barres filaires, appuis, charges) est un sous-ensemble optionnel peu uniformément géré.",
     "caveats": "Le même fichier .ifc peut donner des résultats différents selon la version IFC (2x3, 4), la vue de modèle (MVD) et les réglages d'export. Deux logiciels qui « supportent IFC » ne garantissent pas un échange sans perte.",
-    "url": "https://technical.buildingsmart.org/standards/ifc/"
+    "url": "https://technical.buildingsmart.org/standards/ifc/",
+    "family": "bim"
   },
   {
     "id": "saf",
@@ -17,11 +22,14 @@
     "fullName": "Structural Analysis Format",
     "kind": "open",
     "steward": "Initiative Nemetschek, adoptée par plusieurs éditeurs",
-    "extensions": [".xlsx"],
+    "extensions": [
+      ".xlsx"
+    ],
     "description": "Format neutre basé sur un classeur Excel pour échanger des modèles d'analyse structurale (barres, surfaces, appuis, cas de charges).",
     "carries": "Modèle analytique : nœuds, barres, surfaces, appuis, sections, matériaux, charges, combinaisons.",
     "caveats": "Plusieurs versions du format existent (par exemple 2.0 prise en charge par SCIA, 4.0 par Dlubal) : vérifier la version acceptée de chaque côté.",
-    "url": "https://www.scia.net/en/open-bim"
+    "url": "https://www.scia.net/en/open-bim",
+    "family": "analytique"
   },
   {
     "id": "dxf",
@@ -29,11 +37,14 @@
     "fullName": "Drawing Exchange Format",
     "kind": "open",
     "steward": "Autodesk (spécification publiée)",
-    "extensions": [".dxf"],
+    "extensions": [
+      ".dxf"
+    ],
     "description": "Format d'échange de dessins CAO, lisible par de nombreux logiciels.",
     "carries": "Entités géométriques (lignes, polylignes, arcs, calques, textes). Pas de modèle structural.",
     "caveats": "Les logiciels de calcul n'en lisent souvent qu'une partie (lignes, arcs, polylignes fermées) et interprètent les calques selon leurs propres règles.",
-    "url": "https://help.autodesk.com/view/OARX/2025/ENU/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3"
+    "url": "https://help.autodesk.com/view/OARX/2025/ENU/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3",
+    "family": "geometrique"
   },
   {
     "id": "dwg",
@@ -41,11 +52,14 @@
     "fullName": "Drawing (format natif AutoCAD)",
     "kind": "proprietary",
     "steward": "Autodesk (format propriétaire, bibliothèques tierces disponibles)",
-    "extensions": [".dwg"],
+    "extensions": [
+      ".dwg"
+    ],
     "description": "Format natif des dessins AutoCAD, repris par de nombreux logiciels concurrents via des bibliothèques de compatibilité.",
     "carries": "Entités géométriques, calques, blocs, annotations.",
     "caveats": "Le format évolue avec les versions d'AutoCAD ; un logiciel plus ancien ne lit pas un DWG plus récent.",
-    "url": "https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/AutoCAD-drawing-file-format.html"
+    "url": "https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/AutoCAD-drawing-file-format.html",
+    "family": "geometrique"
   },
   {
     "id": "sdnf",
@@ -53,11 +67,15 @@
     "fullName": "Steel Detailing Neutral Format",
     "kind": "open",
     "steward": "Format neutre publié (charpente métallique)",
-    "extensions": [".sdnf", ".sdf"],
+    "extensions": [
+      ".sdnf",
+      ".sdf"
+    ],
     "description": "Format neutre orienté charpente métallique entre logiciels de calcul et de détaillage.",
     "carries": "Barres et profilés métalliques, positions, orientations, plaques.",
     "caveats": "Spécifique à l'acier ; ne transporte pas le béton ni les charges de calcul.",
-    "url": "https://www.dlubal.com/en/support-and-learning/support/faq/002767"
+    "url": "https://www.dlubal.com/en/support-and-learning/support/faq/002767",
+    "family": "analytique"
   },
   {
     "id": "cis2",
@@ -65,11 +83,16 @@
     "fullName": "CIMsteel Integration Standards, version 2",
     "kind": "open",
     "steward": "Standard ouvert STEP (ISO 10303) — charpente métallique",
-    "extensions": [".stp", ".p21", ".step"],
+    "extensions": [
+      ".stp",
+      ".p21",
+      ".step"
+    ],
     "description": "Standard ouvert d'échange pour la charpente métallique, avec profils « modèle d'analyse » (LPM6) et « modèle de conception ».",
     "carries": "Modèle d'analyse (nœuds, barres, appuis, charges, résultats selon l'implémentation) ou modèle de conception acier.",
     "caveats": "Chaque logiciel implémente un sous-ensemble ; l'éditeur indique souvent n'exporter que le modèle d'analyse.",
-    "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software"
+    "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software",
+    "family": "analytique"
   },
   {
     "id": "med",
@@ -77,11 +100,14 @@
     "fullName": "Modélisation et Échanges de Données",
     "kind": "open",
     "steward": "EDF R&D / CEA (bibliothèque MED, licence libre)",
-    "extensions": [".med"],
+    "extensions": [
+      ".med"
+    ],
     "description": "Format ouvert de maillages et de champs de résultats utilisé entre Salome, Code_Aster et d'autres outils de simulation.",
     "carries": "Maillages (nœuds, éléments, groupes) et champs de résultats.",
     "caveats": "Les groupes de mailles doivent être définis avant l'export pour être exploitables par le solveur.",
-    "url": "https://docaster-en-codeaster-doc-4113bb35b8213385c636b94f1536856d7f617.gitlab.io/manuals/man_u/u1/u1.03.00/Maillage.html"
+    "url": "https://docaster-en-codeaster-doc-4113bb35b8213385c636b94f1536856d7f617.gitlab.io/manuals/man_u/u1/u1.03.00/Maillage.html",
+    "family": "maillage"
   },
   {
     "id": "inp",
@@ -89,11 +115,14 @@
     "fullName": "Fichier d'entrée au format Abaqus / CalculiX",
     "kind": "proprietary",
     "steward": "Format d'entrée Abaqus ; CalculiX en utilise une syntaxe très proche",
-    "extensions": [".inp"],
+    "extensions": [
+      ".inp"
+    ],
     "description": "Fichier texte décrivant maillage, matériaux, conditions limites et chargement, repris par CalculiX.",
     "carries": "Maillage, ensembles de nœuds/éléments, définition du calcul.",
     "caveats": "Des problèmes d'export de groupes et d'ordre d'éléments sont signalés selon les versions des mailleurs. Vérifier le maillage importé.",
-    "url": "https://calculix.discourse.group/t/conversion-of-msh-to-inp/1969"
+    "url": "https://calculix.discourse.group/t/conversion-of-msh-to-inp/1969",
+    "family": "maillage"
   },
   {
     "id": "unv",
@@ -101,11 +130,14 @@
     "fullName": "Universal file (I-DEAS)",
     "kind": "proprietary",
     "steward": "Format historique I-DEAS, lisible par plusieurs mailleurs",
-    "extensions": [".unv"],
+    "extensions": [
+      ".unv"
+    ],
     "description": "Format de maillage exporté par Salome, convertible vers CalculiX avec l'outil tiers unv2ccx.",
     "carries": "Maillage et groupes.",
     "caveats": "Outil de conversion communautaire : réglages d'export à surveiller.",
-    "url": "https://precice.discourse.group/t/preCICE-workshop-training-session-on-fsi-mesh-generation-for-calculix/2020"
+    "url": "https://precice.discourse.group/t/preCICE-workshop-training-session-on-fsi-mesh-generation-for-calculix/2020",
+    "family": "maillage"
   },
   {
     "id": "exr",
@@ -113,11 +145,14 @@
     "fullName": "Fichier d'échange CSiXRevit",
     "kind": "proprietary",
     "steward": "Computers and Structures, Inc.",
-    "extensions": [".exr"],
+    "extensions": [
+      ".exr"
+    ],
     "description": "Fichier intermédiaire commun aux produits CSI pour échanger avec Revit via le plug-in CSiXRevit.",
     "carries": "Modèle structural pour Revit ↔ ETABS / SAP2000 / SAFE, avec correspondance de sections.",
     "caveats": "Nécessite le plug-in CSiXRevit et sa licence.",
-    "url": "https://www.csiamerica.com/products/csixrevit"
+    "url": "https://www.csiamerica.com/products/csixrevit",
+    "family": "analytique"
   },
   {
     "id": "smxx",
@@ -125,11 +160,14 @@
     "fullName": "Fichier intermédiaire Revit–Robot",
     "kind": "proprietary",
     "steward": "Autodesk",
-    "extensions": [".smxx"],
+    "extensions": [
+      ".smxx"
+    ],
     "description": "Fichier intermédiaire du lien Revit–Robot Structural Analysis, utile pour échanger entre ordinateurs différents.",
     "carries": "Modèle structural Revit pour Robot, et retour de modifications ou de résultats.",
     "caveats": "Dans la version 2025 de Robot, l'extension d'intégration doit être téléchargée séparément.",
-    "url": "https://help.autodesk.com/cloudhelp/2020/ENU/Revit-Analyze/files/GUID-B850E0C3-2314-4FEC-B5D1-A7C0CBDF290F.htm"
+    "url": "https://help.autodesk.com/cloudhelp/2020/ENU/Revit-Analyze/files/GUID-B850E0C3-2314-4FEC-B5D1-A7C0CBDF290F.htm",
+    "family": "analytique"
   },
   {
     "id": "s2k",
@@ -137,11 +175,14 @@
     "fullName": "SAP2000 Text File",
     "kind": "proprietary",
     "steward": "Computers and Structures, Inc.",
-    "extensions": [".s2k"],
+    "extensions": [
+      ".s2k"
+    ],
     "description": "Fichier texte de modèle SAP2000, utilisé aussi pour passer un modèle ETABS vers SAP2000.",
     "carries": "Modèle structural SAP2000.",
     "caveats": "La documentation CSI consultée (ETABS V9, environ 2011) signale que le format S2K de SAP2000 V7 limite les étiquettes à sept caractères. Information ancienne : vérifier pour les versions actuelles.",
-    "url": "https://wikicsiamerica.atlassian.net/wiki/spaces/kb/pages/2005474/Interoperability"
+    "url": "https://wikicsiamerica.atlassian.net/wiki/spaces/kb/pages/2005474/Interoperability",
+    "family": "analytique"
   },
   {
     "id": "std",
@@ -149,11 +190,14 @@
     "fullName": "Fichier d'entrée ASCII STAAD",
     "kind": "proprietary",
     "steward": "Bentley Systems",
-    "extensions": [".std"],
+    "extensions": [
+      ".std"
+    ],
     "description": "Fichier d'entrée texte de STAAD.Pro, importable par d'autres logiciels dont ETABS et Tekla Structures.",
     "carries": "Modèle analytique STAAD.",
     "caveats": "Les correspondances de profils sont à contrôler à l'import.",
-    "url": "https://support.tekla.com/article/staadpro"
+    "url": "https://support.tekla.com/article/staadpro",
+    "family": "analytique"
   },
   {
     "id": "api",
@@ -165,7 +209,8 @@
     "description": "Passerelle installée en plus des logiciels (extension Revit, lien de la Tekla Warehouse, module d'import/export intégré).",
     "carries": "Dépend du module : souvent modèle physique + modèle analytique avec mise à jour dans les deux sens.",
     "caveats": "Doit être installé et compatible avec les versions exactes des deux logiciels ; certains liens exigent les deux logiciels sur le même ordinateur.",
-    "url": "https://support.tekla.com/doc/tekla-structures/2026/ana_linking_ts_with_analysis_application"
+    "url": "https://support.tekla.com/doc/tekla-structures/2026/ana_linking_ts_with_analysis_application",
+    "family": "lien"
   },
   {
     "id": "msh",
@@ -173,10 +218,153 @@
     "fullName": "Format de maillage de Gmsh",
     "kind": "open",
     "steward": "Projet Gmsh (libre)",
-    "extensions": [".msh"],
+    "extensions": [
+      ".msh"
+    ],
     "description": "Format de maillage natif de Gmsh, lu par des convertisseurs et bibliothèques tierces (par exemple opstool pour OpenSeesPy).",
     "carries": "Maillage, groupes physiques.",
     "caveats": "Les groupes physiques nommés sont déterminants pour que les convertisseurs reconnaissent éléments et conditions limites.",
-    "url": "https://opstool.readthedocs.io/en/latest/src/pre/read_gmsh.html"
+    "url": "https://opstool.readthedocs.io/en/latest/src/pre/read_gmsh.html",
+    "family": "maillage"
+  },
+  {
+    "id": "rvt",
+    "name": "RVT",
+    "fullName": "Projet Revit (format natif)",
+    "kind": "proprietary",
+    "family": "bim",
+    "steward": "Autodesk",
+    "extensions": [
+      ".rvt"
+    ],
+    "description": "Format natif des projets Revit.",
+    "carries": "Modèle BIM complet tel que Revit le gère.",
+    "caveats": "Format propriétaire : il s’ouvre avec Revit ; les autres logiciels passent généralement par IFC ou par un plug-in.",
+    "url": "https://www.autodesk.com/products/revit/overview"
+  },
+  {
+    "id": "step",
+    "name": "STEP",
+    "fullName": "STEP-file, ISO 10303-21",
+    "kind": "open",
+    "family": "geometrique",
+    "steward": "ISO (norme 10303)",
+    "extensions": [
+      ".stp",
+      ".step",
+      ".p21"
+    ],
+    "description": "Format texte d’échange de données produit conformes à un schéma EXPRESS. CIS/2 et IFC-SPF reposent sur cette technique.",
+    "carries": "Selon le schéma utilisé : géométrie CAO, ou données métier (par exemple CIS/2 en charpente).",
+    "caveats": "L’extension ne dit pas le contenu : un .stp peut être un modèle CAO ou un fichier CIS/2 ; vérifier le schéma et le protocole d’application.",
+    "url": "https://www.loc.gov/preservation/digital/formats/fdd/fdd000448.shtml"
+  },
+  {
+    "id": "iges",
+    "name": "IGES",
+    "fullName": "Initial Graphics Exchange Specification",
+    "kind": "open",
+    "family": "geometrique",
+    "steward": "Spécification neutre ; norme fédérale américaine FIPS PUB 177-1 (NIST, 1996)",
+    "extensions": [
+      ".igs",
+      ".iges"
+    ],
+    "description": "Format neutre historique d’échange de données entre systèmes de CAO.",
+    "carries": "Géométrie CAO (courbes, surfaces).",
+    "caveats": "Spécification ancienne ; son statut de norme a évolué (à vérifier selon l’usage). Contrôler la géométrie après import.",
+    "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub177-1.pdf"
+  },
+  {
+    "id": "stl",
+    "name": "STL",
+    "fullName": "STereoLithography",
+    "kind": "open",
+    "family": "maillage",
+    "steward": "Format ouvertement documenté (variantes ASCII et binaire)",
+    "extensions": [
+      ".stl"
+    ],
+    "description": "Représente la surface d’un objet 3D par un réseau de triangles.",
+    "carries": "Surface triangulée uniquement.",
+    "caveats": "Ni unités de travail structurées, ni matériaux, ni éléments de volume : un STL n’est pas un maillage de calcul prêt à l’emploi.",
+    "url": "https://www.loc.gov/preservation/digital/formats/fdd/fdd000504.shtml"
+  },
+  {
+    "id": "obj",
+    "name": "OBJ",
+    "fullName": "Wavefront OBJ",
+    "kind": "open",
+    "family": "geometrique",
+    "steward": "Format ouvertement décrit, issu de Wavefront",
+    "extensions": [
+      ".obj",
+      ".mtl"
+    ],
+    "description": "Format d’échange de modèles 3D ; un fichier MTL associé porte les matériaux d’aspect.",
+    "carries": "Géométrie 3D (sommets, faces) et aspect visuel via le fichier MTL.",
+    "caveats": "Format de visualisation : aucune information structurale.",
+    "url": "https://www.loc.gov/preservation/digital/formats/fdd/fdd000507.shtml"
+  },
+  {
+    "id": "bcf",
+    "name": "BCF",
+    "fullName": "BIM Collaboration Format",
+    "kind": "open",
+    "family": "bim",
+    "steward": "buildingSMART International",
+    "extensions": [
+      ".bcf",
+      ".bcfzip"
+    ],
+    "description": "Échange de remarques de coordination sur une maquette BIM, sans transférer la maquette elle-même.",
+    "carries": "Remarques, points de vue, éléments concernés.",
+    "caveats": "Ne transporte pas le modèle : il complète IFC ou un format natif.",
+    "url": "https://github.com/buildingSMART/BCF-XML"
+  },
+  {
+    "id": "csv",
+    "name": "CSV",
+    "fullName": "Comma-Separated Values (RFC 4180)",
+    "kind": "open",
+    "family": "donnees",
+    "steward": "IETF (RFC 4180, informationnelle)",
+    "extensions": [
+      ".csv"
+    ],
+    "description": "Tableaux en texte brut, très répandu pour échanger des résultats avec un tableur.",
+    "carries": "Données tabulaires sans type ni unité.",
+    "caveats": "Séparateur et décimale varient selon les paramètres régionaux : source fréquente d’erreurs numériques.",
+    "url": "https://www.rfc-editor.org/rfc/rfc4180"
+  },
+  {
+    "id": "json",
+    "name": "JSON",
+    "fullName": "JavaScript Object Notation (RFC 8259)",
+    "kind": "open",
+    "family": "donnees",
+    "steward": "IETF (RFC 8259)",
+    "extensions": [
+      ".json"
+    ],
+    "description": "Format texte de données structurées, très utilisé par les API.",
+    "carries": "Données structurées ; le sens dépend du schéma de chaque logiciel.",
+    "caveats": "Un fichier JSON n’est pas interopérable sans schéma commun.",
+    "url": "https://www.rfc-editor.org/rfc/rfc8259"
+  },
+  {
+    "id": "xml",
+    "name": "XML",
+    "fullName": "Extensible Markup Language",
+    "kind": "open",
+    "family": "donnees",
+    "steward": "W3C",
+    "extensions": [
+      ".xml"
+    ],
+    "description": "Langage de balisage générique sur lequel reposent de nombreux formats d’échange.",
+    "carries": "Données structurées ; le sens dépend du schéma.",
+    "caveats": "Comme JSON : sans schéma partagé, deux fichiers XML ne sont pas compatibles.",
+    "url": "https://www.w3.org/TR/xml/"
   }
 ]

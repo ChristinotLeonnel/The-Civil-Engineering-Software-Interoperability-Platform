@@ -1,0 +1,186 @@
+{
+  "id": "qgis",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [],
+    "uses": [
+      {
+        "text": "Cartographie, édition de données (points, lignes, polygones, maillages), analyse",
+        "refs": [
+          "qgis-home"
+        ]
+      }
+    ],
+    "materials": [],
+    "cases": [
+      {
+        "text": "Atlas, rapports, chaînes d’analyse reproductibles",
+        "refs": [
+          "qgis-home"
+        ]
+      }
+    ]
+  },
+  "methods": {
+    "fem": {
+      "v": "na",
+      "note": "SIG : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "matrix": {
+      "v": "na",
+      "note": "SIG : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "static": {
+      "v": "na",
+      "note": "SIG : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "modal": {
+      "v": "na",
+      "note": "SIG : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "seismic": {
+      "v": "na",
+      "note": "SIG : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "buckling": {
+      "v": "na",
+      "note": "SIG : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "dynamic": {
+      "v": "na",
+      "note": "Sans objet pour ce logiciel.",
+      "refs": []
+    },
+    "nonlinear": {
+      "v": "na",
+      "note": "Sans objet pour ce logiciel.",
+      "refs": []
+    }
+  },
+  "otherMethods": [],
+  "modelling": {},
+  "results": {
+    "displacements": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    },
+    "rotations": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    },
+    "reactions": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    },
+    "axial": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    },
+    "shear": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    },
+    "moments": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    },
+    "stresses": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    },
+    "strains": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    },
+    "modes": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    },
+    "frequencies": {
+      "v": "na",
+      "note": "SIG : pas de résultats de structure.",
+      "refs": []
+    }
+  },
+  "otherResults": [
+    {
+      "text": "Cartes de qualité impression",
+      "refs": [
+        "qgis-home"
+      ]
+    }
+  ],
+  "limits": [],
+  "interop": [
+    {
+      "target": "Sources et formats SIG, services web",
+      "mode": "direct",
+      "via": "fichier",
+      "imports": [],
+      "exports": [],
+      "data": "Page officielle : « various data sources and formats » ; liste non détaillée",
+      "risks": "",
+      "refs": [
+        "qgis-home"
+      ]
+    }
+  ],
+  "cannotDo": [],
+  "strengths": [
+    {
+      "text": "Libre, gratuit, Windows, Mac et Linux",
+      "refs": [
+        "qgis-home"
+      ],
+      "nature": "fait"
+    },
+    {
+      "text": "Extensible par des outils tiers",
+      "refs": [
+        "qgis-home"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [],
+  "improvements": [],
+  "version": {
+    "text": "Non indiquée sur la page consultée",
+    "refs": [
+      "qgis-home"
+    ]
+  },
+  "license": {
+    "text": "GNU GPL v2 ou ultérieure",
+    "refs": [
+      "qgis-home"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Système d’information géographique",
+    "refs": [
+      "qgis-home"
+    ]
+  },
+  "standardsNote": {
+    "text": "Sans objet : logiciel SIG. Services web standards mentionnés.",
+    "refs": [
+      "qgis-home"
+    ]
+  }
+}

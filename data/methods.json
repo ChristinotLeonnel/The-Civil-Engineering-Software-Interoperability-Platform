@@ -1,0 +1,10 @@
+[
+  { "id": "fem", "label": "Méthode des éléments finis (MEF)", "description": "Discrétisation d'un milieu continu en éléments pour résoudre un problème de mécanique ou de physique." },
+  { "id": "matrix", "label": "Analyse matricielle", "description": "Calcul des structures à barres par assemblage de matrices de rigidité." },
+  { "id": "static", "label": "Analyse statique", "description": "Équilibre sous charges appliquées sans effets d'inertie." },
+  { "id": "dynamic", "label": "Analyse dynamique", "description": "Réponse dans le temps, avec effets d'inertie et d'amortissement." },
+  { "id": "modal", "label": "Analyse modale", "description": "Recherche des modes propres et des fréquences." },
+  { "id": "seismic", "label": "Analyse sismique", "description": "Réponse à une action sismique (spectrale, temporelle, statique équivalente ou non linéaire)." },
+  { "id": "nonlinear", "label": "Analyse non linéaire", "description": "Prise en compte de non-linéarités matérielles, géométriques ou de contact." },
+  { "id": "buckling", "label": "Flambement et stabilité", "description": "Recherche des charges critiques et étude de stabilité." }
+]

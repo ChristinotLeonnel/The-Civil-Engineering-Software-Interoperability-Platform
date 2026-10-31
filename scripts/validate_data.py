@@ -66,13 +66,17 @@ def main():
             err(f"meta.categories[{cat.get('id')}]: column doit être un entier >= 0")
 
     category_ids = {c["id"] for c in meta["categories"]}
+    domain_ids = {d["id"] for d in meta["domains"]}
+    family_ids = {f["id"] for f in meta["formatFamilies"]}
     kind_ids = {k["id"] for k in meta["kinds"]}
     confidence_ids = {c["id"] for c in meta["confidence"]}
 
     format_ids = set()
     for f in formats:
         where = f"formats[{f.get('id')}]"
-        need(f, ["id", "name", "fullName", "kind", "description", "carries", "caveats", "url"], where)
+        need(f, ["id", "name", "fullName", "kind", "family", "description", "carries", "caveats", "url"], where)
+        if f.get("family") not in family_ids:
+            err(f"{where}: famille inconnue « {f.get('family')} »")
         if f["id"] in format_ids:
             err(f"{where}: identifiant dupliqué")
         format_ids.add(f["id"])
@@ -87,7 +91,9 @@ def main():
     software_ids = set()
     for s in software:
         where = f"software[{s.get('id')}]"
-        need(s, ["id", "name", "vendor", "category", "description", "website", "position"], where)
+        need(s, ["id", "name", "vendor", "category", "domain", "description", "website"], where)
+        if s.get("domain") not in domain_ids:
+            err(f"{where}: domaine inconnu « {s.get('domain')} »")
         if s["id"] in software_ids:
             err(f"{where}: identifiant dupliqué")
         software_ids.add(s["id"])
@@ -158,7 +164,59 @@ def main():
         if c["kind"] == "conditional" and c["confidence"] == "high":
             err(f"{where}: une liaison « conditionnelle » ne peut pas avoir une confiance élevée")
 
-    print(f"{len(software)} logiciels, {len(connections)} liaisons, {len(formats)} formats")
+    # Base documentaire : références, fiches, Madagascar.
+    references = load("references.json")
+    ref_ids = set()
+    for r in references:
+        where = f"references[{r.get('id')}]"
+        need(r, ["id", "title", "publisher", "type", "url", "accessed", "evidence"], where)
+        if r["id"] in ref_ids:
+            err(f"{where}: identifiant dupliqué")
+        ref_ids.add(r["id"])
+        if not DATE_RE.match(r["accessed"]):
+            err(f"{where}: accessed doit être AAAA-MM-JJ")
+        if not is_http_url(r["url"]):
+            err(f"{where}: URL invalide")
+        urls.setdefault(r["url"], []).append(where)
+
+    def walk(node, where):
+        """Toute référence citée doit exister ; toute affirmation confirmée doit être sourcée."""
+        if isinstance(node, dict):
+            for rid in node.get("refs", []):
+                if rid not in ref_ids:
+                    err(f"{where}: référence inconnue « {rid} »")
+            if node.get("v") is True and not node.get("refs"):
+                err(f"{where}: affirmation confirmée sans référence")
+            if node.get("nature") == "fait" and not node.get("refs"):
+                err(f"{where}: fait sans référence")
+            for key, value in node.items():
+                walk(value, f"{where}.{key}")
+        elif isinstance(node, list):
+            for index, value in enumerate(node):
+                walk(value, f"{where}[{index}]")
+
+    profile_ids = load("profiles/index.json")
+    for pid in profile_ids:
+        where = f"profiles/{pid}"
+        if pid not in software_ids:
+            err(f"{where}: logiciel inconnu")
+        profile = load(f"profiles/{pid}.json")
+        if profile.get("id") != pid:
+            err(f"{where}: id différent du nom de fichier")
+        if not DATE_RE.match(profile.get("reviewed", "")):
+            err(f"{where}: reviewed doit être AAAA-MM-JJ")
+        walk(profile, where)
+    on_disk = {p.stem for p in (DATA / "profiles").glob("*.json")} - {"index"}
+    for orphan in on_disk - set(profile_ids):
+        err(f"profiles/{orphan}: fichier absent de profiles/index.json")
+
+    madagascar = load("madagascar.json")
+    for entry in madagascar["entries"]:
+        if entry["software"] not in software_ids:
+            err(f"madagascar: logiciel inconnu « {entry['software']} »")
+
+    print(f"{len(software)} logiciels, {len(connections)} liaisons, {len(formats)} formats, "
+          f"{len(profile_ids)} fiches détaillées, {len(references)} références")
 
     if check_links:
         def probe(url):

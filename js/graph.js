@@ -5,7 +5,7 @@
 // Mode édition : tirer depuis le port ➜ d'un nœud vers un autre nœud crée une liaison ; les blocs se déplacent
 // (avec les nœuds qu'ils contiennent) et se redimensionnent.
 // Aucune logique métier ici : le module affiche l'état reçu et signale les actions via des callbacks.
-import { h, svg, clear, dashArray } from './util.js?v=20261031.10';
+import { h, svg, clear, dashArray } from './util.js?v=20261031.14';
 
 const NODE_W = 290; // doit correspondre à la largeur de .bp-node dans styles.css
 const COL_GAP = 120;

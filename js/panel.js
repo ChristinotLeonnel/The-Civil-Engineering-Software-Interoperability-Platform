@@ -1,6 +1,6 @@
 // Panneau de détails : fiche d'un logiciel, d'une connexion ou d'un bloc.
-import { h, clear, kindSwatch, kindColor, formatDate, hostOf, plural } from './util.js?v=20261031.10';
-import { otherEnd } from './data.js?v=20261031.10';
+import { h, clear, kindSwatch, kindColor, formatDate, hostOf, plural } from './util.js?v=20261031.14';
+import { otherEnd } from './data.js?v=20261031.14';
 
 const EVIDENCE_LABEL = {
   read: 'Pages de documentation consultées en entier',
@@ -104,6 +104,7 @@ export function createPanel({ db, root, stage, body, kicker, closeBtn, actions }
       s.vendor ? h('p', { class: 'meta', text: `Éditeur / projet : ${s.vendor}` }) : null,
       s.description ? h('p', { text: s.description }) : null,
       s.website ? h('p', {}, h('a', { href: s.website, target: '_blank', rel: 'noopener noreferrer' }, `Site officiel (${hostOf(s.website)}) ↗`)) : null,
+      s.user ? null : h('p', {}, h('button', { type: 'button', class: 'btn btn-primary', onClick: () => actions.openSheet(id) }, 'Ouvrir la fiche technique')),
       section(`Connexions (${conns.length})`,
         conns.length
           ? h('ul', { class: 'conn-list' }, conns.map((c) => connectionButton(c, id)))

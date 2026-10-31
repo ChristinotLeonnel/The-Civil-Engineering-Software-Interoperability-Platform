@@ -1,0 +1,212 @@
+{
+  "id": "hec-hms",
+  "reviewed": "2026-10-31",
+  "specialties": {
+    "structures": [],
+    "uses": [
+      {
+        "text": "Analyse par événement et simulation continue",
+        "refs": [
+          "hec-hms"
+        ]
+      }
+    ],
+    "materials": [],
+    "cases": [
+      {
+        "text": "Prévision de débits, réduction profondeur-surface, incertitude, érosion et sédiments, qualité de l’eau",
+        "refs": [
+          "hec-hms"
+        ]
+      }
+    ]
+  },
+  "methods": {
+    "fem": {
+      "v": "na",
+      "note": "Logiciel hydrologique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "matrix": {
+      "v": "na",
+      "note": "Logiciel hydrologique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "static": {
+      "v": "na",
+      "note": "Logiciel hydrologique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "modal": {
+      "v": "na",
+      "note": "Logiciel hydrologique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "seismic": {
+      "v": "na",
+      "note": "Logiciel hydrologique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "buckling": {
+      "v": "na",
+      "note": "Logiciel hydrologique : méthode de calcul des structures sans objet.",
+      "refs": []
+    },
+    "dynamic": {
+      "v": "na",
+      "note": "Sans objet pour ce logiciel.",
+      "refs": []
+    },
+    "nonlinear": {
+      "v": "na",
+      "note": "Sans objet pour ce logiciel.",
+      "refs": []
+    }
+  },
+  "otherMethods": [
+    {
+      "text": "Par événement : infiltration, hydrogrammes unitaires, routage hydrologique",
+      "refs": [
+        "hec-hms"
+      ]
+    },
+    {
+      "text": "En continu : évapotranspiration, fonte de neige, bilan d’humidité du sol",
+      "refs": [
+        "hec-hms"
+      ]
+    },
+    {
+      "text": "Ruissellement maillé par ModClark (transformation quasi distribuée linéaire)",
+      "refs": [
+        "hec-hms"
+      ]
+    },
+    {
+      "text": "Optimisation de modèle",
+      "refs": [
+        "hec-hms"
+      ]
+    }
+  ],
+  "modelling": {},
+  "results": {
+    "displacements": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    },
+    "rotations": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    },
+    "reactions": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    },
+    "axial": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    },
+    "shear": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    },
+    "moments": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    },
+    "stresses": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    },
+    "strains": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    },
+    "modes": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    },
+    "frequencies": {
+      "v": "na",
+      "note": "Résultats hydrologiques, pas de résultats de structure.",
+      "refs": []
+    }
+  },
+  "otherResults": [
+    {
+      "text": "Résultats stockés dans HEC-DSS",
+      "refs": [
+        "hec-hms"
+      ]
+    }
+  ],
+  "limits": [
+    {
+      "kind": "modelisation",
+      "text": "Conçu pour des bassins dendritiques",
+      "refs": [
+        "hec-hms"
+      ]
+    }
+  ],
+  "interop": [
+    {
+      "target": "HEC-DSS",
+      "mode": "direct",
+      "via": "fichier",
+      "imports": [],
+      "exports": [],
+      "data": "Stockage des séries et des résultats",
+      "risks": "",
+      "refs": [
+        "hec-hms"
+      ]
+    }
+  ],
+  "cannotDo": [],
+  "strengths": [
+    {
+      "text": "Interface unique : base de données, saisie, calcul, rapports",
+      "refs": [
+        "hec-hms"
+      ],
+      "nature": "fait"
+    }
+  ],
+  "weaknesses": [],
+  "improvements": [],
+  "version": {
+    "text": "Non indiquée sur la page consultée",
+    "refs": [
+      "hec-hms"
+    ]
+  },
+  "license": {
+    "text": "Non précisée sur la page consultée",
+    "refs": [
+      "hec-hms"
+    ]
+  },
+  "applicationDomain": {
+    "text": "Processus hydrologiques complets des bassins versants dendritiques",
+    "refs": [
+      "hec-hms"
+    ]
+  },
+  "standardsNote": {
+    "text": "Aucun règlement mentionné sur la page consultée.",
+    "refs": [
+      "hec-hms"
+    ]
+  }
+}
