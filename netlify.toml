@@ -8,8 +8,5 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Content-Security-Policy = "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'"
-
-[[headers]]
-  for = "/data/*"
-  [headers.values]
-    Cache-Control = "public, max-age=300"
+    # revalidation à chaque visite : une mise à jour n'est jamais mélangée avec d'anciens fichiers
+    Cache-Control = "no-cache"

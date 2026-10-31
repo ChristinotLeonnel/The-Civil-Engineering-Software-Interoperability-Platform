@@ -38,6 +38,8 @@ jobs:
         run: |
           mkdir _site
           cp -r index.html .nojekyll css js data assets _site/
+          # version unique par déploiement (empêche le mélange avec d'anciens fichiers en cache)
+          node scripts/stamp-version.mjs _site "${GITHUB_SHA::8}"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

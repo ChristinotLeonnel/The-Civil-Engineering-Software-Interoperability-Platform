@@ -3,7 +3,7 @@
 // Navigation : clic droit ou molette-clic + glisser pour déplacer la vue, molette pour zoomer par paliers,
 // glisser un nœud pour le déplacer, Origine pour tout cadrer. Au toucher : glisser, pincer, appui long pour déplacer un nœud.
 // Aucune logique métier ici : le module affiche l'état reçu et signale les clics via des callbacks.
-import { h, svg, clear, dashArray } from './util.js';
+import { h, svg, clear, dashArray } from './util.js?v=20261031.3';
 
 const NODE_W = 290; // doit correspondre à la largeur de .bp-node dans styles.css
 const COL_GAP = 170;

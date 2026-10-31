@@ -3,6 +3,7 @@
 import { cpSync, rmSync, mkdirSync, readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
@@ -30,6 +31,8 @@ mkdirSync(dist);
 for (const entry of ['index.html', '.nojekyll', 'css', 'js', 'data', 'assets']) {
   if (existsSync(join(root, entry))) cpSync(join(root, entry), join(dist, entry), { recursive: true });
 }
+// Nouveau numéro de version des CSS/JS à chaque build : les visiteurs ne mélangent pas anciens et nouveaux fichiers.
+execFileSync(process.execPath, [join(root, 'scripts', 'stamp-version.mjs'), dist], { stdio: 'inherit' });
 
 // 3. Rapport.
 let files = 0;

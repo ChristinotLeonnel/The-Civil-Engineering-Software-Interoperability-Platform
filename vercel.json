@@ -9,12 +9,9 @@
         {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'"
-        }
+        },
+        { "key": "Cache-Control", "value": "no-cache" }
       ]
-    },
-    {
-      "source": "/data/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=300" }]
     }
   ]
 }

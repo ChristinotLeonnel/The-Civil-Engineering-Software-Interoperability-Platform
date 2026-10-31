@@ -1,9 +1,9 @@
 // Point d'entrée : état de l'application, navigation entre vues, liens profonds (#view=…&node=…).
-import { loadData } from './data.js';
-import { createGraph } from './graph.js';
-import { createPanel } from './panel.js';
-import { initControls, searchDb } from './controls.js';
-import { renderList, renderFormats, renderAbout } from './pages.js';
+import { loadData } from './data.js?v=20261031.3';
+import { createGraph } from './graph.js?v=20261031.3';
+import { createPanel } from './panel.js?v=20261031.3';
+import { initControls, searchDb } from './controls.js?v=20261031.3';
+import { renderList, renderFormats, renderAbout } from './pages.js?v=20261031.3';
 
 const $ = (id) => document.getElementById(id);
 const VIEWS = ['map', 'list', 'formats', 'about'];
@@ -294,20 +294,32 @@ async function start() {
   if (new URLSearchParams(location.search).has('debug')) window.__imap = { graph, state, db };
 }
 
+// Toute erreur au démarrage (données absentes, fichiers obsolètes en cache…) affiche un message clair
+// plutôt qu'une page à moitié construite.
 function showFatal(err) {
   console.error(err);
+  for (const v of VIEWS) { const el = $(`view-${v}`); if (el) el.hidden = v !== 'map'; }
   const view = $('view-map');
   view.textContent = '';
   const box = document.createElement('div');
-  box.className = 'notice';
-  const p1 = document.createElement('p');
-  p1.textContent = 'Impossible de charger les données de la carte.';
-  const p2 = document.createElement('p');
-  p2.textContent = location.protocol === 'file:'
-    ? 'La page est ouverte directement depuis un fichier : les navigateurs bloquent alors la lecture des fichiers JSON. Lancez un petit serveur local (python -m http.server) ou publiez le site (GitHub Pages, Netlify, Vercel).'
-    : String(err.message || err);
-  box.append(p1, p2);
+  box.className = 'notice fatal';
+  const title = document.createElement('p');
+  title.className = 'fatal-title';
+  title.textContent = 'La carte n’a pas pu démarrer.';
+  const help = document.createElement('p');
+  help.textContent = location.protocol === 'file:'
+    ? 'La page est ouverte directement depuis un fichier : les navigateurs bloquent alors la lecture des fichiers JSON. Lancez un petit serveur local (npx serve . ou python -m http.server) ou publiez le site (GitHub Pages, Netlify, Vercel).'
+    : 'Si le site vient d’être mis à jour, votre navigateur utilise peut-être d’anciens fichiers gardés en mémoire. Rechargez la page en vidant le cache (Ctrl+Maj+R sur ordinateur, ou fermez et rouvrez l’onglet sur téléphone).';
+  const detail = document.createElement('p');
+  detail.className = 'meta';
+  detail.textContent = `Détail technique : ${err?.message || err}`;
+  const reload = document.createElement('button');
+  reload.type = 'button';
+  reload.className = 'btn';
+  reload.textContent = 'Recharger la page';
+  reload.addEventListener('click', () => location.reload());
+  box.append(title, help, reload, detail);
   view.append(box);
 }
 
-start();
+start().catch(showFatal);

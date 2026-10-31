@@ -43,7 +43,8 @@ js/                      main, graph, panel, controls, pages, data, util (module
 data/                    la base de données : meta, software, connections, formats (JSON)
 assets/                  icône
 scripts/validate_data.py contrôle de la base (et test des liens avec --check-links)
-scripts/build.mjs        assemble dist/ (fichiers publics seulement)
+scripts/build.mjs        assemble dist/ (fichiers publics seulement, versionnés)
+scripts/stamp-version.mjs met à jour le numéro de version ?v= des CSS/JS
 docs/                    ARCHITECTURE.md et ADDING_DATA.md
 ```
 
@@ -88,6 +89,15 @@ Glisser-déposer le dossier (ou `site-publiable.zip`, produit à partir de `dist
 ### Vercel (gratuit)
 
 Importer le dépôt, *Framework preset* « Other », sans commande de build ni dossier de sortie spécial. Le fichier `vercel.json` ajoute les mêmes en-têtes.
+
+### Mises à jour et cache des navigateurs
+
+Les fichiers CSS et JS sont appelés avec un numéro de version (`styles.css?v=…`, et chaque `import` de module porte le même numéro). Sans lui, un navigateur peut combiner la nouvelle page avec d'anciens fichiers gardés en mémoire, ce qui casse le site après une mise à jour (page sans graphe ni filtres).
+
+- Le workflow GitHub Pages et `node scripts/build.mjs` posent automatiquement un numéro unique à chaque publication.
+- Pour un déploiement manuel du dossier racine (Netlify par glisser-déposer, par exemple), lancer d'abord `node scripts/stamp-version.mjs` après toute modification de CSS ou de JS.
+- Netlify et Vercel reçoivent en plus `Cache-Control: no-cache` (revalidation à chaque visite).
+- Si le démarrage échoue malgré tout, la page affiche un message avec un bouton « Recharger la page » au lieu d'une page à moitié construite.
 
 > Les en-têtes de sécurité (CSP) autorisent seulement les ressources du site lui-même. Si vous ajoutez un script, une police ou une image externe, il faudra adapter `netlify.toml` / `vercel.json`.
 
