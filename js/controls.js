@@ -1,5 +1,5 @@
 // Barre de recherche, filtres par catégorie et légende filtrante.
-import { h, clear, kindSwatch, norm } from './util.js?v=20261031.6';
+import { h, clear, kindSwatch, norm } from './util.js?v=20261031.10';
 
 /** Recherche dans les logiciels et les formats. Renvoie aussi l'ensemble des logiciels concernés. */
 export function searchDb(db, query) {
@@ -212,6 +212,11 @@ export function initControls({ db, els, app }) {
       for (const [id, btn] of catButtons) btn.setAttribute('aria-pressed', String(state.cats.has(id)));
       for (const [id, btn] of kindButtons) btn.setAttribute('aria-pressed', String(state.kinds.has(id)));
       for (const [id, btn] of confButtons) btn.setAttribute('aria-pressed', String(state.confs.has(id)));
+      // compteurs recalculés : la base affichée peut contenir les ajouts personnels du visiteur
+      const setCount = (btn, n) => { btn.querySelector('.count').textContent = String(n); };
+      for (const [id, btn] of catButtons) setCount(btn, db.software.filter((s) => s.category === id).length);
+      for (const [id, btn] of kindButtons) setCount(btn, db.connections.filter((c) => c.kind === id).length);
+      for (const [id, btn] of confButtons) setCount(btn, db.connections.filter((c) => !c.user && c.confidence === id).length);
 
       const allCats = state.cats.size === db.meta.categories.length;
       const allKinds = state.kinds.size === db.meta.kinds.length;

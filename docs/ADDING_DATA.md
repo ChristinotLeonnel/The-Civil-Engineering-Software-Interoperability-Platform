@@ -2,6 +2,8 @@
 
 Tout le graphe est piloté par les fichiers de `data/`. Aucun code à modifier pour ajouter du contenu.
 
+> Les visiteurs peuvent aussi ajouter des logiciels, liaisons et blocs depuis le site (**Mode édition**), mais ces ajouts restent dans leur navigateur. Pour intégrer un ajout proposé par un visiteur, demandez-lui le fichier produit par **Exporter mes modifications**, vérifiez chaque liaison selon les règles ci-dessous (source fiable, confiance, nature des preuves), puis recopiez-la dans `data/` avec un identifiant définitif (sans le préfixe `u-`).
+
 | Fichier | Contenu |
 |---|---|
 | `data/meta.json` | catégories, types de liaison, niveaux de confiance, avertissement |

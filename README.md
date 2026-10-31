@@ -6,6 +6,22 @@ Site statique (HTML, CSS, JavaScript) : rien à installer pour les visiteurs, pa
 
 > Un étudiant reçoit un lien, l'ouvre sur son téléphone, touche un logiciel ou un câble et obtient : source, destination, format, sens, données transférables, limites, versions, liens vers la documentation, date de vérification et niveau de confiance.
 
+## Interface
+
+Présentation de type tableau de bord : **barre latérale** marine (Exploration · Édition · Information), réductible en rail d'icônes avec le bouton « ; zone principale claire avec le titre, la recherche et le bouton **Filtres** ; le graphe dans une **carte** dont la barre de titre affiche en pastille rouge le nombre de liaisons incertaines masquées ; vues Liste et À propos en cartes, **tableaux** à en-tête marine et **tuiles** de chiffres. Sur téléphone et tablette, la barre latérale s'ouvre avec le bouton ☰.
+
+## Modifier le graphe (mode édition)
+
+Le menu **Mode édition** permet à chaque visiteur de compléter le graphe :
+
+- **＋ Logiciel** : ajoute un nœud (nom, catégorie, éditeur, site, description), placé au centre de la vue ;
+- **＋ Liaison**, ou en **tirant le port ➜** d'un nœud vers un autre : crée une liaison (sens, type d'échange, formats, remarques) ;
+- **＋ Bloc** : ajoute un cadre de commentaire à la manière de Blueprint ; glisser son titre déplace aussi les logiciels qu'il contient, le coin inférieur droit le redimensionne ;
+- sélectionner un ajout ouvre ses boutons **Modifier** et **Supprimer** (touche Suppr en mode édition) ;
+- la disposition des nœuds déplacés est conservée ; le bouton ▥ remet les colonnes.
+
+Les ajouts sont marqués **« ajout personnel, non vérifié »**, toujours visibles quel que soit le filtre de fiabilité, et **ne modifient jamais la base vérifiée** (lecture seule). Ils sont enregistrés **dans le navigateur du visiteur** (localStorage) : **Exporter mes modifications** produit un fichier JSON, **Importer** le recharge (sur un autre appareil, ou chez un collègue), **Réinitialiser** revient à la base vérifiée. Le site restant statique, il n'y a pas d'édition partagée entre visiteurs ; pour intégrer un ajout à la base publique, envoyer le fichier exporté au mainteneur, qui vérifie les sources puis l'ajoute dans `data/` (voir [docs/ADDING_DATA.md](docs/ADDING_DATA.md)).
+
 ## Contenu
 
 - **Graphe** (style Blueprint) : 17 logiciels en nœuds et 34 liaisons en câbles, sur une grille sombre.

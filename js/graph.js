@@ -1,9 +1,11 @@
 // Carte façon « Blueprint » (éditeur de graphes d'Unreal Engine) : nœuds HTML à en-tête coloré et broches,
-// câbles SVG en courbes de Bézier, grille, cadres de commentaire par catégorie.
+// câbles SVG en courbes de Bézier, grille, cadres de commentaire par catégorie, blocs ajoutés par l'utilisateur.
 // Navigation : clic droit ou molette-clic + glisser pour déplacer la vue, molette pour zoomer par paliers,
 // glisser un nœud pour le déplacer, Origine pour tout cadrer. Au toucher : glisser, pincer, appui long pour déplacer un nœud.
-// Aucune logique métier ici : le module affiche l'état reçu et signale les clics via des callbacks.
-import { h, svg, clear, dashArray } from './util.js?v=20261031.6';
+// Mode édition : tirer depuis le port ➜ d'un nœud vers un autre nœud crée une liaison ; les blocs se déplacent
+// (avec les nœuds qu'ils contiennent) et se redimensionnent.
+// Aucune logique métier ici : le module affiche l'état reçu et signale les actions via des callbacks.
+import { h, svg, clear, dashArray } from './util.js?v=20261031.10';
 
 const NODE_W = 290; // doit correspondre à la largeur de .bp-node dans styles.css
 const COL_GAP = 120;
@@ -35,10 +37,20 @@ function shortFormat(db, ids) {
   return ids.length > 1 ? `${name} +${ids.length - 1}` : name;
 }
 
-export function createGraph(container, db, callbacks) {
+/**
+ * @param opts.positions  positions enregistrées { id: {x, y} } (prioritaires sur la disposition en colonnes)
+ * @param opts.blocks     blocs de l'utilisateur [{ id, title, color, x, y, w, h }]
+ * @param opts.view       vue initiale { x, y, k } (sinon l'appelant cadre avec fit)
+ * @param opts.editMode   mode édition actif
+ */
+export function createGraph(container, db, callbacks, opts = {}) {
   const coarse = window.matchMedia('(pointer: coarse)').matches;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const columnOf = (s) => db.catById.get(s.category).column ?? 0;
+  // Tous les écouteurs passent par ce signal : destroy() les retire quand le graphe est reconstruit.
+  const ac = new AbortController();
+  const on = (target, type, fn, options = {}) => target.addEventListener(type, fn, { ...options, signal: ac.signal });
+  let editMode = Boolean(opts.editMode);
 
   /* ------------------------------------------------------------ orientation des câbles */
   // Convention Blueprint : un câble part d'une broche de sortie (à droite) vers une broche d'entrée (à gauche).
@@ -58,15 +70,16 @@ export function createGraph(container, db, callbacks) {
   }
   const sortKey = (id) => {
     const s = db.softwareById.get(id);
-    return columnOf(s) * 10000 + s.position.y;
+    return columnOf(s) * 1000000 + s.position.y;
   };
 
   /* ------------------------------------------------------------ DOM */
   clear(container);
-  container.classList.add('bp-canvas');
+  container.className = 'graph bp-canvas';
   const commentLayer = h('div', { class: 'bp-layer bp-comments' });
   const wireSvg = svg('svg', { class: 'bp-wires', 'aria-hidden': 'true' });
   const wireRoot = svg('g', {});
+  const tempWire = svg('path', { class: 'bp-temp-wire' });
   wireSvg.append(wireRoot);
   const nodeLayer = h('div', { class: 'bp-layer bp-nodes' });
   const zoomLabel = h('div', { class: 'bp-zoom-label', 'aria-hidden': 'true' });
@@ -78,6 +91,7 @@ export function createGraph(container, db, callbacks) {
   const pinEls = new Map(); // connId -> { out: { row, dot }, in: { row, dot } }
   const wires = new Map(); // connId -> { g, line, hit, pulses[] }
   const commentEls = new Map();
+  const blockEls = new Map();
 
   function pinRow(c, side) {
     const kind = db.kindById.get(c.kind);
@@ -85,8 +99,8 @@ export function createGraph(container, db, callbacks) {
     const other = db.softwareById.get(side === 'in' ? from : to);
     const dot = h('span', { class: `bp-dot${c.kind === 'native' ? ' bp-exec' : ''}`, style: `--pin:${kind.color}` });
     const label = h('span', { class: 'bp-label', text: `${c.direction === 'bi' ? '⇄ ' : ''}${other.shortName || other.name}` });
-    const fmt = h('span', { class: 'bp-fmt', text: shortFormat(db, c.formats) });
-    const row = h('div', { class: 'bp-pin', dataset: { conn: c.id } }, side === 'in' ? [dot, label, fmt] : [fmt, label, dot]);
+    const fmt = h('span', { class: 'bp-fmt', text: c.user ? 'perso' : shortFormat(db, c.formats) });
+    const row = h('div', { class: `bp-pin${c.user ? ' is-user' : ''}`, dataset: { conn: c.id } }, side === 'in' ? [dot, label, fmt] : [fmt, label, dot]);
     const entry = pinEls.get(c.id) || {};
     entry[side] = { row, dot };
     pinEls.set(c.id, entry);
@@ -98,15 +112,16 @@ export function createGraph(container, db, callbacks) {
     const outs = db.connections.filter((c) => orient.get(c.id).from === s.id).sort((a, b) => sortKey(orient.get(a.id).to) - sortKey(orient.get(b.id).to));
     const ins = db.connections.filter((c) => orient.get(c.id).to === s.id).sort((a, b) => sortKey(orient.get(a.id).from) - sortKey(orient.get(b.id).from));
     const el = h('div', {
-      class: 'bp-node', role: 'button', tabindex: '0', dataset: { id: s.id }, style: `--cat:${cat.color}`,
-      'aria-label': `${s.name}, ${cat.label}, ${ins.length + outs.length} connexions`
+      class: `bp-node${s.user ? ' is-user' : ''}`, role: 'button', tabindex: '0', dataset: { id: s.id }, style: `--cat:${cat.color}`,
+      'aria-label': `${s.name}, ${cat.label}${s.user ? ', ajout personnel' : ''}, ${ins.length + outs.length} connexions`
     },
       h('div', { class: 'bp-head' },
         h('span', { class: 'bp-icon', 'aria-hidden': 'true', text: CATEGORY_ICON[s.category] ?? '◆' }),
         h('span', { class: 'bp-titles' },
           h('span', { class: 'bp-title', text: s.shortName || s.name }),
-          h('span', { class: 'bp-sub', text: `${cat.label} · ${s.vendor}` })
-        )
+          h('span', { class: 'bp-sub', text: s.user ? `Ajout personnel · ${cat.label}` : `${cat.label} · ${s.vendor}` })
+        ),
+        h('span', { class: 'bp-port', title: 'Tirer vers un autre logiciel pour créer une liaison', 'aria-hidden': 'true', text: '➜' })
       ),
       h('div', { class: 'bp-body' },
         h('div', { class: 'bp-col bp-in' }, ins.map((c) => pinRow(c, 'in'))),
@@ -119,7 +134,7 @@ export function createGraph(container, db, callbacks) {
 
   for (const c of db.connections) {
     const kind = db.kindById.get(c.kind);
-    const g = svg('g', { class: `bp-wire kind-${c.kind}`, 'data-conn': c.id });
+    const g = svg('g', { class: `bp-wire kind-${c.kind}${c.user ? ' is-user' : ''}`, 'data-conn': c.id });
     const hit = svg('path', { class: 'bp-hit' });
     const line = svg('path', { class: 'bp-line', stroke: kind.color, 'stroke-linecap': kind.dash === 'dotted' ? 'round' : 'butt' });
     const pulses = [svg('path', { class: 'bp-pulse', stroke: kind.color })];
@@ -128,12 +143,26 @@ export function createGraph(container, db, callbacks) {
     wireRoot.append(g);
     wires.set(c.id, { g, hit, line, pulses, width: kind.width, dash: dashArray(kind.dash).split(' ').filter(Boolean).map(Number) });
   }
+  wireRoot.append(tempWire);
 
   for (const cat of db.meta.categories) {
     const head = h('div', { class: 'bp-comment-head', dataset: { cat: cat.id } }, h('span', { class: 'bp-comment-title', text: cat.label }));
     const el = h('div', { class: 'bp-comment', style: `--cat:${cat.color}` }, head);
     commentEls.set(cat.id, el);
     commentLayer.append(el);
+  }
+
+  // Le fond d'un bloc passe sous les nœuds (comme un commentaire Blueprint) ; son titre et sa poignée de
+  // redimensionnement passent au-dessus, pour rester saisissables même si le bloc recouvre des logiciels.
+  const blocks = new Map((opts.blocks || []).map((b) => [b.id, { ...b }]));
+  for (const b of blocks.values()) {
+    const body = h('div', { class: 'bp-block', dataset: { block: b.id }, style: `--cat:${b.color}` });
+    const head = h('div', { class: 'bp-block-head', dataset: { block: b.id }, style: `--cat:${b.color}` },
+      h('span', { class: 'bp-comment-title', text: b.title }));
+    const grip = h('span', { class: 'bp-block-resize', dataset: { block: b.id }, title: 'Redimensionner', 'aria-hidden': 'true' });
+    blockEls.set(b.id, { body, head, grip });
+    commentLayer.prepend(body);
+    nodeLayer.append(head, grip); // après les nœuds dans le DOM : dessinés par-dessus
   }
 
   /* ------------------------------------------------------------ géométrie */
@@ -177,6 +206,10 @@ export function createGraph(container, db, callbacks) {
     }
   }
 
+  function applySavedPositions() {
+    for (const [id, p] of Object.entries(opts.positions || {})) if (pos.has(id)) pos.set(id, { x: p.x, y: p.y });
+  }
+
   function placeNodes(ids = nodeEls.keys()) {
     for (const id of ids) {
       const p = pos.get(id);
@@ -210,18 +243,24 @@ export function createGraph(container, db, callbacks) {
       const ids = db.software.filter((s) => s.category === cat.id && shownNodes.has(s.id)).map((s) => s.id);
       if (!ids.length) { el.hidden = true; continue; }
       el.hidden = false;
-      let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
-      for (const id of ids) {
-        const p = pos.get(id);
-        const s = size.get(id);
-        x1 = Math.min(x1, p.x); y1 = Math.min(y1, p.y);
-        x2 = Math.max(x2, p.x + s.w); y2 = Math.max(y2, p.y + s.h);
-      }
-      const x = x1 - COMMENT_PAD;
-      const y = y1 - COMMENT_PAD - COMMENT_HEAD;
+      const box = boxOf(ids);
+      const x = box.x1 - COMMENT_PAD;
+      const y = box.y1 - COMMENT_PAD - COMMENT_HEAD;
       el.style.transform = `translate(${x}px, ${y}px)`;
-      el.style.width = `${x2 - x1 + COMMENT_PAD * 2}px`;
-      el.style.height = `${y2 - y1 + COMMENT_PAD * 2 + COMMENT_HEAD}px`;
+      el.style.width = `${box.w + COMMENT_PAD * 2}px`;
+      el.style.height = `${box.h + COMMENT_PAD * 2 + COMMENT_HEAD}px`;
+    }
+  }
+
+  function renderBlocks() {
+    for (const [id, b] of blocks) {
+      const { body, head, grip } = blockEls.get(id);
+      body.style.transform = `translate(${b.x}px, ${b.y}px)`;
+      body.style.width = `${b.w}px`;
+      body.style.height = `${b.h}px`;
+      head.style.transform = `translate(${b.x}px, ${b.y}px)`;
+      head.style.width = `${b.w}px`;
+      grip.style.transform = `translate(${b.x + b.w - 22}px, ${b.y + b.h - 22}px)`;
     }
   }
 
@@ -230,10 +269,13 @@ export function createGraph(container, db, callbacks) {
     if (!layoutReady) {
       measure();
       autoLayout();
+      applySavedPositions();
       placeNodes();
       layoutReady = true;
       renderWires();
       renderComments();
+      renderBlocks();
+      if (opts.view) Object.assign(view, opts.view);
       applyView(true);
     }
     return true;
@@ -284,6 +326,7 @@ export function createGraph(container, db, callbacks) {
         w.hit.setAttribute('stroke-width', String(hitPx / k));
         for (const p of w.pulses) p.setAttribute('stroke-width', String(4.5 * wscale));
       }
+      tempWire.setAttribute('stroke-width', String(3 * wscale));
     }
   }
 
@@ -343,12 +386,19 @@ export function createGraph(container, db, callbacks) {
     else { Object.assign(view, target); applyView(); }
   }
 
+  const toWorld = (p) => ({ x: (p.x - view.x) / view.k, y: (p.y - view.y) / view.k });
+
   /* ------------------------------------------------------------ mise en évidence */
   function applyEmphasis() {
     for (const el of nodeEls.values()) el.classList.remove('is-selected', 'is-related', 'is-faded');
     for (const w of wires.values()) w.g.classList.remove('is-hl', 'is-selected', 'is-faded');
     for (const sides of pinEls.values()) for (const s of Object.values(sides)) s.row.classList.remove('is-faded', 'is-hl');
-    if (!selected) return;
+    for (const [id, els] of blockEls) {
+      const on = selected?.type === 'block' && selected.id === id;
+      els.body.classList.toggle('is-selected', on);
+      els.head.classList.toggle('is-selected', on);
+    }
+    if (!selected || selected.type === 'block') return;
 
     const lit = new Set();
     const related = new Set();
@@ -375,7 +425,7 @@ export function createGraph(container, db, callbacks) {
     for (const [id, w] of wires) {
       if (lit.has(id)) {
         w.g.classList.add(selected.type === 'edge' ? 'is-selected' : 'is-hl');
-        wireRoot.append(w.g); // passe au premier plan
+        wireRoot.insertBefore(w.g, tempWire); // passe au premier plan
       } else {
         w.g.classList.add('is-faded');
       }
@@ -401,7 +451,8 @@ export function createGraph(container, db, callbacks) {
         const a = db.softwareById.get(c.source).name;
         const b = db.softwareById.get(c.target).name;
         const fmts = (c.formats || []).map((f) => db.formatById.get(f)?.name ?? f).join(', ');
-        tooltip.textContent = `${a} ${c.direction === 'bi' ? '⇄' : '→'} ${b}\n${db.kindById.get(c.kind).label}${fmts ? ' · ' + fmts : ''}\nConfiance : ${db.confById.get(c.confidence)?.label}`;
+        const conf = c.user ? 'Ajout personnel, non vérifié' : `Confiance : ${db.confById.get(c.confidence)?.label}`;
+        tooltip.textContent = `${a} ${c.direction === 'bi' ? '⇄' : '→'} ${b}\n${db.kindById.get(c.kind).label}${fmts ? ' · ' + fmts : ''}\n${conf}`;
       }
     }
     tooltip.hidden = !connId;
@@ -421,8 +472,22 @@ export function createGraph(container, db, callbacks) {
     return { x: e.clientX - r.left, y: e.clientY - r.top };
   };
 
+  function nodesInside(b) {
+    return [...shownNodes].filter((id) => {
+      const p = pos.get(id);
+      const s = size.get(id);
+      if (!p || !s) return false;
+      const cx = p.x + s.w / 2;
+      const cy = p.y + s.h / 2;
+      return cx >= b.x && cx <= b.x + b.w && cy >= b.y && cy <= b.y + b.h;
+    });
+  }
+
   function beginDrag(g) {
-    if (g.groupCat) {
+    if (g.blockId) {
+      g.type = 'block';
+      g.ids = nodesInside(blocks.get(g.blockId)); // comme dans Blueprint, le bloc emporte son contenu
+    } else if (g.groupCat) {
       g.type = 'group';
       g.ids = db.software.filter((s) => s.category === g.groupCat && shownNodes.has(s.id)).map((s) => s.id);
     } else {
@@ -437,12 +502,19 @@ export function createGraph(container, db, callbacks) {
     if (gesture?.ids) for (const id of gesture.ids) nodeEls.get(id)?.classList.remove('is-dragging');
     clearTimeout(gesture?.timer);
     gesture = null;
-    container.classList.remove('is-panning', 'is-dragging');
+    tempWire.removeAttribute('d');
+    container.classList.remove('is-panning', 'is-dragging', 'is-linking');
+    for (const el of nodeEls.values()) el.classList.remove('is-drop-target');
   }
 
-  container.addEventListener('contextmenu', (e) => e.preventDefault());
+  function nodeUnder(e) {
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    return el?.closest?.('.bp-node')?.dataset.id ?? null;
+  }
 
-  container.addEventListener('pointerdown', (e) => {
+  on(container, 'contextmenu', (e) => e.preventDefault());
+
+  on(container, 'pointerdown', (e) => {
     if (!ensureLayout()) return;
     cancelAnimationFrame(anim);
     setHover(null);
@@ -452,6 +524,7 @@ export function createGraph(container, db, callbacks) {
     if (pointers.size === 2) {
       clearTimeout(gesture?.timer);
       if (gesture?.ids) for (const id of gesture.ids) nodeEls.get(id)?.classList.remove('is-dragging');
+      tempWire.removeAttribute('d');
       const [a, b] = [...pointers.values()];
       const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
       gesture = {
@@ -476,8 +549,23 @@ export function createGraph(container, db, callbacks) {
     // Le navigateur « recale » parfois un toucher vers un élément cliquable voisin (un nœud) alors que le doigt
     // est sur un câble : on préfère l'élément réellement sous le point, et la cible recalée seulement sur le fond.
     const exact = document.elementFromPoint(e.clientX, e.clientY);
-    const interactive = (el) => el?.closest?.('.bp-node, .bp-wire, .bp-comment-head');
+    const interactive = (el) => el?.closest?.('.bp-node, .bp-wire, .bp-comment-head, .bp-block-head, .bp-block-resize');
     const target = interactive(exact) ? exact : e.target;
+
+    // Mode édition : tirer depuis le port d'un nœud crée une liaison.
+    const port = editMode ? target.closest('.bp-port') : null;
+    if (port) {
+      gesture = { type: 'link', from: port.closest('.bp-node').dataset.id, start: p, last: p };
+      container.classList.add('is-linking');
+      return;
+    }
+    const resize = editMode ? target.closest('.bp-block-resize') : null;
+    if (resize) {
+      const b = blocks.get(resize.dataset.block);
+      gesture = { type: 'resize', blockId: b.id, start: p, last: p, orig: { w: b.w, h: b.h } };
+      return;
+    }
+
     const nodeEl = target.closest('.bp-node');
     gesture = {
       type: 'pending',
@@ -488,11 +576,12 @@ export function createGraph(container, db, callbacks) {
       dragMoved: false,
       nodeId: nodeEl?.dataset.id,
       wireId: nodeEl ? null : target.closest('.bp-wire')?.dataset.conn,
-      groupCat: nodeEl ? null : target.closest('.bp-comment-head')?.dataset.cat
+      groupCat: nodeEl ? null : target.closest('.bp-comment-head')?.dataset.cat,
+      blockId: nodeEl ? null : target.closest('.bp-block-head')?.dataset.block
     };
-    if (isTouch && (gesture.nodeId || gesture.groupCat)) {
+    if (isTouch && (gesture.nodeId || gesture.groupCat || gesture.blockId)) {
       const g = gesture;
-      // Au toucher, glisser déplace la vue ; un appui long « attrape » le nœud (ou le cadre).
+      // Au toucher, glisser déplace la vue ; un appui long « attrape » le nœud, le cadre ou le bloc.
       g.timer = setTimeout(() => {
         if (gesture === g && g.type === 'pending' && !g.moved) {
           beginDrag(g);
@@ -502,7 +591,7 @@ export function createGraph(container, db, callbacks) {
     }
   });
 
-  container.addEventListener('pointermove', (e) => {
+  on(container, 'pointermove', (e) => {
     if (!pointers.has(e.pointerId)) {
       if (e.pointerType === 'mouse' && !gesture) {
         const t = e.target;
@@ -528,12 +617,28 @@ export function createGraph(container, db, callbacks) {
     }
 
     const p = pt(e);
+    if (gesture.type === 'link') {
+      const fp = pos.get(gesture.from);
+      const a = { x: fp.x + size.get(gesture.from).w, y: fp.y + 23 };
+      tempWire.setAttribute('d', bezier(a, toWorld(p)));
+      const over = nodeUnder(e);
+      for (const [id, el] of nodeEls) el.classList.toggle('is-drop-target', id === over && id !== gesture.from);
+      return;
+    }
+    if (gesture.type === 'resize') {
+      const b = blocks.get(gesture.blockId);
+      b.w = Math.max(160, gesture.orig.w + (p.x - gesture.start.x) / view.k);
+      b.h = Math.max(100, gesture.orig.h + (p.y - gesture.start.y) / view.k);
+      gesture.moved = true;
+      renderBlocks();
+      return;
+    }
     if (gesture.type === 'pending') {
       const dist = Math.hypot(p.x - gesture.start.x, p.y - gesture.start.y);
       if (dist < (gesture.isTouch ? 8 : 4)) return;
       gesture.moved = true;
       clearTimeout(gesture.timer);
-      if (!gesture.isTouch && (gesture.nodeId || gesture.groupCat)) beginDrag(gesture);
+      if (!gesture.isTouch && (gesture.nodeId || gesture.groupCat || gesture.blockId)) beginDrag(gesture);
       else { gesture.type = 'pan'; container.classList.add('is-panning'); }
     }
 
@@ -544,12 +649,18 @@ export function createGraph(container, db, callbacks) {
       view.x += dx;
       view.y += dy;
       applyView();
-    } else if (gesture.type === 'node' || gesture.type === 'group') {
+    } else if (gesture.type === 'node' || gesture.type === 'group' || gesture.type === 'block') {
       gesture.dragMoved = true;
       for (const id of gesture.ids) {
         const q = pos.get(id);
         q.x += dx / view.k;
         q.y += dy / view.k;
+      }
+      if (gesture.type === 'block') {
+        const b = blocks.get(gesture.blockId);
+        b.x += dx / view.k;
+        b.y += dy / view.k;
+        renderBlocks();
       }
       placeNodes(gesture.ids);
       renderWires();
@@ -572,20 +683,40 @@ export function createGraph(container, db, callbacks) {
       return;
     }
     if (pointers.size > 0) return;
+    const cancelled = e.type === 'pointercancel';
+    const target = g.type === 'link' && !cancelled ? nodeUnder(e) : null;
     endGesture();
-    if (e.type === 'pointercancel') return;
-    const tapped = (g.type === 'pending' && !g.moved) || (g.type === 'node' && !g.dragMoved);
+    if (cancelled) return;
+
+    if (g.type === 'link') {
+      if (target && target !== g.from) callbacks.onLink?.(g.from, target);
+      return;
+    }
+    if (g.type === 'resize') {
+      if (g.moved) callbacks.onBlockChange?.(roundBlock(blocks.get(g.blockId)));
+      return;
+    }
+    if ((g.type === 'node' || g.type === 'group' || g.type === 'block') && g.dragMoved) {
+      const moved = {};
+      for (const id of g.ids) moved[id] = { x: Math.round(pos.get(id).x), y: Math.round(pos.get(id).y) };
+      if (g.ids.length) callbacks.onNodesMoved?.(moved);
+      if (g.type === 'block') callbacks.onBlockChange?.(roundBlock(blocks.get(g.blockId)));
+      return;
+    }
+    const tapped = (g.type === 'pending' && !g.moved) || (g.type === 'node' && !g.dragMoved) || (g.type === 'block' && !g.dragMoved);
     if (!tapped) return;
     if (g.nodeId) callbacks.onNode(g.nodeId);
+    else if (g.blockId) callbacks.onBlock?.(g.blockId);
     else if (g.wireId) callbacks.onEdge(g.wireId);
     else if (!g.groupCat) callbacks.onBackground();
   };
-  container.addEventListener('pointerup', release);
-  container.addEventListener('pointercancel', release);
-  container.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse' && !pointers.size) setHover(null); });
+  const roundBlock = (b) => ({ ...b, x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.w), h: Math.round(b.h) });
+  on(container, 'pointerup', release);
+  on(container, 'pointercancel', release);
+  on(container, 'pointerleave', (e) => { if (e.pointerType === 'mouse' && !pointers.size) setHover(null); });
 
   let wheelAcc = 0;
-  container.addEventListener('wheel', (e) => {
+  on(container, 'wheel', (e) => {
     if (!ensureLayout()) return;
     e.preventDefault();
     cancelAnimationFrame(anim);
@@ -604,7 +735,7 @@ export function createGraph(container, db, callbacks) {
     showZoomLabel();
   }, { passive: false });
 
-  container.addEventListener('keydown', (e) => {
+  on(container, 'keydown', (e) => {
     const nodeEl = e.target.closest?.('.bp-node');
     if (nodeEl && (e.key === 'Enter' || e.key === ' ')) {
       e.preventDefault();
@@ -635,13 +766,15 @@ export function createGraph(container, db, callbacks) {
 
   /* ------------------------------------------------------------ API publique */
   const api = {
-    /** Filtres de visibilité : catégories et types actifs, format optionnel. */
+    /** Filtres de visibilité : catégories, types et niveaux de confiance actifs, format optionnel. */
     setFilters({ cats, kinds, confs, format }) {
       shownNodes = new Set(db.software.filter((s) => cats.has(s.category)).map((s) => s.id));
       visibleConn = new Set();
       const linked = new Set();
       for (const c of db.connections) {
-        const ok = kinds.has(c.kind) && (!confs || confs.has(c.confidence)) && shownNodes.has(c.source) && shownNodes.has(c.target)
+        // les ajouts personnels restent visibles quel que soit le filtre de fiabilité
+        const confOk = c.user || !confs || confs.has(c.confidence);
+        const ok = kinds.has(c.kind) && confOk && shownNodes.has(c.source) && shownNodes.has(c.target)
           && (!format || (c.formats || []).includes(format));
         if (ok) { visibleConn.add(c.id); linked.add(c.source); linked.add(c.target); }
       }
@@ -674,6 +807,11 @@ export function createGraph(container, db, callbacks) {
       applyEmphasis();
     },
 
+    setEditMode(onOff) {
+      editMode = Boolean(onOff);
+      container.classList.toggle('is-editing', editMode);
+    },
+
     /** Centre un logiciel dans la partie visible (au-dessus du panneau sur mobile). */
     centerOn(id, bottomInset = 0) {
       if (!ensureLayout() || !pos.has(id)) return;
@@ -681,7 +819,7 @@ export function createGraph(container, db, callbacks) {
       const s = size.get(id);
       const k = Math.max(view.k, coarse ? 0.6 : 0.75);
       const H = container.clientHeight - Math.max(0, bottomInset);
-      animateTo({ k, x: container.clientWidth / 2 - (p.x + s.w / 2) * k, y: H / 2 - (p.y + s.h / 2) * k });
+      animateTo({ k, x: (container.clientWidth - TOOLS_W) / 2 - (p.x + s.w / 2) * k, y: H / 2 - (p.y + s.h / 2) * k });
     },
 
     centerOnEdge(id, bottomInset = 0) {
@@ -690,14 +828,19 @@ export function createGraph(container, db, callbacks) {
       frame(boxOf([c.source, c.target]), bottomInset, { pad: 30, minK: 0.3, maxK: 1 });
     },
 
-    /** Cadre tous les logiciels affichés (touche Origine). */
+    /** Cadre tous les logiciels affichés et les blocs (touche Origine). */
     fit(bottomInset = 0) {
       if (!ensureLayout()) return;
       const ids = [...shownNodes];
       if (!ids.length) return;
       const box = boxOf(ids);
       box.y1 -= COMMENT_HEAD + COMMENT_PAD;
-      box.h += COMMENT_HEAD + COMMENT_PAD;
+      for (const b of blocks.values()) {
+        box.x1 = Math.min(box.x1, b.x); box.y1 = Math.min(box.y1, b.y);
+        box.x2 = Math.max(box.x2, b.x + b.w); box.y2 = Math.max(box.y2, b.y + b.h);
+      }
+      box.w = box.x2 - box.x1;
+      box.h = box.y2 - box.y1;
       // Sur petit écran, tout faire tenir rendrait les nœuds illisibles : on garde un zoom lisible et l'on navigue.
       frame(box, bottomInset, { pad: 24, minK: container.clientWidth < 600 ? 0.3 : 0.18, maxK: 1 });
     },
@@ -713,15 +856,25 @@ export function createGraph(container, db, callbacks) {
       ensureLayout();
     },
 
-    /** Remet les nœuds en colonnes par catégorie (après des déplacements manuels). */
+    /** Remet les nœuds en colonnes par catégorie ; renvoie les identifiants dont la position enregistrée est à oublier. */
     toggleLayout() {
-      if (!ensureLayout()) return 'columns';
+      if (!ensureLayout()) return [];
       autoLayout();
       placeNodes();
       renderWires();
       renderComments();
       api.fit(0);
-      return 'columns';
+      return [...pos.keys()];
+    },
+
+    /** Centre de la vue visible, en coordonnées du graphe (pour placer un nouveau nœud ou bloc). */
+    viewCenter() {
+      ensureLayout();
+      return toWorld({ x: (container.clientWidth - TOOLS_W) / 2, y: container.clientHeight / 2 });
+    },
+
+    getView() {
+      return { ...view };
     },
 
     syncOrientation() {
@@ -730,17 +883,34 @@ export function createGraph(container, db, callbacks) {
 
     refreshTheme() {},
 
-    /** Pour les tests : coordonnées écran (fenêtre) d'un nœud ou du milieu d'un câble. */
+    destroy() {
+      ac.abort();
+      cancelAnimationFrame(anim);
+      clearTimeout(zoomTimer);
+      clear(container);
+    },
+
+    /** Pour les tests : coordonnées écran (fenêtre) d'un nœud, de son port, d'un bloc ou du milieu d'un câble. */
     debugPoint(kind, id) {
       const r = container.getBoundingClientRect();
+      const scr = (x, y) => ({ x: r.left + view.x + x * view.k, y: r.top + view.y + y * view.k });
       if (kind === 'node') {
         const p = pos.get(id);
         const s = size.get(id);
-        return { x: r.left + view.x + (p.x + s.w / 2) * view.k, y: r.top + view.y + (p.y + 18) * view.k };
+        return scr(p.x + s.w / 2, p.y + 18);
+      }
+      if (kind === 'port') {
+        const p = pos.get(id);
+        const s = size.get(id);
+        return scr(p.x + s.w - 16, p.y + 23);
+      }
+      if (kind === 'block') {
+        const b = blocks.get(id);
+        return scr(b.x + 40, b.y + 17);
       }
       const line = wires.get(id).line;
       const m = line.getPointAtLength(line.getTotalLength() / 2);
-      return { x: r.left + view.x + m.x * view.k, y: r.top + view.y + m.y * view.k };
+      return scr(m.x, m.y);
     },
 
     get view() {
@@ -748,6 +918,7 @@ export function createGraph(container, db, callbacks) {
     }
   };
 
+  container.classList.toggle('is-editing', editMode);
   ensureLayout();
   return api;
 }

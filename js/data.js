@@ -4,7 +4,8 @@
 
 const FILES = ['meta', 'software', 'connections', 'formats'];
 
-export async function loadData() {
+/** Charge la base vérifiée telle qu'elle est publiée (sans index). */
+export async function loadBase() {
   const loaded = await Promise.all(
     FILES.map(async (name) => {
       const res = await fetch(`data/${name}.json`, { cache: 'no-cache' });
@@ -13,7 +14,11 @@ export async function loadData() {
     })
   );
   const [meta, software, connections, formats] = loaded;
+  return { meta, software, connections, formats };
+}
 
+/** Construit les index à partir de listes brutes (base vérifiée, éventuellement complétée des ajouts personnels). */
+export function buildDb({ meta, software, connections, formats }) {
   const catById = new Map(meta.categories.map((c) => [c.id, c]));
   const kindById = new Map(meta.kinds.map((k) => [k.id, k]));
   const confById = new Map(meta.confidence.map((c) => [c.id, c]));

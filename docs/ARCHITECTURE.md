@@ -43,16 +43,32 @@ formats.json     [ { id, name, fullName, kind, steward, extensions[], descriptio
 ## Code (`js/`)
 
 ```
-main.js      état global (vue, filtres, sélection), actions, liens profonds (#view=…&node=…), rendu
-data.js      chargement des JSON, index (par id, par logiciel, par format)
-graph.js     graphe Blueprint : nœuds, broches, câbles, cadres, navigation, mise en évidence, cadrage
-panel.js     panneau « Détails » à sections repliables (volet latéral sur ordinateur, tiroir sur mobile)
-controls.js  recherche (combobox ARIA), puces de catégories, légende filtrante
-pages.js     vues Liste, Formats, À propos
-util.js      h() (DOM sans innerHTML), échantillons SVG de légende, dates, normalisation de texte
+main.js       état global (vue, filtres, sélection, mode édition), actions, liens profonds, rendu
+data.js       chargement de la base (loadBase) et construction des index (buildDb)
+workspace.js  espace de travail du visiteur : stockage local, nettoyage, fusion avec la base, export / import
+editor.js     formulaires d'ajout / modification / suppression (logiciel, liaison, bloc), export, import, réinitialisation
+graph.js      graphe Blueprint : nœuds, broches, câbles, cadres, blocs, ports de liaison, navigation, cadrage
+panel.js      panneau « Détails » (volet latéral sur ordinateur, tiroir sur mobile), actions d'édition
+controls.js   recherche (combobox ARIA), filtres de fiabilité, catégories et types
+pages.js      vues Liste (tableaux), Formats, À propos (tuiles)
+util.js       h() (DOM sans innerHTML), échantillons SVG de légende, dates, normalisation de texte
 ```
 
-Flux : un clic (graphe, liste, recherche) appelle une action de `main.js` ; elle met à jour `state` puis `render()` synchronise le graphe, le panneau, la vue active et l'URL. `graph.js` ne connaît pas l'interface ; il reçoit un état et renvoie des événements (`onNode`, `onEdge`, `onBackground`).
+Flux : un clic (graphe, liste, recherche) appelle une action de `main.js` ; elle met à jour `state` puis `render()` synchronise le graphe, le panneau, la vue active et l'URL. `graph.js` ne connaît pas l'interface ; il reçoit un état et renvoie des événements (`onNode`, `onEdge`, `onBlock`, `onBackground`, `onNodesMoved`, `onBlockChange`, `onLink`).
+
+## Édition par le visiteur
+
+```
+base vérifiée (data/*.json) ─┐
+                             ├─ mergeWorkspace ─ buildDb ─► db (même objet, mis à jour sur place)
+espace de travail (localStorage « imap.workspace.v1 ») ─┘
+   { version, nodes[], connections[], blocks[], positions{} }
+```
+
+- Les ajouts reçoivent des identifiants `u-…` et le drapeau `user` : confiance `low`, preuves `user`, aucune source ; ils restent visibles quel que soit le filtre de fiabilité et sont signalés dans le graphe (contour pointillé, « perso ») et dans les fiches.
+- Chaque modification passe par `commit()` : enregistrement, reconstruction de `db` puis du graphe (`destroy()` retire tous les écouteurs via un `AbortController`), en gardant la vue courante.
+- Les déplacements de nœuds et de blocs sont enregistrés sans reconstruction (`onNodesMoved`, `onBlockChange`).
+- Tout ce qui est lu (stockage ou fichier importé) passe par `sanitize()` : seuls les champs connus, typés et bornés sont gardés ; l'affichage se fait toujours par `textContent`.
 
 ## Mobile
 
