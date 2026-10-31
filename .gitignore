@@ -7,3 +7,4 @@ dist/
 site-publiable.zip
 Lib/
 main.py
+scripts/*.exe
