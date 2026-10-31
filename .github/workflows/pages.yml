@@ -37,7 +37,7 @@ jobs:
       - name: Assembler le site (uniquement les fichiers publics)
         run: |
           mkdir _site
-          cp -r index.html css js data vendor assets _site/
+          cp -r index.html .nojekyll css js data assets _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

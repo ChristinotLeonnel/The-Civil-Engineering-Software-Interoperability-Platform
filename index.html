@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Civil Engineering Software Interoperability Map</title>
   <meta name="description" content="Carte interactive des échanges possibles entre logiciels de génie civil, BIM, CAO, calcul de structures et éléments finis : formats, données transférables, limites et sources.">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#0f3a5f">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#151515">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -15,14 +15,17 @@
 
   <header class="topbar">
     <div class="brand">
-      <h1>Civil Engineering Software Interoperability Map</h1>
-      <p class="tagline">Quels logiciels de génie civil peuvent échanger des données, par quel format, et avec quelles limites ? Touchez un logiciel ou une flèche pour le savoir.</p>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div class="brand-text">
+        <h1>Civil Engineering Software Interoperability Map</h1>
+        <p class="tagline">Quels logiciels de génie civil peuvent échanger des données, par quel format, et avec quelles limites ? Touchez un logiciel ou un câble pour le savoir.</p>
+      </div>
     </div>
     <nav class="tabs" id="tabs" aria-label="Sections">
-      <button type="button" class="tab" data-view="map" aria-pressed="true">Carte</button>
-      <button type="button" class="tab" data-view="list" aria-pressed="false">Liste</button>
-      <button type="button" class="tab" data-view="formats" aria-pressed="false">Formats</button>
-      <button type="button" class="tab" data-view="about" aria-pressed="false">À propos</button>
+      <button type="button" class="tab" data-view="map" aria-pressed="true"><span class="tab-icon" aria-hidden="true">◈</span>Graphe</button>
+      <button type="button" class="tab" data-view="list" aria-pressed="false"><span class="tab-icon" aria-hidden="true">☰</span>Liste</button>
+      <button type="button" class="tab" data-view="formats" aria-pressed="false"><span class="tab-icon" aria-hidden="true">▤</span>Formats</button>
+      <button type="button" class="tab" data-view="about" aria-pressed="false"><span class="tab-icon" aria-hidden="true">ⓘ</span>À propos</button>
     </nav>
   </header>
 
@@ -30,6 +33,7 @@
     <div class="search-row">
       <div class="search" role="search">
         <label for="search-input" class="visually-hidden">Rechercher un logiciel ou un format</label>
+        <span class="search-icon" aria-hidden="true">⌕</span>
         <input id="search-input" type="search" inputmode="search" autocomplete="off" spellcheck="false"
                placeholder="Rechercher un logiciel ou un format (Revit, IFC, SAF…)"
                role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list">
@@ -43,7 +47,7 @@
         <div class="chips" id="category-chips"></div>
       </div>
       <div class="filter-group" aria-labelledby="kind-title">
-        <h2 id="kind-title" class="filter-title">Types de connexion <span class="filter-hint">(légende, touchez pour filtrer)</span></h2>
+        <h2 id="kind-title" class="filter-title">Câbles <span class="filter-hint">(légende, touchez pour filtrer)</span></h2>
         <div class="chips" id="kind-chips"></div>
       </div>
       <div class="filter-actions">
@@ -54,17 +58,35 @@
   </section>
 
   <main id="main" class="stage">
-    <section id="view-map" class="view view-map" aria-label="Carte interactive">
+    <section id="view-map" class="view view-map" aria-label="Graphe interactif">
       <noscript><p class="notice">Cette carte nécessite JavaScript. Les données brutes sont dans le dossier <code>data/</code>.</p></noscript>
-      <div id="cy" class="cy" role="application" aria-label="Carte réseau des logiciels. Utilisez la vue Liste pour une navigation au clavier ou au lecteur d'écran." tabindex="0"></div>
-      <div class="map-tools" aria-label="Contrôles de la carte">
-        <button type="button" class="map-btn" id="zoom-in" aria-label="Zoom avant">+</button>
-        <button type="button" class="map-btn" id="zoom-out" aria-label="Zoom arrière">−</button>
-        <button type="button" class="map-btn" id="zoom-fit" aria-label="Recentrer la carte">⤢</button>
-        <button type="button" class="map-btn" id="layout-toggle" aria-label="Changer la disposition" title="Disposition : par catégories / automatique">⁂</button>
+      <div id="graph" class="graph" role="application" tabindex="0"
+           aria-label="Graphe des logiciels. Clic droit et glisser pour déplacer la vue, molette pour zoomer, Origine pour tout afficher. Tabulation pour parcourir les logiciels, Entrée pour ouvrir. La vue Liste offre la même information."></div>
+      <div class="bp-crumb" aria-hidden="true"><span>Interopérabilité</span><span class="sep">›</span><span class="cur">Graphe des échanges</span></div>
+      <div class="map-tools" aria-label="Contrôles de la vue">
+        <button type="button" class="map-btn" id="zoom-in" aria-label="Zoom avant" title="Zoom avant (molette)">+</button>
+        <button type="button" class="map-btn" id="zoom-out" aria-label="Zoom arrière" title="Zoom arrière (molette)">−</button>
+        <button type="button" class="map-btn" id="zoom-fit" aria-label="Tout afficher" title="Tout afficher (Origine)">⤢</button>
+        <button type="button" class="map-btn" id="layout-toggle" aria-label="Réorganiser les nœuds en colonnes" title="Réorganiser les nœuds en colonnes">▥</button>
+        <button type="button" class="map-btn" id="help-toggle" aria-label="Aide à la navigation" aria-expanded="false" aria-controls="bp-help" title="Aide à la navigation">?</button>
+      </div>
+      <div class="bp-help" id="bp-help" hidden>
+        <h2>Navigation</h2>
+        <ul class="help-mouse">
+          <li><kbd>Clic droit</kbd> + glisser : déplacer la vue (ou glisser le fond)</li>
+          <li><kbd>Molette</kbd> : zoom par paliers sous le curseur</li>
+          <li>Glisser un nœud : le déplacer · glisser le titre d’un cadre : déplacer le groupe</li>
+          <li>Clic sur un nœud ou un câble : détails</li>
+          <li><kbd>Origine</kbd> : tout afficher · <kbd>F</kbd> : cadrer la sélection · <kbd>Échap</kbd> : désélectionner</li>
+        </ul>
+        <ul class="help-touch">
+          <li>Glisser : déplacer la vue · pincer : zoomer</li>
+          <li>Toucher un nœud ou un câble : détails</li>
+          <li>Appui long sur un nœud puis glisser : le déplacer</li>
+        </ul>
       </div>
       <div class="dense-hint" id="dense-hint" hidden>
-        <span>Carte dense ? <button type="button" class="link-btn" data-goto="list">Vue Liste</button></span>
+        <span>Graphe dense ? <button type="button" class="link-btn" data-goto="list">Vue Liste</button></span>
         <button type="button" class="link-btn dismiss" id="dense-dismiss" aria-label="Masquer ce message">×</button>
       </div>
       <div class="status" id="status" role="status" aria-live="polite"></div>
@@ -77,6 +99,7 @@
     <aside id="panel" class="panel" aria-label="Détails" aria-hidden="true" tabindex="-1">
       <div class="panel-handle" aria-hidden="true"></div>
       <div class="panel-bar">
+        <span class="panel-tab"><span aria-hidden="true">☷</span> Détails</span>
         <span class="panel-kicker" id="panel-kicker"></span>
         <button type="button" class="panel-close" id="panel-close" aria-label="Fermer le panneau de détails">×</button>
       </div>
@@ -88,7 +111,6 @@
     <span id="footer-disclaimer"></span>
   </footer>
 
-  <script src="vendor/cytoscape.min.js"></script>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

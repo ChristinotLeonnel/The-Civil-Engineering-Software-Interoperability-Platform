@@ -36,14 +36,8 @@ export function svg(tag, attrs, ...children) {
   return el;
 }
 
-export function isDark() {
-  const forced = document.documentElement.getAttribute('data-theme');
-  if (forced) return forced === 'dark';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches;
-}
-
 export function kindColor(kind) {
-  return isDark() && kind.colorDark ? kind.colorDark : kind.color;
+  return kind.color;
 }
 
 const DASH = { solid: '', dashed: '7 4', dotted: '1 5', 'dashed-sparse': '4 8' };

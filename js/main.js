@@ -222,7 +222,7 @@ async function start() {
     actions: app
   });
 
-  graph = createGraph($('cy'), db, {
+  graph = createGraph($('graph'), db, {
     onNode: (id) => app.selectSoftware(id),
     onEdge: (id) => app.selectConnection(id),
     onBackground: () => { if (state.selected) app.clearSelection(); }
@@ -250,8 +250,13 @@ async function start() {
   $('zoom-out').addEventListener('click', () => graph.zoomBy(1 / 1.35));
   $('zoom-fit').addEventListener('click', () => graph.fit(bottomInset()));
   $('layout-toggle').addEventListener('click', () => {
-    const mode = graph.toggleLayout();
-    $('status').textContent = mode === 'preset' ? 'Disposition par catégories' : 'Disposition automatique (forces)';
+    graph.toggleLayout();
+    $('status').textContent = 'Nœuds remis en colonnes par catégorie';
+  });
+  $('help-toggle').addEventListener('click', () => {
+    const help = $('bp-help');
+    help.hidden = !help.hidden;
+    $('help-toggle').setAttribute('aria-expanded', String(!help.hidden));
   });
   $('footer-disclaimer').textContent = db.meta.disclaimer;
 
@@ -271,11 +276,6 @@ async function start() {
   };
   window.addEventListener('resize', onResize);
   window.addEventListener('orientationchange', onResize);
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-    graph.refreshTheme();
-    controls.sync(state);
-    if (state.selected) render();
-  });
 
   function updateDenseHint() {
     $('dense-hint').hidden = denseDismissed || !(mobileQuery.matches && state.view === 'map');
@@ -291,7 +291,7 @@ async function start() {
   updateDenseHint();
   if (!state.selected) graph.fit(bottomInset());
   document.body.dataset.ready = 'true';
-  if (new URLSearchParams(location.search).has('debug')) window.__imap = { cy: graph.cy, state, db };
+  if (new URLSearchParams(location.search).has('debug')) window.__imap = { graph, state, db };
 }
 
 function showFatal(err) {

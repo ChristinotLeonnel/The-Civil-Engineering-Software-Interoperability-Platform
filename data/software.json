@@ -9,8 +9,7 @@
     "description": "Logiciel de dessin 2D/3D de référence, format natif DWG.",
     "website": "https://www.autodesk.com/products/autocad/overview",
     "formats": ["dwg", "dxf"],
-    "position": { "x": 80, "y": 110 },
-    "positionPortrait": { "x": 90, "y": 40 }
+    "position": { "x": 80, "y": 110 }
   },
   {
     "id": "draftsight",
@@ -22,8 +21,7 @@
     "description": "Logiciel de dessin 2D/3D lisant et écrivant des fichiers DWG et DXF.",
     "website": "https://www.3ds.com/products/draftsight",
     "formats": ["dwg", "dxf"],
-    "position": { "x": 80, "y": 300 },
-    "positionPortrait": { "x": 330, "y": 40 }
+    "position": { "x": 80, "y": 300 }
   },
   {
     "id": "revit",
@@ -35,8 +33,7 @@
     "description": "Plateforme BIM de modélisation architecturale, structurale et MEP.",
     "website": "https://www.autodesk.com/products/revit/overview",
     "formats": ["ifc", "dwg", "dxf", "api"],
-    "position": { "x": 300, "y": 150 },
-    "positionPortrait": { "x": 110, "y": 170 }
+    "position": { "x": 300, "y": 150 }
   },
   {
     "id": "tekla",
@@ -48,8 +45,7 @@
     "description": "Modélisation BIM de structures acier et béton jusqu'au détaillage et à la fabrication.",
     "website": "https://www.tekla.com/products/tekla-structures",
     "formats": ["ifc", "cis2", "sdnf", "dwg", "dxf", "std", "api"],
-    "position": { "x": 420, "y": 330 },
-    "positionPortrait": { "x": 340, "y": 210 }
+    "position": { "x": 420, "y": 330 }
   },
   {
     "id": "archicad",
@@ -61,8 +57,7 @@
     "description": "Logiciel BIM architectural exportant son modèle analytique au format SAF.",
     "website": "https://graphisoft.com/archicad",
     "formats": ["ifc", "saf", "dwg", "dxf"],
-    "position": { "x": 250, "y": 440 },
-    "positionPortrait": { "x": 60, "y": 310 }
+    "position": { "x": 250, "y": 440 }
   },
   {
     "id": "allplan",
@@ -74,8 +69,7 @@
     "description": "Logiciel BIM pour ingénieurs et architectes, orienté béton armé et ouvrages d'art.",
     "website": "https://www.allplan.com/",
     "formats": ["ifc", "saf", "dwg", "dxf"],
-    "position": { "x": 110, "y": 560 },
-    "positionPortrait": { "x": 230, "y": 310 }
+    "position": { "x": 110, "y": 560 }
   },
   {
     "id": "robot",
@@ -87,8 +81,7 @@
     "description": "Logiciel d'analyse et de dimensionnement de structures, lié à Revit.",
     "website": "https://www.autodesk.com/products/robot-structural-analysis/overview",
     "formats": ["smxx", "cis2", "api"],
-    "position": { "x": 560, "y": 230 },
-    "positionPortrait": { "x": 400, "y": 310 }
+    "position": { "x": 560, "y": 230 }
   },
   {
     "id": "etabs",
@@ -100,8 +93,7 @@
     "description": "Analyse et dimensionnement de structures de bâtiments.",
     "website": "https://www.csiamerica.com/products/etabs",
     "formats": ["ifc", "cis2", "dxf", "dwg", "exr", "s2k", "std"],
-    "position": { "x": 560, "y": 60 },
-    "positionPortrait": { "x": 80, "y": 440 }
+    "position": { "x": 560, "y": 60 }
   },
   {
     "id": "sap2000",
@@ -113,8 +105,7 @@
     "description": "Analyse structurale généraliste (bâtiments, ponts, ouvrages).",
     "website": "https://www.csiamerica.com/products/sap2000",
     "formats": ["ifc", "cis2", "sdnf", "dxf", "dwg", "exr", "s2k"],
-    "position": { "x": 780, "y": 130 },
-    "positionPortrait": { "x": 270, "y": 440 }
+    "position": { "x": 780, "y": 130 }
   },
   {
     "id": "scia",
@@ -126,8 +117,7 @@
     "description": "Analyse et dimensionnement de structures avec nombreux liens BIM.",
     "website": "https://www.scia.net/en/software/scia-engineer",
     "formats": ["ifc", "saf", "sdnf", "dwg", "dxf", "api"],
-    "position": { "x": 630, "y": 460 },
-    "positionPortrait": { "x": 100, "y": 570 }
+    "position": { "x": 630, "y": 460 }
   },
   {
     "id": "rfem",
@@ -139,8 +129,7 @@
     "description": "RFEM (modèles 3D éléments finis) et RSTAB (ossatures filaires) de Dlubal.",
     "website": "https://www.dlubal.com/en/products/rfem-fea-software/what-is-rfem",
     "formats": ["ifc", "saf", "dxf", "sdnf", "cis2", "api"],
-    "position": { "x": 440, "y": 580 },
-    "positionPortrait": { "x": 310, "y": 570 }
+    "position": { "x": 440, "y": 580 }
   },
   {
     "id": "staad",
@@ -152,8 +141,7 @@
     "description": "Analyse et dimensionnement structural de Bentley, import/export CIS/2.",
     "website": "https://www.bentley.com/software/staad/",
     "formats": ["std", "cis2", "sdnf", "dwg", "dxf"],
-    "position": { "x": 900, "y": 300 },
-    "positionPortrait": { "x": 410, "y": 440 }
+    "position": { "x": 900, "y": 300 }
   },
   {
     "id": "opensees",
@@ -165,8 +153,7 @@
     "description": "Cadre de simulation sismique et de comportement non linéaire des structures.",
     "website": "https://opensees.berkeley.edu/",
     "formats": ["api"],
-    "position": { "x": 760, "y": 660 },
-    "positionPortrait": { "x": 70, "y": 840 }
+    "position": { "x": 760, "y": 660 }
   },
   {
     "id": "codeaster",
@@ -178,8 +165,7 @@
     "description": "Solveur éléments finis d'EDF pour la mécanique des structures.",
     "website": "https://www.code-aster.org/",
     "formats": ["med"],
-    "position": { "x": 1160, "y": 540 },
-    "positionPortrait": { "x": 380, "y": 840 }
+    "position": { "x": 1160, "y": 540 }
   },
   {
     "id": "calculix",
@@ -191,8 +177,7 @@
     "description": "Solveur éléments finis libre utilisant un format d'entrée proche d'Abaqus.",
     "website": "http://www.calculix.de/",
     "formats": ["inp"],
-    "position": { "x": 1000, "y": 650 },
-    "positionPortrait": { "x": 225, "y": 840 }
+    "position": { "x": 1000, "y": 650 }
   },
   {
     "id": "gmsh",
@@ -204,8 +189,7 @@
     "description": "Mailleur 3D éléments finis avec CAO intégrée et exports multiples.",
     "website": "https://gmsh.info/",
     "formats": ["msh", "med", "inp"],
-    "position": { "x": 800, "y": 530 },
-    "positionPortrait": { "x": 90, "y": 705 }
+    "position": { "x": 800, "y": 530 }
   },
   {
     "id": "salome",
@@ -217,7 +201,6 @@
     "description": "Plateforme de pré/post-traitement (géométrie, maillage), base de Salome-Meca avec Code_Aster.",
     "website": "https://www.salome-platform.org/",
     "formats": ["med", "unv"],
-    "position": { "x": 1000, "y": 430 },
-    "positionPortrait": { "x": 300, "y": 705 }
+    "position": { "x": 1000, "y": 430 }
   }
 ]

@@ -138,12 +138,12 @@ export function renderAbout(root, db) {
     h('h2', { text: 'À propos de cette carte' }),
     h('p', { class: 'lead', text: 'Plateforme pédagogique autonome pour comprendre comment les logiciels de génie civil, de BIM, de CAO, de calcul de structures et d’éléments finis peuvent échanger des données. Elle n’est affiliée à aucun éditeur.' }),
 
-    h('h3', { text: 'Comment lire la carte' }),
+    h('h3', { text: 'Comment lire le graphe' }),
     h('ul', { class: 'plain' },
-      h('li', { text: 'Chaque nœud est un logiciel, coloré selon sa catégorie.' }),
-      h('li', { text: 'Chaque flèche est une liaison documentée. Une flèche à deux pointes indique un échange dans les deux sens.' }),
-      h('li', { text: 'Le style de la ligne indique la nature de l’échange (tableau ci-dessous). Touchez une flèche pour voir formats, données, limites et sources.' }),
-      h('li', { text: 'Pas de flèche ne veut pas dire « impossible » : cela veut dire « non documenté dans cette base ».' })
+      h('li', { text: 'Chaque nœud est un logiciel ; la couleur de son en-tête et le cadre qui l’entoure indiquent sa catégorie.' }),
+      h('li', { text: 'Chaque câble est une liaison documentée. Il part d’une broche de sortie (à droite du nœud) vers une broche d’entrée (à gauche) : le transfert va dans ce sens. Le symbole « ⇄ » sur une broche indique un échange dans les deux sens.' }),
+      h('li', { text: 'La couleur et le trait du câble indiquent la nature de l’échange (tableau ci-dessous). Une broche triangulaire blanche signale un lien direct. Touchez un câble pour voir formats, données, limites et sources.' }),
+      h('li', { text: 'Pas de câble ne veut pas dire « impossible » : cela veut dire « non documenté dans cette base ».' })
     ),
 
     h('h3', { text: 'Les cinq types de liaison' }),

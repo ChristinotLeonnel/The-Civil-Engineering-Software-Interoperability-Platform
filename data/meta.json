@@ -1,12 +1,12 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "lastReview": "2026-10-31",
   "categories": [
-    { "id": "cao", "label": "CAO et dessin", "color": "#475569", "description": "Dessin 2D/3D généraliste, base des échanges DWG/DXF." },
-    { "id": "bim", "label": "BIM et modélisation", "color": "#1d4ed8", "description": "Modélisation d'information du bâtiment et modèles physiques." },
-    { "id": "calcul", "label": "Calcul des structures", "color": "#c2410c", "description": "Modèles analytiques, calcul et dimensionnement des structures." },
-    { "id": "fem", "label": "Éléments finis et simulation", "color": "#047857", "description": "Solveurs éléments finis généralistes et de recherche." },
-    { "id": "mesh", "label": "Maillage et prétraitement", "color": "#7e22ce", "description": "Génération de maillages et préparation des modèles de calcul." }
+    { "id": "cao", "label": "CAO et dessin", "color": "#5e6472", "column": 0, "description": "Dessin 2D/3D généraliste, base des échanges DWG/DXF." },
+    { "id": "bim", "label": "BIM et modélisation", "color": "#2e6bb8", "column": 1, "description": "Modélisation d'information du bâtiment et modèles physiques." },
+    { "id": "calcul", "label": "Calcul des structures", "color": "#b03a2e", "column": 2, "description": "Modèles analytiques, calcul et dimensionnement des structures." },
+    { "id": "fem", "label": "Éléments finis et simulation", "color": "#3d8b37", "column": 4, "description": "Solveurs éléments finis généralistes et de recherche." },
+    { "id": "mesh", "label": "Maillage et prétraitement", "color": "#7a4bb7", "column": 3, "description": "Génération de maillages et préparation des modèles de calcul." }
   ],
   "kinds": [
     {
@@ -14,10 +14,9 @@
       "rank": 1,
       "label": "Connexion directe / native",
       "short": "Directe",
-      "color": "#111827",
-      "colorDark": "#e2e8f0",
+      "color": "#f2f2f2",
       "dash": "solid",
-      "width": 4,
+      "width": 3.5,
       "description": "Lien, module ou filtre d'import/export intégré ou distribué par les éditeurs des logiciels eux-mêmes (lien direct, même écosystème, lecture native d'un format propriétaire)."
     },
     {
@@ -25,7 +24,7 @@
       "rank": 2,
       "label": "Échange par format ouvert",
       "short": "Format ouvert",
-      "color": "#0d9488",
+      "color": "#8fd14f",
       "dash": "solid",
       "width": 3,
       "description": "Transfert par un format publié et documenté (IFC, SAF, CIS/2, MED, SDNF…). Les deux logiciels doivent chacun documenter l'import ou l'export de ce format."
@@ -35,7 +34,7 @@
       "rank": 3,
       "label": "Extension ou API tierce",
       "short": "Extension / API",
-      "color": "#db2777",
+      "color": "#2aa7f5",
       "dash": "dashed",
       "width": 3,
       "description": "Passerelle fournie par un module complémentaire, un plug-in ou un outil séparé (parfois d'un autre éditeur), à installer en plus des deux logiciels."
@@ -45,8 +44,7 @@
       "rank": 4,
       "label": "Échange géométrique uniquement",
       "short": "Géométrie seule",
-      "color": "#64748b",
-      "colorDark": "#94a3b8",
+      "color": "#a3a3a3",
       "dash": "dotted",
       "width": 3,
       "description": "Seules des entités géométriques (lignes, polylignes, surfaces) passent. Pas de propriétés structurales fiables (sections, matériaux, charges)."
@@ -56,9 +54,9 @@
       "rank": 5,
       "label": "Conditionnelle ou non vérifiée",
       "short": "Non vérifiée",
-      "color": "#d97706",
+      "color": "#ff9326",
       "dash": "dashed-sparse",
-      "width": 2,
+      "width": 2.5,
       "description": "Le transfert est plausible (format commun, sources indirectes) mais aucune documentation conjointe fiable n'a été consultée, ou il dépend fortement des réglages et versions. À tester avant toute utilisation."
     }
   ],

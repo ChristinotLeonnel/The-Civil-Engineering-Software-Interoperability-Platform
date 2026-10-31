@@ -1,12 +1,12 @@
 # Ajouter un logiciel ou une connexion
 
-Toute la carte est pilotée par les fichiers de `data/`. Aucun code à modifier pour ajouter du contenu.
+Tout le graphe est piloté par les fichiers de `data/`. Aucun code à modifier pour ajouter du contenu.
 
 | Fichier | Contenu |
 |---|---|
 | `data/meta.json` | catégories, types de liaison, niveaux de confiance, avertissement |
 | `data/software.json` | les logiciels (nœuds) |
-| `data/connections.json` | les liaisons (flèches) |
+| `data/connections.json` | les liaisons (câbles) |
 | `data/formats.json` | les formats et protocoles d'échange |
 
 Après chaque modification :
@@ -56,7 +56,6 @@ Ajouter un objet dans `data/software.json` :
   "website": "https://www.exemple.com/produit",
   "formats": ["ifc", "dxf"],
   "position": { "x": 600, "y": 300 },
-  "positionPortrait": { "x": 250, "y": 500 },
   "logo": "assets/logos/monlogiciel.svg"
 }
 ```
@@ -70,17 +69,16 @@ Ajouter un objet dans `data/software.json` :
 | `category` | oui | un `id` de `meta.json › categories` |
 | `license` | non | texte libre |
 | `formats` | non | `id` de `formats.json` que le logiciel mentionne dans cette base (alimente la recherche par format) |
-| `position` | oui | coordonnées de la disposition paysage (écran large) |
-| `positionPortrait` | non | disposition téléphone en portrait ; sinon `position` est réutilisée |
+| `position` | oui | seul `y` compte : il ordonne les nœuds de haut en bas dans la colonne de leur catégorie (`x` est ignoré) |
 | `logo` | non | chemin **relatif** dans le dépôt, affiché dans le panneau. N'ajouter que des logos dont vous avez le droit d'usage |
 
 ### Placer le nœud
 
-Les positions sont en unités libres ; la carte se cadre automatiquement. Repères actuels : paysage, x de 80 à 1160 et y de 60 à 660 ; portrait, x de 60 à 410 et y de 40 à 840. Regroupez par catégorie et évitez de poser un nœud sur le trajet d'une flèche. L'utilisateur peut aussi passer en disposition automatique avec le bouton ⁂ de la carte.
+Le graphe Blueprint range les logiciels en colonnes, une par catégorie (CAO → BIM → calcul → maillage → éléments finis). Dans une colonne, les nœuds sont empilés par `position.y` croissant, avec un espacement automatique selon leur hauteur. Pour limiter les croisements de câbles, placez un logiciel près de ceux auxquels il est le plus relié. Les broches (une par liaison) sont créées et ordonnées automatiquement. L'utilisateur peut déplacer les nœuds à la main ; le bouton ▥ remet les colonnes.
 
 ### Ajouter une catégorie
 
-Dans `meta.json › categories`, ajouter `{ "id", "label", "color", "description" }`. Choisir une couleur assez sombre pour que le texte blanc du nœud reste lisible (contraste d'au moins 4,5:1).
+Dans `meta.json › categories`, ajouter `{ "id", "label", "color", "column", "description" }`. `column` est un entier (0 = colonne de gauche) ; deux catégories peuvent partager une colonne. Choisir une couleur assez soutenue pour que le texte blanc de l'en-tête des nœuds reste lisible.
 
 ## Ajouter une connexion
 

@@ -8,6 +8,13 @@ const EVIDENCE_LABEL = {
   community: 'Sources communautaires (forums, rapports de bugs) : indices, pas une garantie'
 };
 
+// Section repliable, à la manière des catégories du panneau « Details » d'Unreal.
+function section(title, ...children) {
+  return h('details', { class: 'ue-section', open: true },
+    h('summary', { text: title }),
+    h('div', { class: 'ue-section-body' }, children));
+}
+
 export function createPanel({ db, root, stage, body, kicker, closeBtn, actions }) {
   let open = false;
 
@@ -77,12 +84,11 @@ export function createPanel({ db, root, stage, body, kicker, closeBtn, actions }
       h('p', { class: 'meta', text: `Éditeur / projet : ${s.vendor}` }),
       h('p', { text: s.description }),
       h('p', {}, h('a', { href: s.website, target: '_blank', rel: 'noopener noreferrer' }, `Site officiel (${hostOf(s.website)}) ↗`)),
-      h('h3', { text: 'Formats mentionnés dans cette base' }),
-      formatChips(s.formats),
-      h('h3', { text: `Connexions documentées (${conns.length})` }),
-      conns.length
-        ? h('ul', { class: 'conn-list' }, conns.map((c) => connectionButton(c, id)))
-        : h('p', { class: 'meta', text: 'Aucune connexion documentée dans cette base pour ce logiciel. Cela ne prouve pas qu’aucun échange n’existe.' })
+      section(`Connexions documentées (${conns.length})`,
+        conns.length
+          ? h('ul', { class: 'conn-list' }, conns.map((c) => connectionButton(c, id)))
+          : h('p', { class: 'meta', text: 'Aucune connexion documentée dans cette base pour ce logiciel. Cela ne prouve pas qu’aucun échange n’existe.' })),
+      section('Formats mentionnés dans cette base', formatChips(s.formats))
     ];
     show('Logiciel', nodes);
   }
@@ -115,30 +121,18 @@ export function createPanel({ db, root, stage, body, kicker, closeBtn, actions }
         : null,
       h('p', { text: c.summary }),
 
-      h('h3', { text: 'Format ou protocole d’échange' }),
-      formatChips(c.formats),
-
-      h('h3', { text: 'Sens du transfert' }),
-      h('p', { text: bi
+      section('Format ou protocole d’échange', formatChips(c.formats)),
+      section('Sens du transfert', h('p', { text: bi
         ? `Bidirectionnel : ${a.name} ⇄ ${b.name}.`
-        : `Unidirectionnel : de ${a.name} vers ${b.name} d’après les sources consultées.` }),
-
-      h('h3', { text: 'Données transférables' }),
-      h('ul', { class: 'plain' }, c.transfers.map((t) => h('li', { text: t }))),
-
-      h('h3', { text: 'Limitations éventuelles' }),
-      h('ul', { class: 'plain' }, c.limitations.map((t) => h('li', { text: t }))),
-
-      h('h3', { text: 'Versions compatibles' }),
-      h('p', { text: c.versions || 'Non documenté dans les sources consultées.' }),
-
-      h('h3', { text: 'Documentation et sources' }),
-      h('ul', { class: 'link-list' }, sources),
-
-      h('h3', { text: 'Vérification' }),
-      h('p', { text: `Dernière revue : ${formatDate(c.verifiedOn)}.` }),
-      h('p', { class: 'meta', text: `Nature des preuves : ${EVIDENCE_LABEL[c.evidence] ?? c.evidence}.` }),
-      h('p', { class: 'meta', text: db.meta.disclaimer })
+        : `Unidirectionnel : de ${a.name} vers ${b.name} d’après les sources consultées.` })),
+      section('Données transférables', h('ul', { class: 'plain' }, c.transfers.map((t) => h('li', { text: t })))),
+      section('Limitations éventuelles', h('ul', { class: 'plain' }, c.limitations.map((t) => h('li', { text: t })))),
+      section('Versions compatibles', h('p', { text: c.versions || 'Non documenté dans les sources consultées.' })),
+      section('Documentation et sources', h('ul', { class: 'link-list' }, sources)),
+      section('Vérification',
+        h('p', { text: `Dernière revue : ${formatDate(c.verifiedOn)}.` }),
+        h('p', { class: 'meta', text: `Nature des preuves : ${EVIDENCE_LABEL[c.evidence] ?? c.evidence}.` }),
+        h('p', { class: 'meta', text: db.meta.disclaimer }))
     ];
     show('Connexion', nodes);
   }

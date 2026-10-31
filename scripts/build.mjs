@@ -27,7 +27,7 @@ if (problems.length) {
 // 2. Copie des fichiers publics.
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist);
-for (const entry of ['index.html', '.nojekyll', 'css', 'js', 'data', 'vendor', 'assets']) {
+for (const entry of ['index.html', '.nojekyll', 'css', 'js', 'data', 'assets']) {
   if (existsSync(join(root, entry))) cpSync(join(root, entry), join(dist, entry), { recursive: true });
 }
 

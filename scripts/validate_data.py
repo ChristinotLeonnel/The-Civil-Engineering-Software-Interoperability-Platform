@@ -61,6 +61,10 @@ def main():
                 if color_key in entry and not HEX_RE.match(entry[color_key]):
                     err(f"meta.{group}[{entry.get('id')}]: {color_key} doit être une couleur #rrggbb")
 
+    for cat in meta["categories"]:
+        if "column" in cat and not (isinstance(cat["column"], int) and cat["column"] >= 0):
+            err(f"meta.categories[{cat.get('id')}]: column doit être un entier >= 0")
+
     category_ids = {c["id"] for c in meta["categories"]}
     kind_ids = {k["id"] for k in meta["kinds"]}
     confidence_ids = {c["id"] for c in meta["confidence"]}
