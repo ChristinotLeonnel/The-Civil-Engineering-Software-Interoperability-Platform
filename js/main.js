@@ -1,13 +1,17 @@
 // Point d'entrée : état de l'application, navigation entre vues, liens profonds (#view=…&node=…).
-import { loadData } from './data.js?v=20261031.3';
-import { createGraph } from './graph.js?v=20261031.3';
-import { createPanel } from './panel.js?v=20261031.3';
-import { initControls, searchDb } from './controls.js?v=20261031.3';
-import { renderList, renderFormats, renderAbout } from './pages.js?v=20261031.3';
+import { loadData } from './data.js?v=20261031.6';
+import { createGraph } from './graph.js?v=20261031.6';
+import { createPanel } from './panel.js?v=20261031.6';
+import { initControls, searchDb } from './controls.js?v=20261031.6';
+import { renderList, renderFormats, renderAbout } from './pages.js?v=20261031.6';
+import { h, kindSwatch } from './util.js?v=20261031.6';
 
 const $ = (id) => document.getElementById(id);
 const VIEWS = ['map', 'list', 'formats', 'about'];
 const mobileQuery = window.matchMedia('(max-width: 760px)');
+// Par défaut, seules les liaisons documentées par un éditeur sont affichées (confiance élevée ou moyenne) ;
+// les liaisons incertaines (forums, déductions, non vérifiées) se réaffichent par le filtre « Fiabilité ».
+const DEFAULT_CONFS = ['high', 'medium'];
 
 async function start() {
   let db;
@@ -22,6 +26,7 @@ async function start() {
     view: 'map',
     cats: new Set(db.meta.categories.map((c) => c.id)),
     kinds: new Set(db.meta.kinds.map((k) => k.id)),
+    confs: new Set(DEFAULT_CONFS),
     format: null,
     query: '',
     selected: null // { type: 'software' | 'connection', id }
@@ -48,6 +53,7 @@ async function start() {
       state.selected = { type: 'connection', id };
       // Si la connexion est masquée par un filtre, on lève les filtres qui la cachent.
       state.kinds.add(c.kind);
+      state.confs.add(c.confidence);
       state.cats.add(db.softwareById.get(c.source).category);
       state.cats.add(db.softwareById.get(c.target).category);
       if (state.format && !(c.formats || []).includes(state.format)) state.format = null;
@@ -86,9 +92,15 @@ async function start() {
       toggle(state.kinds, id);
       render();
     },
+    toggleConfidence(id) {
+      toggle(state.confs, id);
+      render();
+    },
+    defaultConfs: new Set(DEFAULT_CONFS),
     resetFilters() {
       state.cats = new Set(db.meta.categories.map((c) => c.id));
       state.kinds = new Set(db.meta.kinds.map((k) => k.id));
+      state.confs = new Set(DEFAULT_CONFS);
       state.format = null;
       state.query = '';
       render({ refit: true });
@@ -114,6 +126,7 @@ async function start() {
     if (!keepSelection) state.selected = null;
     for (const v of VIEWS) $(`view-${v}`).hidden = v !== view;
     for (const tab of document.querySelectorAll('.tab')) tab.setAttribute('aria-pressed', String(tab.dataset.view === view));
+    document.body.dataset.view = view;
     $('controls').hidden = view === 'formats' || view === 'about';
     if (view === 'formats') renderFormats($('view-formats'), db, app);
     if (view === 'about') renderAbout($('view-about'), db);
@@ -142,7 +155,7 @@ async function start() {
       panel.hide();
     }
 
-    graph.setFilters({ cats: state.cats, kinds: state.kinds, format: state.format });
+    graph.setFilters({ cats: state.cats, kinds: state.kinds, confs: state.confs, format: state.format });
     graph.setMatches(matches);
     if (state.selected && state.view === 'map') {
       graph.select(state.selected.type === 'software' ? 'node' : 'edge', state.selected.id);
@@ -150,7 +163,7 @@ async function start() {
       graph.clearSelection();
     }
 
-    if (state.view === 'list') renderList($('view-list'), db, { cats: state.cats, kinds: state.kinds, format: state.format, matches }, app);
+    if (state.view === 'list') renderList($('view-list'), db, { cats: state.cats, kinds: state.kinds, confs: state.confs, format: state.format, matches }, app);
 
     updateStatus(matches);
     updateHash();
@@ -178,6 +191,8 @@ async function start() {
       parts.push(`${f?.name ?? state.format} : ${n} liaison${n > 1 ? 's' : ''}`);
     }
     if (matches && state.query.trim()) parts.push(`${matches.size} logiciel${matches.size > 1 ? 's' : ''} trouvé${matches.size > 1 ? 's' : ''}`);
+    const unsure = db.connections.filter((c) => !state.confs.has(c.confidence)).length;
+    if (unsure) parts.push(`${unsure} liaison${unsure > 1 ? 's' : ''} incertaine${unsure > 1 ? 's' : ''} masquée${unsure > 1 ? 's' : ''}`);
     el.textContent = parts.join(' · ');
   }
 
@@ -206,7 +221,13 @@ async function start() {
     const edge = params.get('edge');
     state.selected = null;
     if (node && db.softwareById.has(node)) state.selected = { type: 'software', id: node };
-    else if (edge && db.connectionById.has(edge)) state.selected = { type: 'connection', id: edge };
+    else if (edge && db.connectionById.has(edge)) {
+      state.selected = { type: 'connection', id: edge };
+      // Une liaison ouverte par lien doit être visible, même si elle est incertaine ou d'un type filtré.
+      const c = db.connectionById.get(edge);
+      state.confs.add(c.confidence);
+      state.kinds.add(c.kind);
+    }
     setView(VIEWS.includes(view) ? view : 'map', { keepSelection: true });
     if (state.selected) render({ recenter: true });
   }
@@ -239,7 +260,8 @@ async function start() {
       formatFilter: $('format-filter'),
       resetBtn: $('reset-filters'),
       toggleFilters: $('toggle-filters'),
-      filters: $('filters')
+      filters: $('filters'),
+      confChips: $('conf-chips')
     }
   });
 
@@ -260,8 +282,40 @@ async function start() {
   });
   $('footer-disclaimer').textContent = db.meta.disclaimer;
 
+  // Légende compacte superposée au graphe (masquable) et mode « graphe plein écran ».
+  const LEGEND_KEY = 'imap.legend';
+  const legend = $('bp-legend');
+  $('bp-legend-body').append(
+    ...db.meta.kinds.map((k) => h('li', { title: k.description }, kindSwatch(k, 'right'), h('span', { text: k.short }))),
+    h('li', { class: 'legend-note' }, h('span', { class: 'legend-glyph', text: '⇄' }), h('span', { text: 'échange dans les deux sens' })),
+    h('li', { class: 'legend-note' }, h('span', { class: 'legend-glyph', text: '→' }), h('span', { text: 'sortie (droite) vers entrée (gauche)' }))
+  );
+  // Seul un choix explicite est mémorisé ; sinon : visible sur grand écran, masquée sur téléphone.
+  const setLegend = (show, remember = true) => {
+    legend.hidden = !show;
+    $('legend-toggle').setAttribute('aria-pressed', String(show));
+    if (remember) try { localStorage.setItem(LEGEND_KEY, show ? '1' : '0'); } catch { /* stockage indisponible */ }
+  };
+  let legendPref = null;
+  try { legendPref = localStorage.getItem(LEGEND_KEY); } catch { /* stockage indisponible */ }
+  setLegend(legendPref ? legendPref === '1' : !mobileQuery.matches, false);
+  $('legend-toggle').addEventListener('click', () => setLegend(legend.hidden));
+  $('legend-close').addEventListener('click', () => setLegend(false));
+
+  const setMaximized = (on) => {
+    document.body.classList.toggle('graph-max', on);
+    $('max-toggle').setAttribute('aria-pressed', String(on));
+    $('max-toggle').setAttribute('aria-label', on ? 'Quitter le plein écran du graphe' : 'Graphe en plein écran');
+    $('max-toggle').title = on ? 'Quitter le plein écran (Échap)' : 'Graphe en plein écran';
+    $('max-toggle').textContent = on ? '⤡' : '⛶';
+    requestAnimationFrame(() => { graph.resize(); graph.fit(bottomInset()); });
+  };
+  $('max-toggle').addEventListener('click', () => setMaximized(!document.body.classList.contains('graph-max')));
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && state.selected && document.activeElement?.id !== 'search-input') app.clearSelection();
+    if (e.key !== 'Escape' || document.activeElement?.id === 'search-input') return;
+    if (state.selected) app.clearSelection();
+    else if (document.body.classList.contains('graph-max')) setMaximized(false);
   });
   window.addEventListener('hashchange', () => { if (!hashLock) applyHash(); });
 

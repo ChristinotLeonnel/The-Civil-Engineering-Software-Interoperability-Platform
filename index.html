@@ -8,7 +8,7 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#151515">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/styles.css?v=20261031.3">
+  <link rel="stylesheet" href="css/styles.css?v=20261031.6">
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -39,15 +39,19 @@
                role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list">
         <ul id="search-results" class="search-results" role="listbox" hidden></ul>
       </div>
-      <button type="button" class="btn toggle-filters" id="toggle-filters" aria-expanded="false" aria-controls="filters">Légende et filtres</button>
+      <button type="button" class="btn toggle-filters" id="toggle-filters" aria-expanded="false" aria-controls="filters"><span aria-hidden="true">⚙</span> Filtres</button>
     </div>
     <div class="filters" id="filters">
+      <div class="filter-group" aria-labelledby="conf-title">
+        <h2 id="conf-title" class="filter-title">Fiabilité <span class="filter-hint">(par défaut : liaisons sûres)</span></h2>
+        <div class="chips" id="conf-chips"></div>
+      </div>
       <div class="filter-group" aria-labelledby="cat-title">
         <h2 id="cat-title" class="filter-title">Catégories</h2>
         <div class="chips" id="category-chips"></div>
       </div>
       <div class="filter-group" aria-labelledby="kind-title">
-        <h2 id="kind-title" class="filter-title">Câbles <span class="filter-hint">(légende, touchez pour filtrer)</span></h2>
+        <h2 id="kind-title" class="filter-title">Câbles <span class="filter-hint">(touchez pour filtrer)</span></h2>
         <div class="chips" id="kind-chips"></div>
       </div>
       <div class="filter-actions">
@@ -64,12 +68,21 @@
            aria-label="Graphe des logiciels. Clic droit et glisser pour déplacer la vue, molette pour zoomer, Origine pour tout afficher. Tabulation pour parcourir les logiciels, Entrée pour ouvrir. La vue Liste offre la même information."></div>
       <div class="bp-crumb" aria-hidden="true"><span>Interopérabilité</span><span class="sep">›</span><span class="cur">Graphe des échanges</span></div>
       <div class="map-tools" aria-label="Contrôles de la vue">
+        <button type="button" class="map-btn" id="max-toggle" aria-pressed="false" aria-label="Graphe en plein écran" title="Graphe en plein écran">⛶</button>
+        <button type="button" class="map-btn" id="legend-toggle" aria-pressed="true" aria-controls="bp-legend" aria-label="Afficher ou masquer la légende" title="Légende">◧</button>
         <button type="button" class="map-btn" id="zoom-in" aria-label="Zoom avant" title="Zoom avant (molette)">+</button>
         <button type="button" class="map-btn" id="zoom-out" aria-label="Zoom arrière" title="Zoom arrière (molette)">−</button>
         <button type="button" class="map-btn" id="zoom-fit" aria-label="Tout afficher" title="Tout afficher (Origine)">⤢</button>
         <button type="button" class="map-btn" id="layout-toggle" aria-label="Réorganiser les nœuds en colonnes" title="Réorganiser les nœuds en colonnes">▥</button>
         <button type="button" class="map-btn" id="help-toggle" aria-label="Aide à la navigation" aria-expanded="false" aria-controls="bp-help" title="Aide à la navigation">?</button>
       </div>
+      <aside class="bp-legend" id="bp-legend" aria-label="Légende des câbles">
+        <div class="bp-legend-head">
+          <span>Légende</span>
+          <button type="button" class="bp-legend-close" id="legend-close" aria-label="Masquer la légende">×</button>
+        </div>
+        <ul class="bp-legend-body" id="bp-legend-body"></ul>
+      </aside>
       <div class="bp-help" id="bp-help" hidden>
         <h2>Navigation</h2>
         <ul class="help-mouse">
@@ -111,6 +124,6 @@
     <span id="footer-disclaimer"></span>
   </footer>
 
-  <script type="module" src="js/main.js?v=20261031.3"></script>
+  <script type="module" src="js/main.js?v=20261031.6"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 // Panneau de détails : fiche d'un logiciel ou d'une connexion.
-import { h, clear, kindSwatch, kindColor, formatDate, hostOf, plural } from './util.js?v=20261031.3';
-import { otherEnd } from './data.js?v=20261031.3';
+import { h, clear, kindSwatch, kindColor, formatDate, hostOf, plural } from './util.js?v=20261031.6';
+import { otherEnd } from './data.js?v=20261031.6';
 
 const EVIDENCE_LABEL = {
   read: 'Pages de documentation consultées en entier',

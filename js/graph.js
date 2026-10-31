@@ -3,13 +3,14 @@
 // Navigation : clic droit ou molette-clic + glisser pour déplacer la vue, molette pour zoomer par paliers,
 // glisser un nœud pour le déplacer, Origine pour tout cadrer. Au toucher : glisser, pincer, appui long pour déplacer un nœud.
 // Aucune logique métier ici : le module affiche l'état reçu et signale les clics via des callbacks.
-import { h, svg, clear, dashArray } from './util.js?v=20261031.3';
+import { h, svg, clear, dashArray } from './util.js?v=20261031.6';
 
 const NODE_W = 290; // doit correspondre à la largeur de .bp-node dans styles.css
-const COL_GAP = 170;
-const ROW_GAP = 56;
+const COL_GAP = 120;
+const ROW_GAP = 44;
 const COMMENT_PAD = 26;
 const COMMENT_HEAD = 34;
+const TOOLS_W = 60; // largeur de la colonne de boutons de la carte (.map-tools)
 // Paliers de zoom de l'éditeur Blueprint ; l'indice 12 correspond au « Zoom 1:1 ».
 const ZOOM_LEVELS = [0.1, 0.125, 0.15, 0.175, 0.2, 0.225, 0.25, 0.375, 0.5, 0.675, 0.75, 0.875, 1, 1.25, 1.375, 1.5, 1.675, 1.75, 2];
 const ONE_TO_ONE = 12;
@@ -334,7 +335,7 @@ export function createGraph(container, db, callbacks) {
   }
 
   function frame(box, inset, { pad = 40, minK = MIN_K, maxK = 1, animate = true } = {}) {
-    const W = container.clientWidth;
+    const W = container.clientWidth - TOOLS_W; // la colonne de boutons à droite ne doit pas masquer de nœud
     const H = Math.max(120, container.clientHeight - Math.max(0, inset || 0));
     const k = clampK(Math.min(maxK, Math.max(minK, Math.min((W - pad * 2) / Math.max(box.w, 1), (H - pad * 2) / Math.max(box.h, 1)))));
     const target = { k, x: W / 2 - ((box.x1 + box.x2) / 2) * k, y: H / 2 - ((box.y1 + box.y2) / 2) * k };
@@ -635,17 +636,19 @@ export function createGraph(container, db, callbacks) {
   /* ------------------------------------------------------------ API publique */
   const api = {
     /** Filtres de visibilité : catégories et types actifs, format optionnel. */
-    setFilters({ cats, kinds, format }) {
+    setFilters({ cats, kinds, confs, format }) {
       shownNodes = new Set(db.software.filter((s) => cats.has(s.category)).map((s) => s.id));
       visibleConn = new Set();
       const linked = new Set();
       for (const c of db.connections) {
-        const ok = kinds.has(c.kind) && shownNodes.has(c.source) && shownNodes.has(c.target) && (!format || (c.formats || []).includes(format));
+        const ok = kinds.has(c.kind) && (!confs || confs.has(c.confidence)) && shownNodes.has(c.source) && shownNodes.has(c.target)
+          && (!format || (c.formats || []).includes(format));
         if (ok) { visibleConn.add(c.id); linked.add(c.source); linked.add(c.target); }
       }
       for (const [id, el] of nodeEls) {
         el.hidden = !shownNodes.has(id);
         el.classList.toggle('is-isolated', Boolean(format) && !linked.has(id));
+        el.classList.toggle('is-empty', !linked.has(id)); // affiche « aucune liaison affichée » dans le corps
       }
       for (const [id, sides] of pinEls) for (const s of Object.values(sides)) s.row.hidden = !visibleConn.has(id);
       if (layoutReady) {

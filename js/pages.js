@@ -1,6 +1,6 @@
 // Vues « Liste », « Formats » et « À propos ».
-import { h, clear, kindSwatch, kindColor, formatDate, hostOf, plural } from './util.js?v=20261031.3';
-import { otherEnd } from './data.js?v=20261031.3';
+import { h, clear, kindSwatch, kindColor, formatDate, hostOf, plural } from './util.js?v=20261031.6';
+import { otherEnd } from './data.js?v=20261031.6';
 
 /* ------------------------------------------------------------------ Liste */
 
@@ -26,6 +26,7 @@ export function renderList(root, db, view, actions) {
     for (const s of items) {
       const conns = (db.connsBySoftware.get(s.id) || [])
         .filter((c) => view.kinds.has(c.kind))
+        .filter((c) => !view.confs || view.confs.has(c.confidence))
         .filter((c) => view.cats.has(db.softwareById.get(otherEnd(c, s.id)).category))
         .filter((c) => !view.format || (c.formats || []).includes(view.format))
         .sort((x, y) => db.kindById.get(x.kind).rank - db.kindById.get(y.kind).rank);

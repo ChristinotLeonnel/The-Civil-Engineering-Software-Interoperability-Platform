@@ -12,6 +12,8 @@ Site statique (HTML, CSS, JavaScript) : rien à installer pour les visiteurs, pa
   - Chaque nœud a un en-tête coloré selon sa catégorie et une **broche par liaison** : entrées à gauche, sorties à droite. Le libellé de la broche donne le logiciel relié et le format.
   - Les câbles sont colorés selon le type d'échange (blanc et broche triangulaire = lien direct, vert = format ouvert, bleu = extension/API, gris pointillé = géométrie seule, orange tireté = non vérifié). Quand une liaison est sélectionnée, des impulsions montrent le sens du transfert.
   - Des **cadres de commentaire** regroupent les logiciels par catégorie, en colonnes : CAO → BIM → calcul → maillage → éléments finis.
+- **Liaisons sûres par défaut** : seules les liaisons de confiance élevée ou moyenne (documentées par un éditeur) sont affichées ; les liaisons de confiance faible (forums, déductions, « non vérifiées ») sont masquées. Le filtre **Fiabilité** permet de les réafficher ; un rappel en haut du graphe indique combien sont masquées.
+- **Place maximale pour le graphe** : en-tête sur une ligne, filtres repliés derrière le bouton **Filtres** (le choix est mémorisé), légende compacte superposée et masquable (bouton ◧ ou ×), mode **plein écran** du graphe (bouton ⛶, Échap pour sortir). À l'ouverture sur ordinateur, le zoom suffit pour lire les broches sans zoomer.
 - **Liste** : même contenu sous forme de liste, pour les petits écrans, le clavier et les lecteurs d'écran.
 - **Formats** : fiches des formats d'échange (IFC, SAF, DXF/DWG, SDNF, CIS/2, MED, etc.) et des liaisons qui les utilisent.
 - **À propos** : méthode, niveaux de confiance, limites.
@@ -31,6 +33,8 @@ Site statique (HTML, CSS, JavaScript) : rien à installer pour les visiteurs, pa
 | Cadrer la sélection | touche F | — |
 | Désélectionner | Échap, clic sur le fond | toucher le fond |
 | Remettre en colonnes | bouton ▥ | bouton ▥ |
+| Graphe plein écran | bouton ⛶, Échap pour sortir | bouton ⛶ |
+| Afficher / masquer la légende | bouton ◧ | bouton ◧ |
 
 Le bouton **?** de la carte rappelle ces commandes. Quand on dézoome, les libellés des broches disparaissent et les titres s'agrandissent pour rester lisibles. Survoler un câble ou une broche à la souris affiche une infobulle.
 

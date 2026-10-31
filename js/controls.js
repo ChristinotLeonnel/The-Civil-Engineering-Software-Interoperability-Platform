@@ -1,5 +1,5 @@
 // Barre de recherche, filtres par catégorie et légende filtrante.
-import { h, clear, kindSwatch, norm } from './util.js?v=20261031.3';
+import { h, clear, kindSwatch, norm } from './util.js?v=20261031.6';
 
 /** Recherche dans les logiciels et les formats. Renvoie aussi l'ensemble des logiciels concernés. */
 export function searchDb(db, query) {
@@ -76,14 +76,38 @@ export function initControls({ db, els, app }) {
     els.kindChips.append(btn);
   }
 
+  /* ---- chips de fiabilité (niveau de confiance) ---- */
+  const confButtons = new Map();
+  clear(els.confChips);
+  for (const conf of db.meta.confidence) {
+    const btn = h('button', {
+      type: 'button', class: `chip conf-chip conf-${conf.id}`, 'aria-pressed': 'true',
+      title: conf.description,
+      onClick: () => app.toggleConfidence(conf.id)
+    },
+      h('span', { class: 'conf-mark', 'aria-hidden': 'true' }),
+      h('span', { class: 'chip-label', text: conf.label }),
+      h('span', { class: 'count', text: String(db.connections.filter((c) => c.confidence === conf.id).length) })
+    );
+    confButtons.set(conf.id, btn);
+    els.confChips.append(btn);
+  }
+
   els.resetBtn.addEventListener('click', () => app.resetFilters());
 
-  els.toggleFilters.addEventListener('click', () => {
-    const open = !els.filters.classList.contains('open');
+  // Légende et filtres repliés par défaut pour laisser la place au graphe ; le choix est mémorisé.
+  const FILTERS_KEY = 'imap.filtersOpen';
+  const setFiltersOpen = (open) => {
     els.filters.classList.toggle('open', open);
     els.toggleFilters.setAttribute('aria-expanded', String(open));
+    try { localStorage.setItem(FILTERS_KEY, open ? '1' : '0'); } catch { /* stockage indisponible */ }
     app.layoutChanged();
-  });
+  };
+  let initiallyOpen = false;
+  try { initiallyOpen = localStorage.getItem(FILTERS_KEY) === '1'; } catch { /* stockage indisponible */ }
+  els.filters.classList.toggle('open', initiallyOpen);
+  els.toggleFilters.setAttribute('aria-expanded', String(initiallyOpen));
+  els.toggleFilters.addEventListener('click', () => setFiltersOpen(!els.filters.classList.contains('open')));
 
   /* ---- recherche ---- */
   const input = els.searchInput;
@@ -187,10 +211,16 @@ export function initControls({ db, els, app }) {
     sync(state) {
       for (const [id, btn] of catButtons) btn.setAttribute('aria-pressed', String(state.cats.has(id)));
       for (const [id, btn] of kindButtons) btn.setAttribute('aria-pressed', String(state.kinds.has(id)));
+      for (const [id, btn] of confButtons) btn.setAttribute('aria-pressed', String(state.confs.has(id)));
 
       const allCats = state.cats.size === db.meta.categories.length;
       const allKinds = state.kinds.size === db.meta.kinds.length;
-      els.resetBtn.hidden = allCats && allKinds && !state.format && !state.query;
+      const defaultConfs = state.confs.size === app.defaultConfs.size && [...app.defaultConfs].every((c) => state.confs.has(c));
+      els.resetBtn.hidden = allCats && allKinds && defaultConfs && !state.format && !state.query;
+
+      // Nombre de filtres actifs, rappelé sur le bouton quand le panneau est replié.
+      const active = (allCats ? 0 : 1) + (allKinds ? 0 : 1) + (state.format ? 1 : 0);
+      els.toggleFilters.dataset.badge = active ? String(active) : '';
 
       clear(els.formatFilter);
       if (state.format) {
