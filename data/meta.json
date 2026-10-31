@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "lastReview": "2026-10-31",
+  "categories": [
+    { "id": "cao", "label": "CAO et dessin", "color": "#475569", "description": "Dessin 2D/3D généraliste, base des échanges DWG/DXF." },
+    { "id": "bim", "label": "BIM et modélisation", "color": "#1d4ed8", "description": "Modélisation d'information du bâtiment et modèles physiques." },
+    { "id": "calcul", "label": "Calcul des structures", "color": "#c2410c", "description": "Modèles analytiques, calcul et dimensionnement des structures." },
+    { "id": "fem", "label": "Éléments finis et simulation", "color": "#047857", "description": "Solveurs éléments finis généralistes et de recherche." },
+    { "id": "mesh", "label": "Maillage et prétraitement", "color": "#7e22ce", "description": "Génération de maillages et préparation des modèles de calcul." }
+  ],
+  "kinds": [
+    {
+      "id": "native",
+      "rank": 1,
+      "label": "Connexion directe / native",
+      "short": "Directe",
+      "color": "#111827",
+      "colorDark": "#e2e8f0",
+      "dash": "solid",
+      "width": 4,
+      "description": "Lien, module ou filtre d'import/export intégré ou distribué par les éditeurs des logiciels eux-mêmes (lien direct, même écosystème, lecture native d'un format propriétaire)."
+    },
+    {
+      "id": "open",
+      "rank": 2,
+      "label": "Échange par format ouvert",
+      "short": "Format ouvert",
+      "color": "#0d9488",
+      "dash": "solid",
+      "width": 3,
+      "description": "Transfert par un format publié et documenté (IFC, SAF, CIS/2, MED, SDNF…). Les deux logiciels doivent chacun documenter l'import ou l'export de ce format."
+    },
+    {
+      "id": "extension",
+      "rank": 3,
+      "label": "Extension ou API tierce",
+      "short": "Extension / API",
+      "color": "#db2777",
+      "dash": "dashed",
+      "width": 3,
+      "description": "Passerelle fournie par un module complémentaire, un plug-in ou un outil séparé (parfois d'un autre éditeur), à installer en plus des deux logiciels."
+    },
+    {
+      "id": "geometry",
+      "rank": 4,
+      "label": "Échange géométrique uniquement",
+      "short": "Géométrie seule",
+      "color": "#64748b",
+      "colorDark": "#94a3b8",
+      "dash": "dotted",
+      "width": 3,
+      "description": "Seules des entités géométriques (lignes, polylignes, surfaces) passent. Pas de propriétés structurales fiables (sections, matériaux, charges)."
+    },
+    {
+      "id": "conditional",
+      "rank": 5,
+      "label": "Conditionnelle ou non vérifiée",
+      "short": "Non vérifiée",
+      "color": "#d97706",
+      "dash": "dashed-sparse",
+      "width": 2,
+      "description": "Le transfert est plausible (format commun, sources indirectes) mais aucune documentation conjointe fiable n'a été consultée, ou il dépend fortement des réglages et versions. À tester avant toute utilisation."
+    }
+  ],
+  "confidence": [
+    { "id": "high", "label": "Élevé", "description": "Lien décrit explicitement dans la documentation officielle d'au moins un éditeur concerné, page consultée." },
+    { "id": "medium", "label": "Moyen", "description": "Lien documenté par un éditeur, mais source partielle, ancienne, propre à une version ou lue seulement à travers un résumé." },
+    { "id": "low", "label": "Faible", "description": "Sources indirectes ou communautaires (forums), ou déduction à partir d'un format commun. À confirmer." }
+  ],
+  "disclaimer": "Les possibilités d'échange varient selon les versions, les licences, les modules et les extensions installés. Cette carte est un guide pédagogique : vérifiez toujours dans la documentation de vos versions avant de bâtir un flux de travail."
+}

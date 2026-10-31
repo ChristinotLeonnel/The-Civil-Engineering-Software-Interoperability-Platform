@@ -1,0 +1,863 @@
+[
+  {
+    "id": "revit--robot",
+    "source": "revit",
+    "target": "robot",
+    "direction": "bi",
+    "kind": "native",
+    "formats": ["smxx", "api"],
+    "summary": "Lien d'intégration Autodesk entre Revit et Robot Structural Analysis, direct ou via un fichier intermédiaire SMXX.",
+    "transfers": [
+      "Modèle structural de Revit vers Robot (envoi direct ou vers un fichier SMXX)",
+      "Mise à jour du modèle Revit après modification dans Robot",
+      "Mise à jour du modèle Revit avec les résultats de calcul"
+    ],
+    "limitations": [
+      "Pour Robot Structural Analysis 2025, l'extension d'intégration n'est pas installée par défaut : elle se télécharge séparément (Autodesk Access ou compte Autodesk).",
+      "Une grande partie de la documentation consultée concerne des versions anciennes (2015, 2017, 2020) : confirmer le comportement pour votre version."
+    ],
+    "versions": "Documenté dès Revit/Robot 2015 ; extension dédiée pour Robot Structural Analysis Professional 2025.",
+    "confidence": "high",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Autodesk – Revit – Robot Integration (aide 2020)", "url": "https://help.autodesk.com/cloudhelp/2020/ENU/Revit-Analyze/files/GUID-B850E0C3-2314-4FEC-B5D1-A7C0CBDF290F.htm" },
+      { "title": "Autodesk – Revit and Robot Structural Analysis Integration Extension (2025)", "url": "https://help.autodesk.com/cloudhelp/2025/ENU/RSAPRO-WhatsNew/files/GUID-EB0433B7-FA23-4CAA-A7CD-C5D0A2EABD57.htm" }
+    ]
+  },
+  {
+    "id": "revit--etabs",
+    "source": "revit",
+    "target": "etabs",
+    "direction": "bi",
+    "kind": "extension",
+    "formats": ["exr", "api"],
+    "summary": "Plug-in CSiXRevit de CSI : échange bidirectionnel entre Revit et ETABS via un fichier .exr.",
+    "transfers": [
+      "Quatre scénarios : exporter de Revit pour créer un nouveau modèle CSI, exporter pour mettre à jour un modèle CSI existant",
+      "Importer depuis le logiciel CSI pour créer un nouveau modèle Revit, ou pour mettre à jour un modèle Revit existant",
+      "Correspondance des sections acier standard et des sections paramétriques définies dans des familles Revit"
+    ],
+    "limitations": [
+      "Le plug-in CSiXRevit nécessite sa propre licence ; les licences autonomes et réseau ne sont plus prises en charge (connexion cloud requise).",
+      "La page produit ne précise pas les versions de Revit prises en charge : se référer à la page des exigences système."
+    ],
+    "versions": "Manuel 2021 : Revit 2021 avec ETABS v18 ou ultérieur.",
+    "confidence": "high",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "CSI – CSiXRevit (page produit)", "url": "https://www.csiamerica.com/products/csixrevit" },
+      { "title": "CSI Wiki – CSiXRevit manual", "url": "https://web.wiki.csiamerica.com/wiki/spaces/doc/pages/1245565/CSiXRevit+manual" }
+    ]
+  },
+  {
+    "id": "revit--sap2000",
+    "source": "revit",
+    "target": "sap2000",
+    "direction": "bi",
+    "kind": "extension",
+    "formats": ["exr", "api"],
+    "summary": "Plug-in CSiXRevit de CSI : échange bidirectionnel entre Revit et SAP2000 via un fichier .exr.",
+    "transfers": [
+      "Création ou mise à jour d'un modèle SAP2000 depuis Revit",
+      "Création ou mise à jour d'un modèle Revit depuis SAP2000",
+      "Correspondance des sections acier standard et des sections paramétriques définies dans des familles Revit"
+    ],
+    "limitations": [
+      "Licence CSiXRevit distincte requise ; connexion cloud obligatoire pour les licences actuelles.",
+      "Pour d'anciennes versions de SAP2000, la documentation CSI indique de passer par IFC ou un autre format intermédiaire."
+    ],
+    "versions": "Manuel 2021 : Revit 2021 avec SAP2000 v20 ou ultérieur. CSiXRevit complète SAP2000 à partir de v15.1.0/1.",
+    "confidence": "high",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "CSI – CSiXRevit (page produit)", "url": "https://www.csiamerica.com/products/csixrevit" },
+      { "title": "CSI Wiki – Import Revit into SAP2000", "url": "https://web.wiki.csiamerica.com/wiki/spaces/sap2000/pages/1802485/Import+Revit+into+SAP2000" }
+    ]
+  },
+  {
+    "id": "revit--scia",
+    "source": "revit",
+    "target": "scia",
+    "direction": "bi",
+    "kind": "extension",
+    "formats": ["api"],
+    "summary": "Lien bidirectionnel décrit par SCIA entre SCIA Engineer et Revit, par une connexion propriétaire.",
+    "transfers": [
+      "Modèle structural en aller-retour entre Revit et SCIA Engineer (aller-retour complet décrit par SCIA)"
+    ],
+    "limitations": [
+      "SCIA présente cette connexion comme propriétaire (format interne de Revit) et non comme un échange par standard ouvert.",
+      "Le détail des objets et propriétés transférés n'a pas pu être relu dans cette revue : consulter la fiche d'interopérabilité SCIA.",
+      "IFC (2x3 et 4) est aussi disponible dans SCIA, mais c'est un autre chemin d'échange."
+    ],
+    "versions": "Non précisé dans les extraits consultés.",
+    "confidence": "medium",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "SCIA – BIM solutions", "url": "https://www.scia.net/en/bim-solutions" },
+      { "title": "SCIA – Open BIM", "url": "https://www.scia.net/en/open-bim" },
+      { "title": "SCIA – Fiche BIM links", "url": "https://scia.net/en/scia-engineer/fact-sheets/interoperability-bim/sciaibimlinks-bim-links" }
+    ]
+  },
+  {
+    "id": "revit--rfem",
+    "source": "revit",
+    "target": "rfem",
+    "direction": "bi",
+    "kind": "extension",
+    "formats": ["api"],
+    "summary": "Interface directe de Dlubal avec Autodesk Revit (Revit Structure), avec mise à jour du modèle.",
+    "transfers": [
+      "Structures modélisées dans RFEM/RSTAB transférées vers Revit Structure d'un clic, avec conservation de l'intelligence des objets",
+      "Mise à jour du modèle Revit selon les modifications faites dans RFEM ou RSTAB"
+    ],
+    "limitations": [
+      "La FAQ lue concerne RFEM 5 / RSTAB 8 ; la prise en charge de RFEM 6 / RSTAB 9 est indiquée par d'autres pages Dlubal consultées seulement par extrait.",
+      "Le sens retour (Revit vers RFEM) n'est pas détaillé dans la page lue."
+    ],
+    "versions": "FAQ lue : RFEM 5 / RSTAB 8. Pages Dlubal plus récentes : RFEM 6 / RSTAB 9.",
+    "confidence": "medium",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Dlubal – Interfaces for Export (FAQ 002767)", "url": "https://www.dlubal.com/en/support-and-learning/support/faq/002767" },
+      { "title": "Dlubal – Efficient Structural Analysis with BIM", "url": "https://dlubal.com/en-US/solutions/application-areas/building-information-modeling-bim/what-is-bim" }
+    ]
+  },
+  {
+    "id": "tekla--rfem",
+    "source": "tekla",
+    "target": "rfem",
+    "direction": "bi",
+    "kind": "native",
+    "formats": ["api", "sdnf"],
+    "summary": "Interface directe Dlubal–Tekla : export du modèle physique et analytique vers RFEM 6 et import des résultats de calcul et modifications vers Tekla.",
+    "transfers": [
+      "Tekla vers RFEM 6 : modèle physique et modèle analytique (lignes d'axe, appuis, propriétés des matériaux)",
+      "Tekla vers RFEM 6 : cas de charge, avec correspondance des types de charges",
+      "RFEM 6 vers Tekla : import en mode Écraser, Ajouter ou Mettre à jour, avec sélection des objets",
+      "Trois flux décrits : modèle complet (aller-retour), modèle partiel, analyse dans RFEM puis détaillage dans Tekla"
+    ],
+    "limitations": [
+      "La page Dlubal ne cite que RFEM 6 et ne précise pas de version de Tekla Structures.",
+      "Les liens Tekla–analyse exigent généralement que Tekla et le logiciel d'analyse soient installés sur le même ordinateur.",
+      "Dlubal propose aussi une voie par fichier SDNF pour l'acier, distincte du lien direct."
+    ],
+    "versions": "RFEM 6 (page Dlubal) ; liste de compatibilité Tekla 2023 : lien direct RFEM et RSTAB.",
+    "confidence": "high",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Dlubal – Dlubal-Tekla Interface (base de connaissances 001946)", "url": "https://www.dlubal.com/en/support-and-learning/support/knowledge-base/001946" },
+      { "title": "Tekla – Compatible file formats and software (2023)", "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software" },
+      { "title": "Dlubal – Interfaces for Export (FAQ 002767)", "url": "https://www.dlubal.com/en/support-and-learning/support/faq/002767" }
+    ]
+  },
+  {
+    "id": "tekla--sap2000",
+    "source": "tekla",
+    "target": "sap2000",
+    "direction": "bi",
+    "kind": "native",
+    "formats": ["api", "cis2", "dwg"],
+    "summary": "Lien direct Tekla Structures–SAP2000 listé par Tekla, avec aussi des échanges par fichiers (CIS/2, DWG/DXF).",
+    "transfers": [
+      "Modèle analytique entre Tekla Structures et SAP2000 (import et export par lien direct)",
+      "Échanges de fichiers CIS/2 LPM6 (modèle analytique) et DWG/DXF (géométrie) listés dans la table de compatibilité"
+    ],
+    "limitations": [
+      "Le lien direct exige l'installation du connecteur (souvent dans la Tekla Warehouse) et les deux logiciels sur le même ordinateur.",
+      "La table Tekla mentionne une variante « ISM » du lien direct : vérifier laquelle s'applique à votre version.",
+      "La compatibilité dépend de la version de Tekla Structures et de SAP2000."
+    ],
+    "versions": "Table de compatibilité Tekla 2020 et 2023 consultée.",
+    "confidence": "high",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Tekla – Compatible file formats and software (2023)", "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software" },
+      { "title": "Tekla – Link Tekla Structures with an analysis application", "url": "https://support.tekla.com/doc/tekla-structures/2026/ana_linking_ts_with_analysis_application" }
+    ]
+  },
+  {
+    "id": "tekla--staad",
+    "source": "tekla",
+    "target": "staad",
+    "direction": "bi",
+    "kind": "native",
+    "formats": ["api", "std", "cis2"],
+    "summary": "Lien natif Tekla–STAAD.Pro distribué par la Tekla Warehouse, avec export/import de modèles et récupération des résultats.",
+    "transfers": [
+      "Export du modèle éléments finis de Tekla vers un fichier STAAD (.std)",
+      "Import d'un fichier STAAD dans Tekla",
+      "Récupération des sections et des résultats de STAAD.Pro vers Tekla (« get results »)",
+      "STAAD.Pro exporte et importe aussi des fichiers CIS/2"
+    ],
+    "limitations": [
+      "Tekla Structures et STAAD.Pro doivent être installés sur le même ordinateur.",
+      "Le modèle STAAD doit avoir des résultats calculés valides pour récupérer sections et résultats.",
+      "Le mappage des profils (ProfileExportMapping / ProfileImportMapping) n'est appliqué qu'à l'import.",
+      "Le traducteur CIS/2 de STAAD.Pro ne traite que le modèle d'analyse (aide Bentley ancienne)."
+    ],
+    "versions": "Lien actuel : STAAD.Pro CONNECT V22 Update 10 ou ultérieur avec Tekla 2022+, 2021 SP2+ ou 2020 SP9+ (d'après les informations Tekla consultées).",
+    "confidence": "high",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Tekla – Linking Tekla Structures with STAAD.Pro", "url": "https://support.tekla.com/article/staadpro" },
+      { "title": "Tekla – STAAD.Pro (documentation 2025)", "url": "https://support.tekla.com/doc/tekla-structures/2025/int_staad_pro" }
+    ]
+  },
+  {
+    "id": "tekla--robot",
+    "source": "tekla",
+    "target": "robot",
+    "direction": "bi",
+    "kind": "native",
+    "formats": ["api", "cis2"],
+    "summary": "La table de compatibilité Tekla liste un lien direct avec « Robot Millenium », ancien nom de Robot Structural Analysis.",
+    "transfers": [
+      "Modèle analytique par lien direct (import et export indiqués dans la table)",
+      "CIS/2 LPM6 analytique (.stp, .p21, .step) listé dans la table"
+    ],
+    "limitations": [
+      "La table Tekla emploie le nom historique « Robot Millenium » : l'équivalence avec les versions actuelles de Robot Structural Analysis n'est pas explicitée.",
+      "Même contrainte générale que les autres liens : connecteur à installer, mêmes versions et même ordinateur."
+    ],
+    "versions": "Table de compatibilité Tekla 2023 (nom « Robot Millenium »).",
+    "confidence": "medium",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Tekla – Compatible file formats and software (2023)", "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software" }
+    ]
+  },
+  {
+    "id": "tekla--scia",
+    "source": "tekla",
+    "target": "scia",
+    "direction": "bi",
+    "kind": "native",
+    "formats": ["api", "ifc", "sdnf"],
+    "summary": "Lien direct listé par Tekla et décrit comme bidirectionnel par SCIA, avec import/export d'armatures selon une page SCIA.",
+    "transfers": [
+      "Modèle analytique et structural entre Tekla Structures et SCIA Engineer (lien direct)",
+      "Fichiers IFC2X3, SDNF et DWG/DXF listés dans la table de compatibilité Tekla",
+      "Une page de module SCIA mentionne l'import et l'export d'armatures pour le lien Tekla"
+    ],
+    "limitations": [
+      "La mention d'armatures provient d'une page de module SCIA lue par extrait : vérifier le module exact et la version.",
+      "Connecteur à installer, mêmes versions et même ordinateur."
+    ],
+    "versions": "Table de compatibilité Tekla 2023 ; versions SCIA non précisées.",
+    "confidence": "high",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Tekla – Compatible file formats and software (2023)", "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software" },
+      { "title": "SCIA – BIM solutions", "url": "https://www.scia.net/en/bim-solutions" }
+    ]
+  },
+  {
+    "id": "tekla--etabs",
+    "source": "tekla",
+    "target": "etabs",
+    "direction": "bi",
+    "kind": "open",
+    "formats": ["cis2", "dwg"],
+    "summary": "Pas de lien direct listé : échange par fichiers CIS/2 (modèle d'analyse) et DWG, tous deux documentés côté Tekla et côté CSI.",
+    "transfers": [
+      "CIS/2 LPM6 analytique (.stp, .p21, .step) listé dans la table Tekla",
+      "ETABS importe et exporte des fichiers CIS/2 STEP (documentation CSI)",
+      "Fichiers DWG pour la géométrie"
+    ],
+    "limitations": [
+      "La table Tekla ne montre pas clairement quelles colonnes correspondent à l'import ou à l'export : le sens exact doit être testé.",
+      "CIS/2 n'est implémenté que partiellement par les logiciels ; contrôler profils, sections et charges après transfert.",
+      "ETABS n'a pas de lien direct dans la table de compatibilité Tekla, contrairement à SAP2000."
+    ],
+    "versions": "Table Tekla 2023 ; documentation CSI ETABS en ligne.",
+    "confidence": "medium",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Tekla – Compatible file formats and software (2023)", "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software" },
+      { "title": "CSI – ETABS : menu Import", "url": "https://docs.csiamerica.com/help-files/etabs/Menus/File/Import/Import.htm" }
+    ]
+  },
+  {
+    "id": "tekla--revit",
+    "source": "tekla",
+    "target": "revit",
+    "direction": "bi",
+    "kind": "open",
+    "formats": ["ifc"],
+    "summary": "Échange de modèles par IFC2X3, listé dans la table de compatibilité Tekla.",
+    "transfers": [
+      "Modèle physique 3D (éléments, propriétés) via IFC2X3",
+      "La table liste aussi des fichiers de collaboration Tekla (.tczip) et DWG/DXF"
+    ],
+    "limitations": [
+      "IFC transporte surtout le modèle physique ; le modèle analytique n'y est pas fiable de manière générale.",
+      "La table cite IFC2X3 : le comportement avec IFC4 n'a pas été vérifié ici.",
+      "Les sens d'import et d'export ne sont pas séparés dans la table lue."
+    ],
+    "versions": "Table de compatibilité Tekla 2023.",
+    "confidence": "medium",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Tekla – Compatible file formats and software (2023)", "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software" }
+    ]
+  },
+  {
+    "id": "tekla--archicad",
+    "source": "tekla",
+    "target": "archicad",
+    "direction": "bi",
+    "kind": "open",
+    "formats": ["ifc"],
+    "summary": "Échange de modèles par IFC2X3, IFCXML 2X3 ou IFCZIP, listé dans la table de compatibilité Tekla.",
+    "transfers": [
+      "Modèle physique 3D via IFC (formats IFC2X3, IFCXML 2X3, IFCZIP)",
+      "Géométrie DWG/DXF"
+    ],
+    "limitations": [
+      "IFC ne garantit pas un échange sans perte : les réglages d'export et la vue de modèle influencent le résultat.",
+      "Les sens d'import et d'export ne sont pas séparés dans la table lue."
+    ],
+    "versions": "Table de compatibilité Tekla 2023.",
+    "confidence": "medium",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Tekla – Compatible file formats and software (2023)", "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software" }
+    ]
+  },
+  {
+    "id": "tekla--allplan",
+    "source": "tekla",
+    "target": "allplan",
+    "direction": "bi",
+    "kind": "open",
+    "formats": ["ifc"],
+    "summary": "Échange de modèles par IFC2X3, listé dans la table de compatibilité Tekla.",
+    "transfers": [
+      "Modèle physique 3D via IFC2X3",
+      "Fichiers DWG/DXF et Microstation (.dgn) listés pour Allplan"
+    ],
+    "limitations": [
+      "IFC ne garantit pas un échange sans perte.",
+      "Les sens d'import et d'export ne sont pas séparés dans la table lue."
+    ],
+    "versions": "Table de compatibilité Tekla 2023.",
+    "confidence": "medium",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Tekla – Compatible file formats and software (2023)", "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software" }
+    ]
+  },
+  {
+    "id": "tekla--autocad",
+    "source": "tekla",
+    "target": "autocad",
+    "direction": "bi",
+    "kind": "geometry",
+    "formats": ["dwg", "dxf"],
+    "summary": "Échange de géométrie 2D/3D par DWG et DXF, listé dans la table de compatibilité Tekla.",
+    "transfers": [
+      "Géométrie et dessins (DWG, DXF)"
+    ],
+    "limitations": [
+      "Aucune donnée structurale fiable (sections, matériaux, charges) : géométrie uniquement.",
+      "La table Tekla ne donne pas les versions de DWG prises en charge."
+    ],
+    "versions": "Table de compatibilité Tekla 2023.",
+    "confidence": "medium",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Tekla – Compatible file formats and software (2023)", "url": "https://support.tekla.com/doc/tekla-structures/2023/int_compatible_software" }
+    ]
+  },
+  {
+    "id": "archicad--scia",
+    "source": "archicad",
+    "target": "scia",
+    "direction": "uni",
+    "kind": "extension",
+    "formats": ["saf", "api"],
+    "summary": "Archicad exporte son modèle analytique au format SAF ; Graphisoft cite une « connexion SCIA » développée par SCIA, disponible parmi les add-ons partenaires.",
+    "transfers": [
+      "Modèle analytique structural exporté en SAF (.xlsx) : entier, éléments visibles de la vue ou sélection",
+      "Export par Fichier > Enregistrer sous ou par Document > Publier (éléments analytiques visibles dans les vues publiées)"
+    ],
+    "limitations": [
+      "Le contenu dépend des réglages du traducteur SAF du projet.",
+      "Les noms de projet et de bâtiment doivent être renseignés avant export pour apparaître dans le fichier SAF.",
+      "Le sens SCIA vers Archicad n'est pas décrit dans la page lue (liaison unidirectionnelle retenue).",
+      "SCIA indique prendre en charge SAF 2.0 : vérifier la version du format utilisée par votre traducteur Archicad."
+    ],
+    "versions": "Aide Archicad 29 consultée (pages équivalentes pour Archicad 25 à 28).",
+    "confidence": "high",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Graphisoft – Export SAF File from Archicad (aide Archicad 29)", "url": "https://help.graphisoft.com/AC/29/INT/_AC29_Help/091_StructuralAnalysisFormat/091_StructuralAnalysisFormat-2.htm" },
+      { "title": "SCIA – BIM solutions", "url": "https://www.scia.net/en/bim-solutions" }
+    ]
+  },
+  {
+    "id": "allplan--scia",
+    "source": "allplan",
+    "target": "scia",
+    "direction": "bi",
+    "kind": "extension",
+    "formats": ["saf", "api"],
+    "summary": "Passerelle SCIA AutoConverter : convertit un modèle Allplan en modèle analytique, transférable par SAF vers des logiciels d'analyse.",
+    "transfers": [
+      "Modèle physique Allplan converti en modèle analytique",
+      "Aller-retour avec Allplan décrit par SCIA (via l'AutoConverter)",
+      "Transfert du modèle analytique par SAF vers divers logiciels d'analyse"
+    ],
+    "limitations": [
+      "AutoConverter Light est présenté avec Allplan 2021 pour les clients sous contrat Serviceplus ou abonnement.",
+      "Sources sur cette liaison : webinaire Allplan et pages SCIA lus par extrait."
+    ],
+    "versions": "Allplan 2021 pour AutoConverter Light.",
+    "confidence": "medium",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Allplan – Webinaire : Integration with Structural Analysis Solutions", "url": "https://info.allplan.com/en/webinar/integration-with-structural-analysis-solutions" },
+      { "title": "SCIA – BIM solutions", "url": "https://www.scia.net/en/bim-solutions" }
+    ]
+  },
+  {
+    "id": "rfem--allplan",
+    "source": "rfem",
+    "target": "allplan",
+    "direction": "uni",
+    "kind": "conditional",
+    "formats": ["saf"],
+    "summary": "Un forum Allplan indique qu'Allplan peut importer depuis RFEM ; Dlubal et Allplan prennent en charge SAF, mais aucune documentation conjointe n'a été lue.",
+    "transfers": [
+      "Possible import d'un modèle RFEM dans Allplan (réponse de forum, non officielle)"
+    ],
+    "limitations": [
+      "Source principale : réponse sur un forum d'utilisateurs, pas une documentation officielle.",
+      "La version SAF doit correspondre des deux côtés (Dlubal : SAF 4.0 en import/export pour RFEM 6) : non vérifié pour Allplan.",
+      "Ne pas en déduire une compatibilité sans test."
+    ],
+    "versions": "Non précisé.",
+    "confidence": "low",
+    "evidence": "community",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Allplan Connect – forum : Allplan / Robot Structural Analysis interoperability", "url": "https://connect.allplan.com/forum/topics/topic/topics/cad-engineering/allplan-robot-structural-analysis-interoperability.html" },
+      { "title": "Dlubal – Efficient Structural Analysis with BIM", "url": "https://dlubal.com/en-US/solutions/application-areas/building-information-modeling-bim/what-is-bim" }
+    ]
+  },
+  {
+    "id": "robot--allplan",
+    "source": "robot",
+    "target": "allplan",
+    "direction": "uni",
+    "kind": "conditional",
+    "formats": [],
+    "summary": "Un forum Allplan cite « ROBOT » (RoboBAT) parmi les logiciels dont Allplan peut importer des modèles ; aucun format ni mode d'emploi officiel n'a été trouvé.",
+    "transfers": [
+      "Possible import d'un modèle Robot dans Allplan (réponse de forum, non officielle)"
+    ],
+    "limitations": [
+      "Source unique : réponse d'un forum, non confirmée par une documentation éditeur.",
+      "Le nom « ROBOT (RoboBAT) » ne confirme pas la prise en charge de Robot Structural Analysis actuel.",
+      "Ne pas en déduire une compatibilité sans test."
+    ],
+    "versions": "Non précisé.",
+    "confidence": "low",
+    "evidence": "community",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Allplan Connect – forum : Allplan / Robot Structural Analysis interoperability", "url": "https://connect.allplan.com/forum/topics/topic/topics/cad-engineering/allplan-robot-structural-analysis-interoperability.html" }
+    ]
+  },
+  {
+    "id": "archicad--rfem",
+    "source": "archicad",
+    "target": "rfem",
+    "direction": "uni",
+    "kind": "conditional",
+    "formats": ["saf"],
+    "summary": "Archicad exporte du SAF et RFEM 6 / RSTAB 9 importent du SAF, mais aucune documentation conjointe Archicad–Dlubal n'a été consultée.",
+    "transfers": [
+      "Modèle analytique, si le fichier SAF d'Archicad est accepté par RFEM (non vérifié)"
+    ],
+    "limitations": [
+      "Exemple de précaution : deux logiciels qui acceptent le même format ne sont pas automatiquement compatibles.",
+      "Dlubal documente SAF 4.0 en import et export (RFEM 6, RSTAB 9) ; la version produite par le traducteur Archicad n'est pas vérifiée.",
+      "À valider par un test sur un petit modèle."
+    ],
+    "versions": "RFEM 6 / RSTAB 9 côté Dlubal ; version SAF d'Archicad non vérifiée.",
+    "confidence": "low",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Graphisoft – Export SAF File from Archicad (aide Archicad 29)", "url": "https://help.graphisoft.com/AC/29/INT/_AC29_Help/091_StructuralAnalysisFormat/091_StructuralAnalysisFormat-2.htm" },
+      { "title": "Dlubal – Efficient Structural Analysis with BIM", "url": "https://dlubal.com/en-US/solutions/application-areas/building-information-modeling-bim/what-is-bim" }
+    ]
+  },
+  {
+    "id": "scia--rfem",
+    "source": "scia",
+    "target": "rfem",
+    "direction": "bi",
+    "kind": "conditional",
+    "formats": ["saf"],
+    "summary": "SCIA et Dlubal prennent tous deux en charge SAF, mais avec des versions du format qui diffèrent d'après les pages consultées.",
+    "transfers": [
+      "Modèle analytique via SAF, si les versions du format sont compatibles (non vérifié)"
+    ],
+    "limitations": [
+      "SCIA indique prendre en charge SAF 2.0 ; Dlubal indique SAF 4.0 en import/export et une version plus ancienne en import seul.",
+      "Aucune documentation conjointe SCIA–Dlubal n'a été consultée.",
+      "À valider par un test sur un petit modèle."
+    ],
+    "versions": "SCIA : SAF 2.0 ; Dlubal : SAF 4.0 (RFEM 6, RSTAB 9).",
+    "confidence": "low",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "SCIA – Open BIM", "url": "https://www.scia.net/en/open-bim" },
+      { "title": "Dlubal – Efficient Structural Analysis with BIM", "url": "https://dlubal.com/en-US/solutions/application-areas/building-information-modeling-bim/what-is-bim" }
+    ]
+  },
+  {
+    "id": "autocad--revit",
+    "source": "autocad",
+    "target": "revit",
+    "direction": "uni",
+    "kind": "geometry",
+    "formats": ["dwg", "dxf"],
+    "summary": "Revit peut lier ou importer des fichiers AutoCAD DWG et DXF.",
+    "transfers": [
+      "Dessins 2D/3D de AutoCAD (DWG, DXF) liés ou importés dans un projet Revit",
+      "Un fichier lié peut être rechargé pour prendre en compte les modifications"
+    ],
+    "limitations": [
+      "Autodesk recommande le lien plutôt que l'import quand le fichier CAO peut évoluer.",
+      "Seule la géométrie de dessin est concernée ; l'export de Revit vers DWG n'a pas été relu dans cette revue.",
+      "Les formats pris en charge varient selon la version de Revit."
+    ],
+    "versions": "Aide Revit 2023 consultée ; consulter l'aide de votre version.",
+    "confidence": "high",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Autodesk – About Importing or Linking CAD Files (Revit 2023)", "url": "https://help.autodesk.com/cloudhelp/2023/ENU/Revit-Model/files/GUID-630EC38E-37FE-41BC-8369-2238825BF4F6.htm" }
+    ]
+  },
+  {
+    "id": "autocad--etabs",
+    "source": "autocad",
+    "target": "etabs",
+    "direction": "bi",
+    "kind": "geometry",
+    "formats": ["dxf", "dwg"],
+    "summary": "ETABS importe des DXF/DWG (grilles, plans d'étage, modèles 3D) et exporte des dessins DXF/DWG.",
+    "transfers": [
+      "Import : lignes, arcs et polylignes fermées ; les polylignes fermées servent à créer poteaux et planchers",
+      "Export : dessins DXF/DWG générés depuis le Drawing Generator d'ETABS"
+    ],
+    "limitations": [
+      "ETABS ne traite que les arcs, les lignes et les polylignes fermées d'un DXF/DWG.",
+      "Seuls les poteaux rectangulaires et circulaires peuvent être convertis.",
+      "L'import DWG nécessite la version complète d'AutoCAD (pas AutoCAD LT).",
+      "L'aide CSI cite AutoCAD 2007 comme version DXF/DWG prise en charge : information probablement datée, vérifier sa version."
+    ],
+    "versions": "Documentation CSI ETABS en ligne ; version à vérifier.",
+    "confidence": "high",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "CSI – ETABS : menu Import", "url": "https://docs.csiamerica.com/help-files/etabs/Menus/File/Import/Import.htm" },
+      { "title": "CSI – ETABS : menu Export", "url": "https://docs.csiamerica.com/help-files/etabs/Menus/File/Export/Export.htm" },
+      { "title": "CSI Wiki – Import Architectural DXF or DWG Floor Plans into ETABS", "url": "https://web.wiki.csiamerica.com/wiki/spaces/etabs/pages/1474718/Import+Architectural+DXF+or+DWG+Floor+Plans+into+ETABS+for+tracing" }
+    ]
+  },
+  {
+    "id": "sap2000--autocad",
+    "source": "sap2000",
+    "target": "autocad",
+    "direction": "uni",
+    "kind": "geometry",
+    "formats": ["dxf", "dwg"],
+    "summary": "La liste d'interopérabilité de CSI mentionne l'export de SAP2000 vers AutoCAD DXF/DWG.",
+    "transfers": [
+      "Géométrie du modèle SAP2000 exportée en DXF/DWG"
+    ],
+    "limitations": [
+      "Seul l'export est confirmé par la source consultée ; l'import DXF/DWG dans SAP2000 n'a pas été relu dans cette revue.",
+      "Géométrie uniquement : pas de transfert fiable des sections, matériaux ou charges."
+    ],
+    "versions": "Page d'interopérabilité CSI, version non précisée.",
+    "confidence": "medium",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "CSI Wiki – Interoperability", "url": "https://wikicsiamerica.atlassian.net/wiki/spaces/kb/pages/2005474/Interoperability" }
+    ]
+  },
+  {
+    "id": "rfem--autocad",
+    "source": "rfem",
+    "target": "autocad",
+    "direction": "uni",
+    "kind": "geometry",
+    "formats": ["dxf"],
+    "summary": "RFEM/RSTAB exportent en DXF : barres sous forme de lignes, avec sections et matériaux stockés dans des calques.",
+    "transfers": [
+      "Barres exportées en lignes ; données de section et de matériau dans les calques",
+      "Numérotation, maillage éléments finis et isolignes de résultats exportables en DXF"
+    ],
+    "limitations": [
+      "Export seulement : la FAQ lue présente le DXF comme une sortie de RFEM/RSTAB.",
+      "La FAQ concerne RFEM 5 / RSTAB 8 : vérifier pour RFEM 6."
+    ],
+    "versions": "FAQ lue : RFEM 5 / RSTAB 8.",
+    "confidence": "medium",
+    "evidence": "read",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Dlubal – Interfaces for Export (FAQ 002767)", "url": "https://www.dlubal.com/en/support-and-learning/support/faq/002767" }
+    ]
+  },
+  {
+    "id": "draftsight--autocad",
+    "source": "draftsight",
+    "target": "autocad",
+    "direction": "bi",
+    "kind": "geometry",
+    "formats": ["dwg", "dxf"],
+    "summary": "DraftSight lit et écrit nativement les fichiers DWG et DXF, ce qui permet d'échanger des dessins avec AutoCAD.",
+    "transfers": [
+      "Dessins 2D/3D (DWG, DXF) dans les deux sens",
+      "DraftSight peut enregistrer en retour jusqu'à des versions anciennes (jusqu'à R12)"
+    ],
+    "limitations": [
+      "Source principale : blog du développeur de DraftSight (information éditeur, non indépendante).",
+      "La prise en charge des plus récents formats DWG d'AutoCAD n'a pas été confirmée par une matrice officielle à jour.",
+      "Des utilisateurs signalent des fichiers venant d'autres applications Autodesk qui s'affichent mal."
+    ],
+    "versions": "Blog DraftSight 2021 ; comparaison tierce 2021 : formats jusqu'à 2018.",
+    "confidence": "medium",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "DraftSight – DraftSight's Incredible DWG File Compatibility", "url": "https://blog.draftsight.com/2021/06/02/draftsights-incredible-dwg-file-compatibility" },
+      { "title": "Autodesk – Drawing file format compatibility in AutoCAD products", "url": "https://autodesk.com/de/support/technical/article/AutoCAD-drawing-file-format" }
+    ]
+  },
+  {
+    "id": "etabs--sap2000",
+    "source": "etabs",
+    "target": "sap2000",
+    "direction": "uni",
+    "kind": "native",
+    "formats": ["s2k"],
+    "summary": "Passage d'un modèle ETABS vers SAP2000 par fichier texte .S2K, documenté par CSI pour les anciennes versions.",
+    "transfers": [
+      "Modèle ETABS exporté en fichier .S2K puis importé dans SAP2000"
+    ],
+    "limitations": [
+      "La documentation consultée concerne ETABS V9 (environ 2011) : à ne pas généraliser aux versions actuelles.",
+      "Le format S2K de SAP2000 V7 limite les étiquettes à sept caractères : raccourcir les étiquettes dans ETABS avant export.",
+      "À l'import dans SAP2000, il faut choisir l'option de fichier S2K V6/V7 et non l'option générique."
+    ],
+    "versions": "ETABS V9 vers SAP2000 (page CSI ancienne).",
+    "confidence": "low",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "CSI Wiki – Export ETABS V9 Files to SAP2000", "url": "https://web.wiki.csiamerica.com/wiki/x/h4AW" },
+      { "title": "CSI Wiki – Interoperability", "url": "https://wikicsiamerica.atlassian.net/wiki/spaces/kb/pages/2005474/Interoperability" }
+    ]
+  },
+  {
+    "id": "staad--etabs",
+    "source": "staad",
+    "target": "etabs",
+    "direction": "uni",
+    "kind": "native",
+    "formats": ["std"],
+    "summary": "La documentation CSI liste STAAD parmi les formats que ETABS peut importer.",
+    "transfers": [
+      "Import d'un modèle STAAD dans ETABS"
+    ],
+    "limitations": [
+      "Information issue de la liste des imports d'ETABS, lue par extrait ; détails de conversion non relus.",
+      "Aucun sens inverse (ETABS vers STAAD) n'est documenté dans les sources consultées.",
+      "Les profils et charges sont à contrôler après import."
+    ],
+    "versions": "Documentation CSI ETABS en ligne, version non précisée.",
+    "confidence": "medium",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "CSI – ETABS : menu Import", "url": "https://docs.csiamerica.com/help-files/etabs/Menus/File/Import/Import.htm" }
+    ]
+  },
+  {
+    "id": "gmsh--codeaster",
+    "source": "gmsh",
+    "target": "codeaster",
+    "direction": "uni",
+    "kind": "open",
+    "formats": ["med", "msh"],
+    "summary": "Gmsh exporte en MED, format recommandé de Code_Aster ; Code_Aster sait aussi lire les fichiers ASCII Gmsh (versions 1.0 et 2.0).",
+    "transfers": [
+      "Maillage et groupes via MED (Fichier > Exporter dans Gmsh, puis LIRE_MAILLAGE)",
+      "Lecture directe d'un fichier maillage Gmsh ASCII (formats 1.0 et 2.0) via l'interface PRE_GMSH"
+    ],
+    "limitations": [
+      "Le format Gmsh lu directement par Code_Aster est limité aux versions ASCII 1.0 et 2.0 : les fichiers .msh récents peuvent ne pas être acceptés tels quels.",
+      "Les groupes physiques doivent être définis dans Gmsh pour être retrouvés dans Code_Aster.",
+      "Une partie des sources est un tutoriel communautaire."
+    ],
+    "versions": "Manuel Code_Aster (miroir GitLab) ; versions non précisées.",
+    "confidence": "high",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Code_Aster – Manuel utilisateur U1.03.00 : Maillage", "url": "https://docaster-en-codeaster-doc-4113bb35b8213385c636b94f1536856d7f617.gitlab.io/manuals/man_u/u1/u1.03.00/Maillage.html" },
+      { "title": "Code_Aster – Opérandes (U4.21.01)", "url": "https://docaster-en-codeaster-doc-4113bb35b8213385c636b94f1536856d7f617.gitlab.io/manuals/man_u/u4/u4.21.01/Op_randes.html" }
+    ]
+  },
+  {
+    "id": "salome--codeaster",
+    "source": "salome",
+    "target": "codeaster",
+    "direction": "bi",
+    "kind": "native",
+    "formats": ["med"],
+    "summary": "Salome et Code_Aster partagent le format MED pour les maillages et les résultats (distribution Salome-Meca).",
+    "transfers": [
+      "Maillage et groupes de Salome vers Code_Aster (LIRE_MAILLAGE au format MED)",
+      "Maillages et champs de résultats échangés entre Code_Aster et Salome (visualisation et post-traitement)"
+    ],
+    "limitations": [
+      "Plusieurs sources consultées sont des tutoriels datés (2010 à 2019) : vérifier votre version de Salome-Meca.",
+      "Charger un fichier MED de résultats ne se fait pas comme charger un maillage (conseil communautaire)."
+    ],
+    "versions": "Manuel Code_Aster (miroir GitLab) ; tutoriels de 2010 à 2019.",
+    "confidence": "high",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Code_Aster – Manuel utilisateur U1.03.00 : Maillage", "url": "https://docaster-en-codeaster-doc-4113bb35b8213385c636b94f1536856d7f617.gitlab.io/manuals/man_u/u1/u1.03.00/Maillage.html" },
+      { "title": "Salome – plate-forme officielle", "url": "https://www.salome-platform.org/" }
+    ]
+  },
+  {
+    "id": "gmsh--salome",
+    "source": "gmsh",
+    "target": "salome",
+    "direction": "uni",
+    "kind": "conditional",
+    "formats": ["med"],
+    "summary": "Gmsh écrit du MED et Salome lit du MED, mais aucune documentation décrivant ce flux précis n'a été consultée.",
+    "transfers": [
+      "Maillage via MED, si les deux implémentations sont compatibles (non vérifié pour ce couple)"
+    ],
+    "limitations": [
+      "Exemple de précaution : « même format » ne vaut pas « compatibilité vérifiée ».",
+      "Le flux Gmsh vers Salome n'est pas décrit dans les sources lues ; ce lien est plausible mais à tester."
+    ],
+    "versions": "Non précisé.",
+    "confidence": "low",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "Code_Aster – Manuel utilisateur U1.03.00 : Maillage", "url": "https://docaster-en-codeaster-doc-4113bb35b8213385c636b94f1536856d7f617.gitlab.io/manuals/man_u/u1/u1.03.00/Maillage.html" }
+    ]
+  },
+  {
+    "id": "gmsh--calculix",
+    "source": "gmsh",
+    "target": "calculix",
+    "direction": "uni",
+    "kind": "conditional",
+    "formats": ["inp"],
+    "summary": "Gmsh exporte au format Abaqus .inp, que CalculiX sait lire ; des problèmes d'export de groupes sont signalés.",
+    "transfers": [
+      "Maillage éléments finis exporté en .inp (Fichier > Exporter)"
+    ],
+    "limitations": [
+      "Sources : forum CalculiX et rapports de bugs Gmsh, pas une documentation conjointe officielle.",
+      "Gmsh exporte par défaut des éléments 1D, 2D et 3D : définir des groupes physiques pour ne garder que les éléments voulus.",
+      "Un rapport de bug (Gmsh 4.11.1) signale des ensembles de nœuds et d'éléments incorrects à l'export .inp.",
+      "Un fil de 2011 signalait des hexaèdres du second ordre écrits au premier ordre : toujours contrôler le maillage dans CalculiX."
+    ],
+    "versions": "Gmsh 4.11.1 pour le bug cité ; versions actuelles à vérifier.",
+    "confidence": "low",
+    "evidence": "community",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "CalculiX forum – Conversion of .msh to .inp", "url": "https://calculix.discourse.group/t/conversion-of-msh-to-inp/1969" },
+      { "title": "Gmsh GitLab – Export .mesh to .inp : sets incorrectly exported", "url": "https://gitlab.onelab.info/gmsh/gmsh/-/issues/2761" }
+    ]
+  },
+  {
+    "id": "salome--calculix",
+    "source": "salome",
+    "target": "calculix",
+    "direction": "uni",
+    "kind": "extension",
+    "formats": ["unv", "inp"],
+    "summary": "L'outil communautaire unv2ccx convertit un maillage UNV exporté de Salome en fichier CalculiX .inp.",
+    "transfers": [
+      "Maillage Salome (UNV) converti en .inp pour CalculiX"
+    ],
+    "limitations": [
+      "Outil tiers non édité par Salome ni CalculiX ; source de la vérification : un fil de forum preCICE.",
+      "Des binaires existent pour Linux et Windows ; les réglages d'export demandent de l'attention."
+    ],
+    "versions": "Non précisé.",
+    "confidence": "low",
+    "evidence": "community",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "preCICE forum – Mesh generation for CalculiX", "url": "https://precice.discourse.group/t/precice-workshop-training-session-on-fsi-mesh-generation-for-calculix/2020" }
+    ]
+  },
+  {
+    "id": "gmsh--opensees",
+    "source": "gmsh",
+    "target": "opensees",
+    "direction": "uni",
+    "kind": "extension",
+    "formats": ["msh", "api"],
+    "summary": "La bibliothèque tierce opstool (Gmsh2OPS) convertit un maillage Gmsh en modèle OpenSeesPy.",
+    "transfers": [
+      "Maillage Gmsh lu en mémoire ou depuis un fichier .msh puis converti en éléments OpenSeesPy",
+      "Exemples documentés : coques (ShellMITC4, ShellMITC9, ASDShellT3) et solide tétraédrique"
+    ],
+    "limitations": [
+      "opstool est un projet tiers, distinct d'OpenSees et de Gmsh.",
+      "Les noms de groupes physiques sont déterminants pour l'attribution des éléments et conditions limites.",
+      "Les types d'éléments couverts sont ceux des exemples de la documentation."
+    ],
+    "versions": "Documentation opstool (dernières versions) ; versions OpenSees et Gmsh non précisées.",
+    "confidence": "medium",
+    "evidence": "excerpt",
+    "verifiedOn": "2026-10-31",
+    "sources": [
+      { "title": "opstool – Converting GMSH to OpenSeesPy", "url": "https://opstool.readthedocs.io/en/latest/src/pre/read_gmsh.html" }
+    ]
+  }
+]

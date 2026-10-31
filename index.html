@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Civil Engineering Software Interoperability Map</title>
+  <meta name="description" content="Carte interactive des échanges possibles entre logiciels de génie civil, BIM, CAO, calcul de structures et éléments finis : formats, données transférables, limites et sources.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0f3a5f">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <h1>Civil Engineering Software Interoperability Map</h1>
+      <p class="tagline">Quels logiciels de génie civil peuvent échanger des données, par quel format, et avec quelles limites ? Touchez un logiciel ou une flèche pour le savoir.</p>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Sections">
+      <button type="button" class="tab" data-view="map" aria-pressed="true">Carte</button>
+      <button type="button" class="tab" data-view="list" aria-pressed="false">Liste</button>
+      <button type="button" class="tab" data-view="formats" aria-pressed="false">Formats</button>
+      <button type="button" class="tab" data-view="about" aria-pressed="false">À propos</button>
+    </nav>
+  </header>
+
+  <section class="controls" id="controls" aria-label="Recherche et filtres">
+    <div class="search-row">
+      <div class="search" role="search">
+        <label for="search-input" class="visually-hidden">Rechercher un logiciel ou un format</label>
+        <input id="search-input" type="search" inputmode="search" autocomplete="off" spellcheck="false"
+               placeholder="Rechercher un logiciel ou un format (Revit, IFC, SAF…)"
+               role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list">
+        <ul id="search-results" class="search-results" role="listbox" hidden></ul>
+      </div>
+      <button type="button" class="btn toggle-filters" id="toggle-filters" aria-expanded="false" aria-controls="filters">Légende et filtres</button>
+    </div>
+    <div class="filters" id="filters">
+      <div class="filter-group" aria-labelledby="cat-title">
+        <h2 id="cat-title" class="filter-title">Catégories</h2>
+        <div class="chips" id="category-chips"></div>
+      </div>
+      <div class="filter-group" aria-labelledby="kind-title">
+        <h2 id="kind-title" class="filter-title">Types de connexion <span class="filter-hint">(légende, touchez pour filtrer)</span></h2>
+        <div class="chips" id="kind-chips"></div>
+      </div>
+      <div class="filter-actions">
+        <span id="format-filter" class="active-filter" hidden></span>
+        <button type="button" class="btn subtle" id="reset-filters" hidden>Tout afficher</button>
+      </div>
+    </div>
+  </section>
+
+  <main id="main" class="stage">
+    <section id="view-map" class="view view-map" aria-label="Carte interactive">
+      <noscript><p class="notice">Cette carte nécessite JavaScript. Les données brutes sont dans le dossier <code>data/</code>.</p></noscript>
+      <div id="cy" class="cy" role="application" aria-label="Carte réseau des logiciels. Utilisez la vue Liste pour une navigation au clavier ou au lecteur d'écran." tabindex="0"></div>
+      <div class="map-tools" aria-label="Contrôles de la carte">
+        <button type="button" class="map-btn" id="zoom-in" aria-label="Zoom avant">+</button>
+        <button type="button" class="map-btn" id="zoom-out" aria-label="Zoom arrière">−</button>
+        <button type="button" class="map-btn" id="zoom-fit" aria-label="Recentrer la carte">⤢</button>
+        <button type="button" class="map-btn" id="layout-toggle" aria-label="Changer la disposition" title="Disposition : par catégories / automatique">⁂</button>
+      </div>
+      <div class="dense-hint" id="dense-hint" hidden>
+        <span>Carte dense ? <button type="button" class="link-btn" data-goto="list">Vue Liste</button></span>
+        <button type="button" class="link-btn dismiss" id="dense-dismiss" aria-label="Masquer ce message">×</button>
+      </div>
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="view-list" class="view view-list" aria-label="Liste des logiciels et connexions" hidden></section>
+    <section id="view-formats" class="view view-text" aria-label="Formats d'échange" hidden></section>
+    <section id="view-about" class="view view-text" aria-label="À propos et méthode" hidden></section>
+
+    <aside id="panel" class="panel" aria-label="Détails" aria-hidden="true" tabindex="-1">
+      <div class="panel-handle" aria-hidden="true"></div>
+      <div class="panel-bar">
+        <span class="panel-kicker" id="panel-kicker"></span>
+        <button type="button" class="panel-close" id="panel-close" aria-label="Fermer le panneau de détails">×</button>
+      </div>
+      <div class="panel-body" id="panel-body"></div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <span id="footer-disclaimer"></span>
+  </footer>
+
+  <script src="vendor/cytoscape.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

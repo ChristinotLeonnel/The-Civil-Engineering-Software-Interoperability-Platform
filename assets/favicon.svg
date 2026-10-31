@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Carte d'interopérabilité">
+  <rect width="64" height="64" rx="14" fill="#0f3a5f"/>
+  <g stroke="#cbd5e1" stroke-width="3" stroke-linecap="round">
+    <line x1="18" y1="20" x2="46" y2="24"/>
+    <line x1="46" y1="24" x2="32" y2="46"/>
+    <line x1="32" y1="46" x2="18" y2="20"/>
+  </g>
+  <circle cx="18" cy="20" r="7" fill="#60a5fa"/>
+  <circle cx="46" cy="24" r="7" fill="#fb923c"/>
+  <circle cx="32" cy="46" r="7" fill="#34d399"/>
+</svg>
